@@ -13,15 +13,20 @@ module.exports = {
       'pc': '1450px',
       '2xl': '1536px',
     },
+    extend: {
     colors: {
       'primary-color': "#0072FF",
-      'secondary-color': "#E6E6E6",
+      'secondary-color': "#606467",
       'primary-pale': '#38bdf8',
       'white-neutral': "#fafafa",
       'dark-grey': '#141319',
       'border-color': '#dfe1e5',
       'box-shadow': '0 1px 6px 0 rgb(32 33 36 / 28%)',
-    }
+    },
+    fontFamily: {
+      'roboto': ['Roboto Slab', 'serif']
+    },
+  }
    
   },
   plugins: [],
