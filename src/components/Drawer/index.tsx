@@ -1,8 +1,10 @@
+import { HeroBtn } from "components/common/button/HeroBtn";
+
 const Drawer = () => {
   return (
-    <div className="p-3 m-9 text-secondary-color">
-      <div className="flex flex-col text-2xl">    
-        <div className="flex space-x-3 items-center mb-7">
+    <div className="p-3 m-3 mt-9  lg:m-9 text-secondary-color">
+      <div className="flex flex-col text-xl">    
+        <div className="flex space-x-3 items-center mb-7 font-bold text-primary-color">
           <span className="material-icons text-3xl">home</span>
           <p>Home</p>
         </div>
@@ -23,7 +25,7 @@ const Drawer = () => {
           <p>Profile</p>
         </div>
       
-      <button className="bg-primary-color px-4 py-1 text-lg  text-white-neutral rounded-md">Create New Post</button>
+     <HeroBtn classnames="lg:w-3/4">Create New Post</HeroBtn>
     </div>
     </div>
   );
