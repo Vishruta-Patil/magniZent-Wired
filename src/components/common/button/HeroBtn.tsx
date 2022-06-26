@@ -1,4 +1,3 @@
-import { Children } from "react";
 
 export const HeroBtn = ({ children, classnames }: { children: string, classnames?: string }) => {
   return (
