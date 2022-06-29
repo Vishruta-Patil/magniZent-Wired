@@ -4,8 +4,18 @@ import Footer from "components/Footer";
 import Header from "components/Header";
 import UserSidebar from "components/UserSidebar";
 import PostCard from "components/Post/PostCard";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!localStorage.getItem('authToken')) {
+      navigate('/login')
+    }
+  }, [])
+  
   return (
     <div className="grid grid-cols-8">
       <h1 className="col-span-8">
