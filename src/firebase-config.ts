@@ -3,13 +3,13 @@ import { getAnalytics } from "firebase/analytics";
 import {getAuth} from "firebase/auth"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAQ-5QSwKSrMBRQxc5g00jUtMtCFXMbiAI",
-  authDomain: "magnizent-wired.firebaseapp.com",
-  projectId: "magnizent-wired",
-  storageBucket: "magnizent-wired.appspot.com",
-  messagingSenderId: "778518982915",
-  appId: "1:778518982915:web:f3828ebde3b8c74c51b936",
-  measurementId: "G-DHT8NSDWWE"
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID ,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET ,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_ID_OF_APP,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
 // Initialize Firebase

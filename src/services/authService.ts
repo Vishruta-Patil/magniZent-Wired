@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { toast } from "react-toastify";
 
 export const signInUser = (createAsyncThunk as any)(
   "auth/signInUser",
@@ -15,11 +16,14 @@ export const signInUser = (createAsyncThunk as any)(
           email,
           password
         );
-
+        toast.success("Signed in sucessfully!")
         return response?.user?.uid;
+      } else {
+        toast.error("Fill all the credentials");
       }
-    } catch (error) {
-      console.log(error);
+    } catch (err : any) {
+      toast.error("Try again later")
+      console.log(err)
     }
   }
 );
@@ -34,10 +38,14 @@ export const loginInUser = (createAsyncThunk as any)(
           email,
           password
         );
+        toast.success("Signed in sucessfully!")
         return response?.user?.uid;
+      } else {
+        toast.error("Fill all the credentials");
       }
-    } catch (error) {
-      console.log(error);
+    } catch (err : any) {
+      toast.error("Try again later")
+      console.log(err);
     }
   }
 );

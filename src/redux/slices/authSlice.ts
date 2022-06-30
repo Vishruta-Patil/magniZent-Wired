@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import { loginInUser, signInUser } from "services/authService";
 
 interface AuthState {
@@ -17,9 +18,10 @@ export const authSlice = createSlice({
 
   reducers: {
     logoutUser: (state) => {
-        state.authToken = null
+        state.authToken = ""
         state.authStatus = "idle"
         localStorage.removeItem("authToken")
+        toast.success("Logout Successfully!")
     },
   },
 

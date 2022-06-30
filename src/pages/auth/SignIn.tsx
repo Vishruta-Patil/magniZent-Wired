@@ -11,13 +11,12 @@ const SignIn = () => {
   const dispatch = useAppDispatch();
 
   const [credentials, setCredentials] = useState({ email: "", password: "" });
-  const { authStatus } = useAppSelector((store) => store.auth);
+  const { authToken } = useAppSelector((store) => store.auth);
 
   useEffect(() => {
-  if (authStatus === "signInFulfilled") {
-    navigate("/");
-  }
-}, [authStatus])
+    authToken &&
+      navigate("/", { replace: true });
+  }, [authToken]);
 
   return (
     <section>

@@ -7,12 +7,5 @@ export const PrivateRoute : Function  = ({children} : {children: React.ReactNode
     const location = useLocation()
     const {authToken} = useAppSelector(store => store.auth)
     
-    const validateAuth = () => {
-        if(authToken) 
-            return true
-        return false
-    }
-
-    const authenticatedUser = validateAuth()
-    return authenticatedUser ? children : <Navigate to="/login" state={{from : location}} replace/>
+    return authToken ? children : <Navigate to="/login" state={{ from: location }} replace />
 }

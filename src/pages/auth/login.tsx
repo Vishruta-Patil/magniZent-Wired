@@ -2,7 +2,7 @@ import { HeroBtn } from "components";
 import { OutlineBtn } from "components/common/button/OutlineBtn";
 import Header from "components/Header";
 import { useAppDispatch, useAppSelector } from "hooks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginInUser } from "services/authService";
 
@@ -11,16 +11,17 @@ const Login = () => {
   const dispatch = useAppDispatch();
 
   const [credentials, setCredentials] = useState({ email: "", password: "" });
-  const { authStatus } = useAppSelector((store) => store.auth);
+  const { authToken } = useAppSelector((store) => store.auth);
 
   const guestCredentials = {
     email: "johndoekar@gmail.com",
     password: "john123",
   };
 
-  if (authStatus === "fulfilled") {
-    navigate("/");
-  }
+  useEffect(() => {
+    console.log(localStorage.getItem("authToken"));
+    authToken && navigate("/", { replace: true });
+  }, [authToken]);
 
   return (
     <section>
