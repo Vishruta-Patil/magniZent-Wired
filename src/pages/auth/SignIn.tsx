@@ -1,19 +1,23 @@
 import { HeroBtn } from "components";
 import { OutlineBtn } from "components/common/button/OutlineBtn";
 import Header from "components/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signiIn } from "services/authService";
+import { useAppDispatch, useAppSelector } from "hooks";
+import { signInUser } from "services/authService";
 
 const SignIn = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const signinUser = () => {
-    const user = signiIn(email, password, navigate);
-    console.log(user);
-  };
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const { authStatus } = useAppSelector((store) => store.auth);
+
+  useEffect(() => {
+  if (authStatus === "signInFulfilled") {
+    navigate("/");
+  }
+}, [authStatus])
 
   return (
     <section>
@@ -34,20 +38,24 @@ const SignIn = () => {
           className="m-3 p-2 rounded-lg border-2"
           type="email"
           placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={credentials.email}
+          onChange={(e) =>
+            setCredentials({ ...credentials, email: e.target.value })
+          }
         />
         <input
           className="m-3 p-2 rounded-lg border-2"
           type="password"
           placeholder="Enter password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={credentials.password}
+          onChange={(e) =>
+            setCredentials({ ...credentials, password: e.target.value })
+          }
         />
 
         <HeroBtn
           classnames="m-3 mt-9 mb-5 font-bold p-2"
-          eventHandler={signinUser}
+          eventHandler={() => dispatch(signInUser(credentials))}
         >
           Sign In
         </HeroBtn>

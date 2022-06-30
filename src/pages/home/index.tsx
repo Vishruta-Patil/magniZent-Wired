@@ -6,15 +6,17 @@ import UserSidebar from "components/UserSidebar";
 import PostCard from "components/Post/PostCard";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "hooks";
 
 const Home = () => {
   const navigate = useNavigate()
+  const {authToken} = useAppSelector(store => store.auth)
 
   useEffect(() => {
     if (!localStorage.getItem('authToken')) {
       navigate('/login')
     }
-  }, [])
+  }, [authToken])
   
   return (
     <div className="grid grid-cols-8">
