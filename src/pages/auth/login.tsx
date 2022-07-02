@@ -18,8 +18,12 @@ const Login = () => {
     password: "john123",
   };
 
+  const loginUsingGuestCredentials = () => {
+    setCredentials({ email: guestCredentials.email, password: guestCredentials.password });
+    dispatch(loginInUser(guestCredentials));
+  };
+
   useEffect(() => {
-    console.log(localStorage.getItem("authToken"));
     authToken && navigate("/", { replace: true });
   }, [authToken]);
 
@@ -58,7 +62,7 @@ const Login = () => {
         </HeroBtn>
         <OutlineBtn
           classnames="m-3 mx-5 mb-5 font-semibold"
-          eventHandler={() => dispatch(loginInUser(guestCredentials))}
+          eventHandler={loginUsingGuestCredentials}
         >
           Login using credentials
         </OutlineBtn>

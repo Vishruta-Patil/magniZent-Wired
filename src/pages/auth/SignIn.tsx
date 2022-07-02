@@ -1,5 +1,4 @@
 import { HeroBtn } from "components";
-import { OutlineBtn } from "components/common/button/OutlineBtn";
 import Header from "components/Header";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,7 +9,7 @@ const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const [credentials, setCredentials] = useState({ name: "", email: "", password: "" });
   const { authToken } = useAppSelector((store) => store.auth);
 
   useEffect(() => {
@@ -32,6 +31,10 @@ const SignIn = () => {
           className="m-3 mt-7 p-2 rounded-lg border-2"
           type="text"
           placeholder="Enter your name"
+          value={credentials.name}
+          onChange={(e) =>
+            setCredentials({ ...credentials, name: e.target.value })
+          }
         />
         <input
           className="m-3 p-2 rounded-lg border-2"
@@ -54,7 +57,7 @@ const SignIn = () => {
 
         <HeroBtn
           classnames="m-3 mt-9 mb-5 font-bold p-2"
-          eventHandler={() => dispatch(signInUser(credentials))}
+          eventHandler={() => dispatch(signInUser(credentials, dispatch))}
         >
           Sign In
         </HeroBtn>
