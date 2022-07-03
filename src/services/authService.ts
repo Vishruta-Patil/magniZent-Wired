@@ -5,7 +5,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { toast } from "react-toastify";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs, doc } from "firebase/firestore";
 import { db } from "firebase-config";
 import { getUserCredentials } from "redux/slices/authSlice";
 
@@ -18,7 +18,7 @@ export const addUser = (createAsyncThunk as any)(
         name,
         username,
         email,
-      });
+      });   
       return id
     } catch (err) {
       console.log({err});
@@ -88,6 +88,9 @@ export const loginInUser = (createAsyncThunk as any)(
         const name = "John Doekar"
         dispatch(getUserCredentials({id, name, email}))
 
+        const test = doc(db,"users", "4Tsux7KHujNCyv8kLRJF")
+        console.log({test})
+        
         toast.success("Logged in sucessfully!");
         return id;
       } else {

@@ -8,7 +8,7 @@ export type userDetailsType = {
 };
 
 export interface AuthState {
-  authToken: string | null;
+  authToken: any;
   authStatus: string;
   userId: string;
   name: string;

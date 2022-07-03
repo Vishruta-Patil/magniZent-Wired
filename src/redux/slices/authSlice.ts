@@ -53,7 +53,7 @@ export const authSlice = createSlice({
     [loginInUser.fulfilled]: (state, action) => {
       state.authStatus = "fulfilled";
       state.authToken = action.payload;
-      localStorage.setItem("authToken", JSON.stringify(state.authToken));
+      localStorage.setItem("authToken", state.authToken)
     },
     [loginInUser.rejected]: (state) => {
       state.authStatus = "rejected";
@@ -65,7 +65,7 @@ export const authSlice = createSlice({
     [signInUser.fulfilled]: (state, action) => {
       state.authStatus = "fulfilled";
       state.authToken = action.payload;
-      localStorage.setItem("authToken", JSON.stringify(state.authToken));
+      localStorage.setItem("authToken", state.authToken)
       // state.userId = action.payload.id
     },
     [signInUser.rejected]: (state) => {

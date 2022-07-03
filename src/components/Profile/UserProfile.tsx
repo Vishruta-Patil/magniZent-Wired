@@ -25,14 +25,17 @@ export const Userprofile = () => {
 
   return (
     <div>
-    <section className="p-7 m-9 mx-20 relative bg-white-neutral shadow-lg">
-      <div className="flex items-start">
-        <img src={avatar} alt="avatar" className="h-24 w-24 rounded-full" />
+    <section className="p-7 mt-9 m-4 relative bg-white-neutral shadow-lg space-x-3">
+      <div className="flex flex-col justify-center items-center md:items-start md:flex-row">
+        <img src={avatar} alt="avatar" className="md:h-24 md:w-24 h-28 md:m-0 m-5 w-28 rounded-full" />
         
-          <div className="ml-5 text-left text-secondary-color ">
+          <div className="flex flex-col justify-center items-center md:block ml-5 text-left text-secondary-color">
+            <div className="flex gap-4 items-center md:block">
             <p className="text-2xl text-primary-color font-semibold  mb-1">
               {data?.name}
             </p>
+            <span className="material-icons block cursor-pointer md:hidden" onClick={() => setUserProfileModal(!userProfileModal)}>edit</span>
+            </div>
             <p className="text-lg mb-1">@{data?.username}</p>
             <p className="mb-1 text-lg">Solving problems through code</p>
             <p className="mb-1 text-lg">vishrutapatil.netlify.app</p>
@@ -43,8 +46,9 @@ export const Userprofile = () => {
               <p>15 Following</p>
             </div>
             <HeroBtn classnames="w-11/12 mt-3" eventHandler={() => dispatch(logoutUser())}>Logout</HeroBtn>
+            
           </div>
-          <OutlineBtn classnames="ml-auto text-lg" eventHandler={() => setUserProfileModal(!userProfileModal)}>Edit Profile</OutlineBtn>
+          <OutlineBtn classnames="hidden ml-auto text-base px-1 md:block" eventHandler={() => setUserProfileModal(!userProfileModal)}>Edit Profile</OutlineBtn>
         
       </div>  
     </section>

@@ -13,18 +13,22 @@ const Header = () => {
     <div className="p-2 pl-4 pr-9 flex justify-between shadow-sm items-center">
       <Link to="/">
         <div className="flex space-x-3 items-center">
-          <img src={icon} alt="" className="w-14 h-14" />
-          <h1 className="text-primary-color font-roboto font-bold text-4xl">
-            magni<span className="text-secondary-color text-5xl">Z</span>ent
+          <img src={icon} alt="" className="md:w-14 md:h-14 w-12 h-12" />
+          <h1 className="text-primary-color font-roboto font-bold md:text-4xl text-3xl">
+            magni<span className="text-secondary-color md:text-5xl text-4xl">Z</span>ent
           </h1>
         </div>
       </Link>
-      <SearchUser />
+      <SearchUser classnames="hidden md:block md:w-6/12"/>
+
+      {/* wierd */}
+      <div onClick={() => dispatch(logoutUser())}></div> 
+
       <Link to={`/profile/${authToken}`}>
         <img src={avatar} alt="avatar" className="h-12 w-12 rounded-full"/>
       </Link>
       
-      <button onClick={() => dispatch(logoutUser())}>logout</button>
+      
     </div>
   );
 };
