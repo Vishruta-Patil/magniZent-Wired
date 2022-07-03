@@ -9,7 +9,7 @@ const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const [credentials, setCredentials] = useState({ name: "", email: "", password: "" });
+  const [credentials, setCredentials] = useState({ name: "", username:"", email: "", password: "" });
   const { authToken } = useAppSelector((store) => store.auth);
 
   useEffect(() => {
@@ -34,6 +34,15 @@ const SignIn = () => {
           value={credentials.name}
           onChange={(e) =>
             setCredentials({ ...credentials, name: e.target.value })
+          }
+        />
+        <input
+          className="m-3 mt-7 p-2 rounded-lg border-2"
+          type="text"
+          placeholder="Enter your user name"
+          value={credentials.username}
+          onChange={(e) =>
+            setCredentials({ ...credentials, username: e.target.value })
           }
         />
         <input

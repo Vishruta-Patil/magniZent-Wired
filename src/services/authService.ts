@@ -5,20 +5,20 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { toast } from "react-toastify";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "firebase-config";
 import { getUserCredentials } from "redux/slices/authSlice";
 
 export const addUser = (createAsyncThunk as any)(
   "auth/addUser",
-  async ({id, name, email}:{id: string, name: string, email: string}) => {
+  async ({id, name, username, email}:{id: string, username: string, name: string, email: string}) => {
     try {
-      const userDocRef = await addDoc(collection(db, "users"), {
+      await addDoc(collection(db, "users"), {
         id,
         name,
+        username,
         email,
       });
-      console.log({userDocRef});
       return id
     } catch (err) {
       console.log({err});
@@ -26,9 +26,30 @@ export const addUser = (createAsyncThunk as any)(
   }
 );
 
+// export const updateUser = (createAsyncThunk as any)("auth/updateUser", async() => {
+//   try {
+
+//   } catch (err) {
+//     console.log({err});
+//   }
+// })
+
+export const getAllUsers = (createAsyncThunk as any)("auth/getAllUsers", async() => {
+  const usersCollectionRef = collection(db, "users")
+  const arr = []
+  try {
+  const response = await getDocs(usersCollectionRef)
+  const usersArr =  response.docs.map(doc => doc.data())
+  return usersArr
+  } catch(err) {
+    console.log(err)
+  }
+
+})
+
 export const signInUser = (createAsyncThunk as any)(
   "auth/signInUser",
-  async ({name, email, password}: {name: string,email: string,password: string}, {dispatch} : {dispatch:any}) => {
+  async ({name, username, email, password}: {name: string, username: string, email: string,password: string}, {dispatch} : {dispatch:any}) => {
     try {
       if (name !== "" && email !== "" && password !== "") {
         const response = await createUserWithEmailAndPassword(
@@ -37,7 +58,7 @@ export const signInUser = (createAsyncThunk as any)(
           password
         );
         const id = response?.user?.uid
-        dispatch(addUser({id, name, email}));
+        dispatch(addUser({id, name, username, email}));
         dispatch(getUserCredentials({id, name, email}))
 
         toast.success("Signed in sucessfully!");
@@ -65,7 +86,6 @@ export const loginInUser = (createAsyncThunk as any)(
         );
         const id = response?.user?.uid
         const name = "John Doekar"
-        dispatch(addUser({id, name, email}));
         dispatch(getUserCredentials({id, name, email}))
 
         toast.success("Logged in sucessfully!");

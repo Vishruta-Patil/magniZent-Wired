@@ -1,14 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import { addUser, loginInUser, signInUser } from "services/authService";
-
-interface AuthState {
-  authToken: string | null;
-  authStatus: string;
-  userId: string;
-  name: string;
-  email: string;
-}
+import {
+  addUser,
+  getAllUsers,
+  loginInUser,
+  signInUser,
+} from "services/authService";
+import { AuthState } from "types/auth.types";
 
 const initialState: AuthState = {
   authToken: localStorage.getItem("authToken") ?? "",
@@ -16,6 +14,13 @@ const initialState: AuthState = {
   userId: "",
   name: "",
   email: "",
+  allUsers: [
+    {
+      email: "johndoekar@gmail.com",
+      id: "oxj4JTPfjLO7KuLo1gxG3nt5ygG2",
+      name: "John Doekar",
+    },
+  ],
 };
 
 export const authSlice = createSlice({
@@ -66,7 +71,7 @@ export const authSlice = createSlice({
     [signInUser.rejected]: (state) => {
       state.authStatus = "rejected";
     },
-    // User
+    // Add User
     [addUser.pending]: (state) => {
       state.authStatus = "loading";
     },
@@ -75,6 +80,17 @@ export const authSlice = createSlice({
       state.userId = action.payload;
     },
     [addUser.rejected]: (state) => {
+      state.authStatus = "rejected";
+    },
+    // All Users
+    [getAllUsers.pending]: (state) => {
+      state.authStatus = "loading";
+    },
+    [getAllUsers.fulfilled]: (state, action) => {
+      state.authStatus = "fulfilled";
+      state.allUsers = action.payload;
+    },
+    [getAllUsers.rejected]: (state) => {
       state.authStatus = "rejected";
     },
   },

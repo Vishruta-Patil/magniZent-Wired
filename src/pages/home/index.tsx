@@ -6,13 +6,15 @@ import UserSidebar from "components/UserSidebar";
 import PostCard from "components/Post/PostCard";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "hooks";
+import { useAppDispatch, useAppSelector } from "hooks";
 import { Userprofile } from "components/Profile/UserProfile";
 import { UpdateProfileModal } from "components/Profile/UpdateProfileModal";
+import { getAllUsers } from "services/authService";
 
 const Home = () => {
   const navigate = useNavigate()
-  const {authToken, userId} = useAppSelector(store => store.auth)
+  const {authToken, userId, allUsers} = useAppSelector(store => store.auth)
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     if (!localStorage.getItem('authToken')) {
@@ -20,7 +22,11 @@ const Home = () => {
     }
   }, [authToken])
 
-  console.log({userId})
+  useEffect(() => {
+    dispatch(getAllUsers())
+  }, [])
+
+  console.log({userId}, {allUsers})
   
   return (
     <div className="grid grid-cols-8 h-100">
@@ -31,9 +37,8 @@ const Home = () => {
         <Drawer />
       </div>
       <div className="relative xs:col-span-8 md:col-span-6 lg:col-span-4 border-l-2 border-r-2">
-        {/* <CreatePost />
-        <PostCard /> */}
-        <Userprofile />
+        <CreatePost />
+        <PostCard />
         
       </div>
       <div className="hidden lg:block col-span-2">

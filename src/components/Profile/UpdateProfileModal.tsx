@@ -1,12 +1,13 @@
 import avatar from "assets/avatar.png";
 import { HeroBtn } from "components/common/button/HeroBtn";
 
-export const UpdateProfileModal = () => {
+export const UpdateProfileModal = ({userProfileModal, setUserProfileModal, data} : {userProfileModal: boolean, setUserProfileModal:any, data: any}) => {
+
   return (
-    <section className="p-7 max-w-md bg-slate-200 shadow-lg absolute top-3/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    <section className={`${userProfileModal ? "block" : "hidden"} p-7 max-w-md bg-slate-200 shadow-lg absolute top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2`}>
       <div className="flex">
         <h1 className="font-bold text-xl mb-7 text-center">Edit Profile</h1>
-        <span className="material-icons text-3xl ml-auto">close</span>
+        <span className="material-icons text-3xl ml-auto cursor-pointer" onClick={() => setUserProfileModal(false)}>close</span>
       </div>
       <div className="flex mb-5  items-center">
         <label className="inline-block w-24">Avatar</label>
@@ -20,28 +21,32 @@ export const UpdateProfileModal = () => {
         <label className="inline-block w-24">Name</label>
         <input
           type="text"
-          className="border-secondary-color border-2 rounded bg-transparent"
+          className="border-secondary-color border-2 rounded bg-transparent p-1"
+          value={data?.name}
         />
       </div>
       <div className="flex mb-5">
         <label className="inline-block w-24">Username</label>
         <input
           type="text"
-          className="border-secondary-color border-2 rounded bg-transparent"
+          className="border-secondary-color border-2 rounded bg-transparent p-1"
+          value={data?.username}
         />
       </div>
       <div className="flex mb-5">
         <label className="inline-block w-24 ">Bio</label>
         <input
           type="text"
-          className="border-secondary-color border-2 rounded bg-transparent"
+          className="border-secondary-color border-2 rounded bg-transparent p-1"
+          value={data?.bio}
         />
       </div>
       <div className="flex mb-5">
         <label className="inline-block w-24">Website</label>
         <input
           type="text"
-          className="border-secondary-color border-2 rounded bg-transparent"
+          className="border-secondary-color border-2 rounded bg-transparent p-1"
+          value={data?.website}
         />
       </div>
 
