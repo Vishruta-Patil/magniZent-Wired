@@ -66,7 +66,6 @@ export const authSlice = createSlice({
       state.authStatus = "fulfilled";
       state.authToken = action.payload;
       localStorage.setItem("authToken", state.authToken)
-      // state.userId = action.payload.id
     },
     [signInUser.rejected]: (state) => {
       state.authStatus = "rejected";
@@ -93,7 +92,7 @@ export const authSlice = createSlice({
     [getAllUsers.rejected]: (state) => {
       state.authStatus = "rejected";
     },
-    //
+    // Update user
     [updateUser.pending]: (state) => {
       state.authStatus = "loading";
     },

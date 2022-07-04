@@ -21,7 +21,7 @@ const Header = () => {
       </Link>
       <SearchUser classnames="hidden md:block md:w-6/12"/>
 
-      {/* wierd */}
+      {/* wierd error */}
       <div onClick={() => dispatch(logoutUser())}></div> 
 
       <Link to={authToken ? `/profile/${authToken}` : '/login'}>

@@ -1,8 +1,8 @@
 import avatar from "assets/avatar.png";
 import { HeroBtn } from "components/common/button/HeroBtn";
 import { useAppDispatch } from "hooks";
-import { useEffect, useState } from "react";
-import { getAllUsers, updateUser } from "services/authService";
+import { useState } from "react";
+import { updateUser } from "services/authService";
 
 type updateProfileType = {
   userProfileModal: boolean;
@@ -25,7 +25,6 @@ export const UpdateProfileModal = ({
 
   const dispatch = useAppDispatch()
 
-  
   return (
     <section
       className={`${

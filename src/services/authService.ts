@@ -23,13 +23,13 @@ export const addUser = (createAsyncThunk as any)(
     email: string;
   }) => {
     try {
+      // **** Add doc in collection without id ****
       // await addDoc(collection(db, "users"), {
       //   name,
       //   username,
       //   email,
       // });
 
-      // Add a new document in collection "cities" with "LA" add id
       await setDoc(doc(db, "users", id),  {
           id,
           name,
@@ -37,23 +37,20 @@ export const addUser = (createAsyncThunk as any)(
           email,
         });
     } catch (err) {
-      console.log({ err });
+      console.log(err);
     }
   }
 );
 
 export const updateUser = (createAsyncThunk as any)("auth/updateUser", async(newData : {newData: any}) => {
-  console.log({newData})
   const id : any = localStorage.getItem("authToken")
   try {
     const userDoc = doc(db, 'users', id)
     const updatedUser = await updateDoc(userDoc, newData)
-    console.log(updateUser)
+    toast.success("Profile updated sucessfully!");
     return updatedUser
-    // console.log((updatedUser as any).data())
-    // return (updatedUser as any).data()
   } catch (err) {
-    console.log({err});
+    console.log(err);
   }
 })
 
@@ -122,9 +119,6 @@ export const loginInUser = (createAsyncThunk as any)(
         const id = response?.user?.uid;
         const name = "John Doekar";
         dispatch(getUserCredentials({ id, name, email }));
-
-        const test = doc(db, "users", "4Tsux7KHujNCyv8kLRJF");
-        console.log({ test });
 
         toast.success("Logged in sucessfully!");
         return id;

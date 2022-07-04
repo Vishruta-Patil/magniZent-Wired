@@ -7,8 +7,6 @@ import PostCard from "components/Post/PostCard";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "hooks";
-import { Userprofile } from "components/Profile/UserProfile";
-import { UpdateProfileModal } from "components/Profile/UpdateProfileModal";
 import { getAllUsers } from "services/authService";
 import SearchUser from "components/common/search/SearchUser";
 
@@ -49,6 +47,8 @@ const Home = () => {
       <div className="hidden lg:block col-span-2">
         <UserSidebar />
       </div>
+
+      {/* TODO: For future reference */}
       {/* <div className="col-span-8 p-3 bg-green-100">
         <Footer />
       </div> */}
