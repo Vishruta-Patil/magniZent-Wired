@@ -8,7 +8,7 @@ import { logoutUser } from "redux/slices/authSlice";
 const Header = () => {
   const dispatch = useAppDispatch()
   const {authToken} = useAppSelector((store) => store.auth)
-  console.log({authToken})
+ 
   return (
     <div className="p-2 pl-4 pr-9 flex justify-between shadow-sm items-center">
       <Link to="/">
@@ -24,7 +24,7 @@ const Header = () => {
       {/* wierd */}
       <div onClick={() => dispatch(logoutUser())}></div> 
 
-      <Link to={`/profile/${authToken}`}>
+      <Link to={authToken ? `/profile/${authToken}` : '/login'}>
         <img src={avatar} alt="avatar" className="h-12 w-12 rounded-full"/>
       </Link>
       

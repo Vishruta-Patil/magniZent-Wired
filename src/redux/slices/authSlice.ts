@@ -5,6 +5,7 @@ import {
   getAllUsers,
   loginInUser,
   signInUser,
+  updateUser
 } from "services/authService";
 import { AuthState } from "types/auth.types";
 
@@ -38,7 +39,6 @@ export const authSlice = createSlice({
       toast.success("Logout Successfully!");
     },
     getUserCredentials: (state, action) => {
-      console.log(action.payload);
       state.userId = action.payload.id;
       state.name = action.payload.name;
       state.email = action.payload.email;
@@ -91,6 +91,16 @@ export const authSlice = createSlice({
       state.allUsers = action.payload;
     },
     [getAllUsers.rejected]: (state) => {
+      state.authStatus = "rejected";
+    },
+    //
+    [updateUser.pending]: (state) => {
+      state.authStatus = "loading";
+    },
+    [updateUser.fulfilled]: (state, action) => {
+      state.authStatus = "fulfilled";
+    },
+    [updateUser.rejected]: (state) => {
       state.authStatus = "rejected";
     },
   },

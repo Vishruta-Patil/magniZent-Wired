@@ -17,6 +17,8 @@ const Home = () => {
   const {authToken, userId, allUsers} = useAppSelector(store => store.auth)
   const dispatch = useAppDispatch()
 
+  const menuData = ["home", "explore", "bookmark", "notifications", "person"]
+
   useEffect(() => {
     if (!localStorage.getItem('authToken')) {
       navigate('/login')
@@ -52,11 +54,10 @@ const Home = () => {
       </div> */}
 
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-slate-200 py-1 flex justify-around text-primary-color">
-        <span className="material-icons text-3xl">home</span>
-        <span className="material-icons text-3xl">explore</span>
-        <span className="material-icons text-3xl">bookmark</span>
-        <span className="material-icons text-3xl">notifications</span>
-        <span className="material-icons text-3xl">person</span>
+        {menuData.map(icon => (
+          <span className="material-icons text-3xl">{icon}</span>
+        ))}
+        
       </div>
     </div>
   );

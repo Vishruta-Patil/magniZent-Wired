@@ -19,7 +19,7 @@ export const Userprofile = () => {
 
   useEffect(() => {
     dispatch(getAllUsers());
-  }, []);
+  }, [userProfileModal]);
 
   const data = allUsers.find((item: userDetailsType) => item["id"] === profileId);
 
@@ -37,8 +37,8 @@ export const Userprofile = () => {
             <span className="material-icons block cursor-pointer md:hidden" onClick={() => setUserProfileModal(!userProfileModal)}>edit</span>
             </div>
             <p className="text-lg mb-1">@{data?.username}</p>
-            <p className="mb-1 text-lg">Solving problems through code</p>
-            <p className="mb-1 text-lg">vishrutapatil.netlify.app</p>
+            {data?.bio && <p className="mb-1 text-lg">{data?.bio}</p>}
+            {data?.website && <p className="mb-1 text-lg">{data?.website}</p>}
 
             <div className="flex gap-6 mt-7 font-semibold">
               <p>2 Posts</p>
