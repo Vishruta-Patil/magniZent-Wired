@@ -1,13 +1,14 @@
 import avatar from "assets/avatar.png";
 import { HeroBtn } from "components/common/button/HeroBtn";
 import { useAppDispatch } from "hooks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { updateUser } from "services/authService";
+import { userDetailsType } from "types/auth.types";
 
 type updateProfileType = {
   userProfileModal: boolean;
-  setUserProfileModal: any;
-  data: any;
+  setUserProfileModal: React.Dispatch<React.SetStateAction<boolean>>;
+  data: userDetailsType | undefined;
 };
 
 export const UpdateProfileModal = ({
@@ -16,14 +17,25 @@ export const UpdateProfileModal = ({
   data,
 }: updateProfileType) => {
 
-  const [updatedData, setUpdatedData] = useState({
+  const [updatedData, setUpdatedData] = useState<any>({
     name: data?.name ?? "",
     username: data?.username ?? "",
     bio: data?.bio ?? "",
     website: data?.website ?? "",
+    avatar: data?.avatar ?? ""
   });
 
   const dispatch = useAppDispatch()
+
+
+  const clickHandler = (event:any) => {
+  const fileElement = (event.target as HTMLInputElement).files
+  setUpdatedData(fileElement ? ({ ...updatedData, avatar: fileElement[0]}) : null)
+  }
+
+  useEffect(() => {
+    console.log({updatedData})
+  }, [updatedData?.avatar])
 
   return (
     <section
@@ -43,11 +55,11 @@ export const UpdateProfileModal = ({
       <div className="flex mb-5  items-center">
         <label className="inline-block w-24">Avatar</label>
         <div className="relative ">
-          <img
-            src={avatar}
+         <img
+            src={updatedData.avatar ? URL.createObjectURL(updatedData.avatar) : avatar}
             alt="avatar"
-            className="h-14 w-14 rounded-full relative "
-          />
+            className="h-14 w-14 rounded-full relative"
+          /> 
           <span className="material-icons text-lg ml-auto absolute bottom-0 right-0 cursor-pointer">
             add_a_photo
           </span>
@@ -55,6 +67,7 @@ export const UpdateProfileModal = ({
             type="file"
             accept="image/*"
             className="w-5 h-5 opacity-0 absolute bottom-0 right-0 cursor-pointer bg-blue-700"
+            onChange={clickHandler}
           />
         </div>
       </div>

@@ -15,13 +15,7 @@ const initialState: AuthState = {
   userId: "",
   name: "",
   email: "",
-  allUsers: [
-    {
-      email: "johndoekar@gmail.com",
-      id: "oxj4JTPfjLO7KuLo1gxG3nt5ygG2",
-      name: "John Doekar",
-    },
-  ],
+  allUsers: []
 };
 
 export const authSlice = createSlice({
@@ -35,6 +29,7 @@ export const authSlice = createSlice({
       state.email = "";
       state.authToken = "";
       state.authStatus = "idle";
+      state.allUsers = []
       localStorage.removeItem("authToken");
       toast.success("Logout Successfully!");
     },

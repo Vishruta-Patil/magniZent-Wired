@@ -1,14 +1,15 @@
 export type userDetailsType = {
-  email: string;
-  id: string;
+  email?: string;
+  id?: string;
   name: string;
-  username?: string;
+  username: string;
   bio?: string;
   website?: string;
+  avatar?: File | null
 };
 
 export interface AuthState {
-  authToken: any;
+  authToken: string;
   authStatus: string;
   userId: string;
   name: string;

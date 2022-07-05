@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { collection, addDoc, getDocs, doc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "firebase-config";
 import { getUserCredentials } from "redux/slices/authSlice";
+import { userDetailsType } from "types/auth.types";
 
 export const addUser = (createAsyncThunk as any)(
   "auth/addUser",
@@ -42,8 +43,9 @@ export const addUser = (createAsyncThunk as any)(
   }
 );
 
-export const updateUser = (createAsyncThunk as any)("auth/updateUser", async(newData : {newData: any}) => {
+export const updateUser = (createAsyncThunk as any)("auth/updateUser", async(newData : {newData: userDetailsType}) => {
   const id : any = localStorage.getItem("authToken")
+  console.log(typeof id)
   try {
     const userDoc = doc(db, 'users', id)
     const updatedUser = await updateDoc(userDoc, newData)
@@ -58,7 +60,6 @@ export const getAllUsers = (createAsyncThunk as any)(
   "auth/getAllUsers",
   async () => {
     const usersCollectionRef = collection(db, "users");
-    const arr = [];
     try {
       const response = await getDocs(usersCollectionRef);
       const usersArr = response.docs.map((doc) => doc.data());
@@ -78,7 +79,7 @@ export const signInUser = (createAsyncThunk as any)(
       email,
       password,
     }: { name: string; username: string; email: string; password: string },
-    { dispatch }: { dispatch: any }
+    { dispatch }: { dispatch: any}
   ) => {
     try {
       if (name !== "" && email !== "" && password !== "") {
@@ -96,7 +97,7 @@ export const signInUser = (createAsyncThunk as any)(
       } else {
         toast.error("Fill all the credentials");
       }
-    } catch (err: any) {
+    } catch (err) {
       toast.error("Try again later");
       console.log(err);
     }
@@ -125,7 +126,7 @@ export const loginInUser = (createAsyncThunk as any)(
       } else {
         toast.error("Fill all the credentials");
       }
-    } catch (err: any) {
+    } catch (err) {
       toast.error("Try again later");
       console.log(err);
     }

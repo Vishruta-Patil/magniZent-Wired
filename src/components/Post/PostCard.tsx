@@ -1,25 +1,86 @@
 import avatar from "assets/avatar.png";
+import { CreateComment } from "../Comment/CreateComment";
+import { useState } from "react";
+import { CommentCard } from "components/Comment/CommentCard";
+import { MoreOptionsmOdal } from "components/common/moreOptions/MoreOptionsModal";
 
 const PostCard = () => {
+  const [commentCard, setCommentCard] = useState(false);
+  const [moreOptions, setMoreOPtions] = useState(false);
+  const commentHandler = () => {
+    setCommentCard((prev) => !prev);
+  };
   return (
-    <div className="p-5 md:m-9 m-4 bg-white-neutral shadow-lg flex space-x-3 ">
-      <img src={avatar} alt="avatar" className="h-16 w-16 rounded-full" />
-      <div>
-        <div className="flex flex-col md:flex-row space-x-3 md:items-center my-2 text-left">
-          <p className="text-black text-xl font-semibold">Vishruta Patil</p>
-          <p className="text-secondary-color text-sm">@Vishruta_patil</p>
-          <p className="text-secondary-color text-sm">1 min</p>
+    <div className="flex flex-col p-5 md:m-9 m-4 bg-white-neutral shadow-lg ">
+      <div className="flex flex-col space-x-3">
+        <div className="flex  gap-3 relative">
+          <img src={avatar} alt="avatar" className="h-14 w-14 rounded-full" />
+          <div>
+            <div className="flex flex-col">
+              <div className="flex items-center gap-4">
+                <p className="text-black text-xl font-semibold">
+                  Vishruta Patil
+                </p>
+                <p className="text-secondary-color text-sm md:block hidden">1 min</p>
+              </div>
+
+              <p className="text-secondary-color text-sm text-left">
+                @Vishruta_patil
+              </p>
+            </div>
+
+            <div
+              onClick={() => setMoreOPtions((prev) => !prev)}
+              className="ml-auto absolute top-2 right-0"
+            >
+              <span className="material-icons text-2xl cursor-pointer ml-auto">
+                more_vert
+              </span>
+            </div>
+          </div>
+          {moreOptions && <MoreOptionsmOdal />}
         </div>
-        <div className="text-left">
-          Shree Krishna Govinda Harae Murari Hae Nath Narayan Vasudeva, Radhae Radhae!!
+        <div className="text-left mt-5 text-base">
+          Shree Krishna Govinda Harae Murari Hae Nath Narayan Vasudeva, Radhae
+          Radhae! Ambadnya, Nathasanvidh!
         </div>
-        <div className="flex justify-between mt-3">
-          <span className="material-icons text-2xl">favorite_outline</span>
-          <span className="material-icons text-2xl">comment</span>
-          <span className="material-icons text-2xl">share</span>
-          <span className="material-icons text-2xl">bookmark_outline</span>
+        <div className="flex justify-between">
+          <div className="flex gap-1 items-center">
+            <span className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200">
+              favorite_outline
+            </span>
+            <p>1</p>
+          </div>
+          <div>
+            <span
+              className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200"
+              onClick={commentHandler}
+            >
+              comment
+            </span>
+          </div>
+          <div>
+            <span className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200">
+              share
+            </span>
+          </div>
+          <div>
+            <span className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200">
+              bookmark_outline
+            </span>
+          </div>
         </div>
       </div>
+
+      <>
+        {commentCard && (
+          <CreateComment
+            commentCard={commentCard}
+            setCommentCard={setCommentCard}
+          />
+        )}
+      </>
+      <CommentCard />
     </div>
   );
 };
