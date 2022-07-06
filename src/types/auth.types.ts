@@ -5,7 +5,6 @@ export type userDetailsType = {
   username: string;
   bio?: string;
   website?: string;
-  // avatar?: File | null
 };
 
 export interface AuthState {

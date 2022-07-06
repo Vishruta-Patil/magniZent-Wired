@@ -153,7 +153,6 @@ export const uploadAvatarProfile = (createAsyncThunk as any)(
       const dataId = localStorage.getItem("authToken");
       const avatarRef = ref(storage, `avatar/${dataId}`);
       const res = await uploadBytes(avatarRef, avatarImage);
-      console.log("Avatar uploaded successfully");
       return res;
     } catch (err) {
       console.log(err);
@@ -171,8 +170,6 @@ export const getAvatarProfile = (createAsyncThunk as any)(
       let reqURL:any
       const profileExists:any = response.items.some(item => item.name === dataId)
       const getProfile: any = response.items.find(item => item.name === dataId)
-
-      console.log({profileExists})
 
       if(profileExists) {
       reqURL = (async () => await getDownloadURL(getProfile))() 

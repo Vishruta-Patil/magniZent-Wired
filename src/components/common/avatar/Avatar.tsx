@@ -9,8 +9,6 @@ export const Avatar = ({classnames} : {classnames:string}) => {
     useEffect(() => {
         dispatch(getAvatarProfile())
     }, [])
-
-    console.log({avatar})
     
     return (
         <>

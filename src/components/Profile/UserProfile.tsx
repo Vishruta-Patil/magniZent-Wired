@@ -20,7 +20,6 @@ export const Userprofile = () => {
 
   useEffect(() => {
     dispatch(getAllUsers());
-    // dispatch(uploadAvatarProfile());
   }, [userProfileModal]);
 
   const data = allUsers.find((item: userDetailsType) => item["id"] === profileId);

@@ -4,7 +4,6 @@ import { HeroBtn } from "components/common/button/HeroBtn";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { useEffect, useState } from "react";
 import { updateUser, uploadAvatarProfile } from "services/authService";
-import { uploadAvatar } from "services/avatarStorageService";
 import { userDetailsType } from "types/auth.types";
 
 type updateProfileType = {
@@ -34,10 +33,6 @@ export const UpdateProfileModal = ({
     const fileElement = (event.target as HTMLInputElement).files;
     setAvatarProfile(fileElement ? fileElement[0] : null);
   };
-
-  // useEffect(() => {
-  //   dispatch(updateUser(updatedData));
-  // }, [avatarProfile, updatedData]);
 
   return (
     <section
