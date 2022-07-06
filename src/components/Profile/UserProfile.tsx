@@ -18,10 +18,10 @@ export const Userprofile = () => {
   const { profileId } = params;
   const { allUsers } = useAppSelector((store) => store.auth);
 
-  // useEffect(() => {
-  //   dispatch(getAllUsers());
-  //   dispatch(uploadAvatarProfile());
-  // }, [userProfileModal]);
+  useEffect(() => {
+    dispatch(getAllUsers());
+    // dispatch(uploadAvatarProfile());
+  }, [userProfileModal]);
 
   const data = allUsers.find((item: userDetailsType) => item["id"] === profileId);
 

@@ -20,7 +20,6 @@ import { storage } from "firebase-config";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { Console } from "console";
 
-const dataId = localStorage.getItem("authToken");
 
 export const addUser = (createAsyncThunk as any)(
   "auth/addUser",
@@ -168,14 +167,15 @@ export const getAvatarProfile = (createAsyncThunk as any)(
     try {
       const avatarRef = ref(storage, `avatar`);
       const response = await listAll(avatarRef);
-     
+      const dataId = localStorage.getItem("authToken")
       let reqURL:any
-      console.log(dataId)
-      const def:any = response.items.some(item => item.name === dataId)
-      const abc: any = response.items.find(item => item.name === dataId)
-      console.log({def})
-      if(def) {
-      reqURL = (async () => await getDownloadURL(abc))() 
+      const profileExists:any = response.items.some(item => item.name === dataId)
+      const getProfile: any = response.items.find(item => item.name === dataId)
+
+      console.log({profileExists})
+
+      if(profileExists) {
+      reqURL = (async () => await getDownloadURL(getProfile))() 
       } else reqURL= "no_image"
       
      return reqURL

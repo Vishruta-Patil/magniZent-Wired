@@ -25,7 +25,7 @@ export const UpdateProfileModal = ({
     website: data?.website ?? "",
   });
 
-  const [avatarProfile, setAvatarProfile] = useState<File | null>();
+  const [avatarProfile, setAvatarProfile] = useState<File | null>(null);
 
   const { avatar } = useAppSelector((store) => store.auth);
   const dispatch = useAppDispatch();
@@ -37,7 +37,6 @@ export const UpdateProfileModal = ({
 
   // useEffect(() => {
   //   dispatch(updateUser(updatedData));
-  //   dispatch(uploadAvatarProfile(avatarProfile));
   // }, [avatarProfile, updatedData]);
 
   return (
@@ -127,7 +126,7 @@ export const UpdateProfileModal = ({
         classnames="w-11/12 mt-5"
         eventHandler={() => {
           dispatch(updateUser(updatedData));
-          dispatch(uploadAvatarProfile(avatarProfile));
+          avatarProfile !== null && dispatch(uploadAvatarProfile(avatarProfile));
           setUserProfileModal(false);
         }}
       >
