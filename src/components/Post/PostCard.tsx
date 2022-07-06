@@ -3,6 +3,7 @@ import { CreateComment } from "../Comment/CreateComment";
 import { useState } from "react";
 import { CommentCard } from "components/Comment/CommentCard";
 import { MoreOptionsmOdal } from "components/common/moreOptions/MoreOptionsModal";
+import { Avatar } from "components/common/avatar/Avatar";
 
 const PostCard = () => {
   const [commentCard, setCommentCard] = useState(false);
@@ -14,7 +15,7 @@ const PostCard = () => {
     <div className="flex flex-col p-5 md:m-9 m-4 bg-white-neutral shadow-lg ">
       <div className="flex flex-col space-x-3">
         <div className="flex  gap-3 relative">
-          <img src={avatar} alt="avatar" className="h-14 w-14 rounded-full" />
+         <Avatar classnames="h-14 w-14"/>
           <div>
             <div className="flex flex-col">
               <div className="flex items-center gap-4">
@@ -80,7 +81,7 @@ const PostCard = () => {
           />
         )}
       </>
-      <CommentCard />
+      {/* <CommentCard /> */}
     </div>
   );
 };

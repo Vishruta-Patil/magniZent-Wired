@@ -1,8 +1,10 @@
 import avatar from "assets/avatar.png";
+import { Avatar } from "components/common/avatar/Avatar";
 import { HeroBtn } from "components/common/button/HeroBtn";
-import { useAppDispatch } from "hooks";
+import { useAppDispatch, useAppSelector } from "hooks";
 import { useEffect, useState } from "react";
-import { updateUser } from "services/authService";
+import { updateUser, uploadAvatarProfile } from "services/authService";
+import { uploadAvatar } from "services/avatarStorageService";
 import { userDetailsType } from "types/auth.types";
 
 type updateProfileType = {
@@ -16,26 +18,27 @@ export const UpdateProfileModal = ({
   setUserProfileModal,
   data,
 }: updateProfileType) => {
-
   const [updatedData, setUpdatedData] = useState<any>({
     name: data?.name ?? "",
     username: data?.username ?? "",
     bio: data?.bio ?? "",
     website: data?.website ?? "",
-    avatar: data?.avatar ?? ""
   });
 
-  const dispatch = useAppDispatch()
+  const [avatarProfile, setAvatarProfile] = useState<File | null>();
 
+  const { avatar } = useAppSelector((store) => store.auth);
+  const dispatch = useAppDispatch();
 
-  const clickHandler = (event:any) => {
-  const fileElement = (event.target as HTMLInputElement).files
-  setUpdatedData(fileElement ? ({ ...updatedData, avatar: fileElement[0]}) : null)
-  }
+  const clickHandler = (event: any) => {
+    const fileElement = (event.target as HTMLInputElement).files;
+    setAvatarProfile(fileElement ? fileElement[0] : null);
+  };
 
-  useEffect(() => {
-    console.log({updatedData})
-  }, [updatedData?.avatar])
+  // useEffect(() => {
+  //   dispatch(updateUser(updatedData));
+  //   dispatch(uploadAvatarProfile(avatarProfile));
+  // }, [avatarProfile, updatedData]);
 
   return (
     <section
@@ -55,11 +58,15 @@ export const UpdateProfileModal = ({
       <div className="flex mb-5  items-center">
         <label className="inline-block w-24">Avatar</label>
         <div className="relative ">
-         <img
-            src={updatedData.avatar ? URL.createObjectURL(updatedData.avatar) : avatar}
-            alt="avatar"
-            className="h-14 w-14 rounded-full relative"
-          /> 
+          {avatarProfile ? (
+            <img
+              src={URL.createObjectURL(avatarProfile)}
+              alt="avatar"
+              className="h-14 w-14 rounded-full relative bg-blue-500 text-white-neutral"
+            />
+          ) : (
+            <Avatar classnames="h-14 w-14" />
+          )}
           <span className="material-icons text-lg ml-auto absolute bottom-0 right-0 cursor-pointer">
             add_a_photo
           </span>
@@ -118,7 +125,11 @@ export const UpdateProfileModal = ({
 
       <HeroBtn
         classnames="w-11/12 mt-5"
-        eventHandler={() => {dispatch(updateUser(updatedData)); setUserProfileModal(false)}}
+        eventHandler={() => {
+          dispatch(updateUser(updatedData));
+          dispatch(uploadAvatarProfile(avatarProfile));
+          setUserProfileModal(false);
+        }}
       >
         Update
       </HeroBtn>

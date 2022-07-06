@@ -5,10 +5,22 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { toast } from "react-toastify";
-import { collection, addDoc, getDocs, doc, setDoc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  doc,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "firebase-config";
 import { getUserCredentials } from "redux/slices/authSlice";
 import { userDetailsType } from "types/auth.types";
+import { storage } from "firebase-config";
+import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
+import { Console } from "console";
+
+const dataId = localStorage.getItem("authToken");
 
 export const addUser = (createAsyncThunk as any)(
   "auth/addUser",
@@ -31,30 +43,32 @@ export const addUser = (createAsyncThunk as any)(
       //   email,
       // });
 
-      await setDoc(doc(db, "users", id),  {
-          id,
-          name,
-          username,
-          email,
-        });
+      await setDoc(doc(db, "users", id), {
+        id,
+        name,
+        username,
+        email,
+      });
     } catch (err) {
       console.log(err);
     }
   }
 );
 
-export const updateUser = (createAsyncThunk as any)("auth/updateUser", async(newData : {newData: userDetailsType}) => {
-  const id : any = localStorage.getItem("authToken")
-  console.log(typeof id)
-  try {
-    const userDoc = doc(db, 'users', id)
-    const updatedUser = await updateDoc(userDoc, newData)
-    toast.success("Profile updated sucessfully!");
-    return updatedUser
-  } catch (err) {
-    console.log(err);
+export const updateUser = (createAsyncThunk as any)(
+  "auth/updateUser",
+  async (newData: { newData: userDetailsType }) => {
+    const id: any = localStorage.getItem("authToken")
+    try {
+      const userDoc = doc(db, "users", id);
+      const updatedUser = await updateDoc(userDoc, newData);
+      toast.success("Profile updated sucessfully!");
+      return updatedUser;
+    } catch (err) {
+      console.log(err);
+    }
   }
-})
+);
 
 export const getAllUsers = (createAsyncThunk as any)(
   "auth/getAllUsers",
@@ -79,7 +93,7 @@ export const signInUser = (createAsyncThunk as any)(
       email,
       password,
     }: { name: string; username: string; email: string; password: string },
-    { dispatch }: { dispatch: any}
+    { dispatch }: { dispatch: any }
   ) => {
     try {
       if (name !== "" && email !== "" && password !== "") {
@@ -132,3 +146,44 @@ export const loginInUser = (createAsyncThunk as any)(
     }
   }
 );
+
+export const uploadAvatarProfile = (createAsyncThunk as any)(
+  "auth/uploadAvatarProfile",
+  async (avatarImage: any) => {
+    try {
+      const dataId = localStorage.getItem("authToken");
+      const avatarRef = ref(storage, `avatar/${dataId}`);
+      const res = await uploadBytes(avatarRef, avatarImage);
+      console.log("Avatar uploaded successfully");
+      return res;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
+export const getAvatarProfile = (createAsyncThunk as any)(
+  "auth/getAvatarProfile",
+  async () => {
+    try {
+      const avatarRef = ref(storage, `avatar`);
+      const response = await listAll(avatarRef);
+     
+      let reqURL:any
+      console.log(dataId)
+      const def:any = response.items.some(item => item.name === dataId)
+      const abc: any = response.items.find(item => item.name === dataId)
+      console.log({def})
+      if(def) {
+      reqURL = (async () => await getDownloadURL(abc))() 
+      } else reqURL= "no_image"
+      
+     return reqURL
+      
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
+
