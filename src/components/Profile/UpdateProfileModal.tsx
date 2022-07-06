@@ -3,7 +3,7 @@ import { Avatar } from "components/common/avatar/Avatar";
 import { HeroBtn } from "components/common/button/HeroBtn";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { useEffect, useState } from "react";
-import { updateUser, uploadAvatarProfile } from "services/authService";
+import { getAvatarProfile, updateUser, uploadAvatarProfile } from "services/authService";
 import { userDetailsType } from "types/auth.types";
 
 type updateProfileType = {
@@ -33,6 +33,8 @@ export const UpdateProfileModal = ({
     const fileElement = (event.target as HTMLInputElement).files;
     setAvatarProfile(fileElement ? fileElement[0] : null);
   };
+
+  useEffect(() => {dispatch(getAvatarProfile())}, [userProfileModal])
 
   return (
     <section
