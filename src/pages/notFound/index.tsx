@@ -1,23 +1,25 @@
+import { HeroBtn } from "components";
+import Header from "components/Header";
 import { Link } from "react-router-dom";
 
 export const NotFoundPage = () => {
   return (
-    <div className="wishlist-empty-box flex-center">
-      <div className="wishlist-empty-box">
-        <img className="not-found-img" src="https://res.cloudinary.com/debanftke/image/upload/v1655548358/undraw_Page_not_found_re_e9o6_nk4v7p.png" alt="404 Not Found" />
-      </div>
-      <div>
-        <h2 className="wishlist-title lg-font">
-          We couldn't find any matches!
-        </h2>
-        <div className="btn-container">
+    <div>
+      <Header />
+
+      <div className="mt-12 max-w-4xl m-auto flex-col justify-center items-center">
+        <div className="m-auto max-w-xl">
+          <img src="https://res.cloudinary.com/dtrjdcrme/image/upload/v1649009736/ecommerce/404Image_s8lokh.webp" alt="404 Not Found" />
+        </div>
+        <div className="m-9">
+          <h2 className="text-4xl mb-3 text-secondary-color font-bold">
+            We couldn't find any matches!
+          </h2>
           <Link to="/">
-            <button className="btn hero-btn md-font not-found-btn">Home</button>
-          </Link>
-          <Link to="/product-list">
-            <button className="btn outline-btn md-font not-found-btn">Shop now</button>
+            <HeroBtn classnames="px-14 text-xl font-bold">Home</HeroBtn>
           </Link>
         </div>
+
       </div>
     </div>
   );

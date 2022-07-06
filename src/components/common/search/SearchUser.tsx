@@ -1,10 +1,9 @@
-const SearchUser = () => {
+const SearchUser = ({classnames} : {classnames:string}) => {
   return (   
       <input
         placeholder="Search User"
-        className="
+        className={`
       bg-slate-200
-        w-6/12
         px-3
         py-1.5
         text-base
@@ -12,9 +11,8 @@ const SearchUser = () => {
         rounded
         m-5
         focus:outline-none
-        hidden
-        md:block
-      "
+        ${classnames}
+      `}
       />
   
   );

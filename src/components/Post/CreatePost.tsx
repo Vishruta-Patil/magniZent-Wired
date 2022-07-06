@@ -3,7 +3,7 @@ import { HeroBtn } from "components/common/button/HeroBtn";
 
 const CreatePost = () => {
   return (
-    <div className="bg-slate-200 p-3 m-9 relative">
+    <div className="bg-slate-200 p-3 my-9 md:m-9 m-4 relative">
       <div className="flex space-x-3 items-center mb-9">
         <img src={avatar} alt="avatar" className="h-16 w-16 rounded-full" />
         <textarea
@@ -12,7 +12,8 @@ const CreatePost = () => {
         w-full
         px-3
         py-1.5
-        text-lg
+        text-base
+        md:text-lg
         text-secondary-color
         m-5
         focus:outline-none

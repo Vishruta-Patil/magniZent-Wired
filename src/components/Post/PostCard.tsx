@@ -2,10 +2,10 @@ import avatar from "assets/avatar.png";
 
 const PostCard = () => {
   return (
-    <div className="p-5 m-9 bg-white-neutral shadow-lg flex space-x-3 ">
+    <div className="p-5 md:m-9 m-4 bg-white-neutral shadow-lg flex space-x-3 ">
       <img src={avatar} alt="avatar" className="h-16 w-16 rounded-full" />
       <div>
-        <div className="flex space-x-3 items-center my-2">
+        <div className="flex flex-col md:flex-row space-x-3 md:items-center my-2 text-left">
           <p className="text-black text-xl font-semibold">Vishruta Patil</p>
           <p className="text-secondary-color text-sm">@Vishruta_patil</p>
           <p className="text-secondary-color text-sm">1 min</p>
