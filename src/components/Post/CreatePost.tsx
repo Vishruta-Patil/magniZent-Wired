@@ -1,11 +1,13 @@
 import avatar from "assets/avatar.png";
+import { Avatar } from "components/common/avatar/Avatar";
 import { HeroBtn } from "components/common/button/HeroBtn";
 
 const CreatePost = () => {
   return (
     <div className="bg-slate-200 p-3 my-9 md:m-9 m-4 relative">
       <div className="flex space-x-3 items-center mb-9">
-        <img src={avatar} alt="avatar" className="h-16 w-16 rounded-full" />
+        {/* <img src={avatar} alt="avatar" className="h-16 w-16 rounded-full" /> */}
+        <Avatar classnames={"h-16 w-16"}/>
         <textarea
           className="
       bg-slate-200

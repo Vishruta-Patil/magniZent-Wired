@@ -4,6 +4,7 @@ import SearchUser from "components/common/search/SearchUser";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { Link } from "react-router-dom";
 import { logoutUser } from "redux/slices/authSlice";
+import { Avatar } from "components/common/avatar/Avatar";
 
 const Header = () => {
   const dispatch = useAppDispatch()
@@ -25,7 +26,7 @@ const Header = () => {
       <div onClick={() => dispatch(logoutUser())}></div> 
 
       <Link to={authToken ? `/profile/${authToken}` : '/login'}>
-        <img src={avatar} alt="avatar" className="h-12 w-12 rounded-full"/>
+      {authToken && <Avatar classnames="w-12 h-12"/> }
       </Link>
       
       

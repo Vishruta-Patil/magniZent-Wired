@@ -5,7 +5,9 @@ import {
   getAllUsers,
   loginInUser,
   signInUser,
-  updateUser
+  updateUser,
+  uploadAvatarProfile,
+  getAvatarProfile
 } from "services/authService";
 import { AuthState } from "types/auth.types";
 
@@ -15,13 +17,8 @@ const initialState: AuthState = {
   userId: "",
   name: "",
   email: "",
-  allUsers: [
-    {
-      email: "johndoekar@gmail.com",
-      id: "oxj4JTPfjLO7KuLo1gxG3nt5ygG2",
-      name: "John Doekar",
-    },
-  ],
+  allUsers: [],
+  avatar: ""
 };
 
 export const authSlice = createSlice({
@@ -35,6 +32,7 @@ export const authSlice = createSlice({
       state.email = "";
       state.authToken = "";
       state.authStatus = "idle";
+      state.allUsers = []
       localStorage.removeItem("authToken");
       toast.success("Logout Successfully!");
     },
@@ -100,6 +98,30 @@ export const authSlice = createSlice({
       state.authStatus = "fulfilled";
     },
     [updateUser.rejected]: (state) => {
+      state.authStatus = "rejected";
+    },
+
+    // upload Avatar Profile
+    [uploadAvatarProfile.pending]: (state) => {
+      state.authStatus = "loading";
+    },
+    [uploadAvatarProfile.fulfilled]: (state, action) => {
+      state.authStatus = "fulfilled";
+      
+    },
+    [uploadAvatarProfile.rejected]: (state) => {
+      state.authStatus = "rejected";
+    },
+
+    // get Avatar Profile
+    [getAvatarProfile.pending]: (state) => {
+      state.authStatus = "loading";
+    },
+    [getAvatarProfile.fulfilled]: (state, action) => {
+      state.authStatus = "fulfilled";
+      state.avatar = action.payload
+    },
+    [getAvatarProfile.rejected]: (state) => {
       state.authStatus = "rejected";
     },
   },

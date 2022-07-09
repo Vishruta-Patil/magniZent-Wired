@@ -5,7 +5,7 @@ export const HeroBtn = ({
 }: {
   children: string;
   classnames?: string;
-  eventHandler?: any;
+  eventHandler?: React.MouseEventHandler<HTMLButtonElement> 
 }) => {
   return (
     <button

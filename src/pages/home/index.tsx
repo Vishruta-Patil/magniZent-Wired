@@ -7,7 +7,7 @@ import PostCard from "components/Post/PostCard";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "hooks";
-import { getAllUsers } from "services/authService";
+import { getAllUsers, getAvatarProfile } from "services/authService";
 import SearchUser from "components/common/search/SearchUser";
 
 const Home = () => {
@@ -25,6 +25,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getAllUsers())
+    dispatch(getAvatarProfile())
   }, [])
   
   return (

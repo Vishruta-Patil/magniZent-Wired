@@ -5,7 +5,7 @@ export const OutlineBtn = ({
 }: {
   children: string;
   classnames?: string;
-  eventHandler?: any;
+  eventHandler?:  React.MouseEventHandler<HTMLButtonElement> 
 }) => {
   return (
     <button
