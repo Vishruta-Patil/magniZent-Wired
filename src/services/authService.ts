@@ -18,8 +18,8 @@ import { getUserCredentials } from "redux/slices/authSlice";
 import { userDetailsType } from "types/auth.types";
 import { storage } from "firebase-config";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
-import { Console } from "console";
-
+import { async } from "@firebase/util";
+import { resolve } from "path";
 
 export const addUser = (createAsyncThunk as any)(
   "auth/addUser",
@@ -35,13 +35,6 @@ export const addUser = (createAsyncThunk as any)(
     email: string;
   }) => {
     try {
-      // **** Add doc in collection without id ****
-      // await addDoc(collection(db, "users"), {
-      //   name,
-      //   username,
-      //   email,
-      // });
-
       await setDoc(doc(db, "users", id), {
         id,
         name,
@@ -57,7 +50,7 @@ export const addUser = (createAsyncThunk as any)(
 export const updateUser = (createAsyncThunk as any)(
   "auth/updateUser",
   async (newData: { newData: userDetailsType }) => {
-    const id: any = localStorage.getItem("authToken")
+    const id: any = localStorage.getItem("authToken");
     try {
       const userDoc = doc(db, "users", id);
       const updatedUser = await updateDoc(userDoc, newData);
@@ -166,21 +159,96 @@ export const getAvatarProfile = (createAsyncThunk as any)(
     try {
       const avatarRef = ref(storage, `avatar`);
       const response = await listAll(avatarRef);
-      const dataId = localStorage.getItem("authToken")
-      let reqURL:any
-      const profileExists:any = response.items.some(item => item.name === dataId)
-      const getProfile: any = response.items.find(item => item.name === dataId)
+      const dataId = localStorage.getItem("authToken");
+      let reqURL: any;
+      const profileExists: any = response.items.some(
+        (item) => item.name === dataId
+      );
+      const getProfile: any = response.items.find(
+        (item) => item.name === dataId
+      );
 
-      if(profileExists) {
-      reqURL = (async () => await getDownloadURL(getProfile))() 
-      } else reqURL= "no_image"
-      
-     return reqURL
-      
+      if (profileExists) {
+        reqURL = (async () => await getDownloadURL(getProfile))();
+      } else reqURL = "no_image";
+
+      return reqURL;
     } catch (err) {
       console.log(err);
     }
   }
 );
 
+export const getAllAvatars = (createAsyncThunk as any)(
+  "/auth/getAllAvatars",
+  async () => {
+    try {
+      const avatarRef = ref(storage, `avatar`);
+      const response = await listAll(avatarRef);
+      let res: any = [];
+      const lengthRes = response.items.length;
+      let resPromiseCount = 0;
 
+      const returnPromise = await (async () => {
+        return new (Promise as any)((resolve: any, reject: any) => {
+          response.items.forEach(async (item) => {
+            const reqURL = await getDownloadURL(item);
+            resPromiseCount++;
+            const obj: any = {};
+            obj.id = item?.name;
+            obj.url = reqURL;
+            res = [...res, obj];
+
+            if (resPromiseCount === lengthRes) {
+              resolve(res);
+            }
+          });
+        });
+      })();
+      return res;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
+// **** Add doc in collection without id ****
+// await addDoc(collection(db, "users"), {
+//   name,
+//   username,
+//   email,
+// });
+
+// console.log("asd" + returnPromise)
+
+// const res1 = response.items.reduce(async(acc:any, curr) => {    // (in promise) TypeError: acc.push is not a function
+//   const reqURL = getDownloadURL(curr)
+//   let obj:any= {}
+//   obj[curr.name] = reqURL
+//   acc.push(obj)
+//   return acc
+// }, [])
+// // console.log({res1})
+
+// const res2 = response.items.reduce((acc:any, curr) => {
+//   const reqURL = getDownloadURL(curr).then(url => url)
+//   let obj:any= {}
+//   obj[curr.name] = reqURL
+//   acc.push(obj)
+//   return acc
+// }, [])
+// console.log({res2})
+
+// let pty
+//     const res4 = Promise.all(response.items.map(async(item) => {
+//       const reqURL = await getDownloadURL(item)
+//       const obj:any = {}
+//       obj[item.name] = reqURL
+//       res = [...res, obj]
+//     })).then(arr => arr)
+
+//     if(resPromiseCount === lengthRes) {
+//          p
+//     }
+
+// console.log({res4})

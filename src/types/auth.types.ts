@@ -14,5 +14,6 @@ export interface AuthState {
   name: string;
   email: string;
   allUsers: userDetailsType[];
-  avatar?: string
+  avatar?: string,
+  avatarList?: any
 }

@@ -1,49 +1,55 @@
-import CreatePost from "components/Post/CreatePost";
 import Drawer from "components/Drawer";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import UserSidebar from "components/UserSidebar";
-import PostCard from "components/Post/PostCard";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "hooks";
-import { getAllUsers, getAvatarProfile } from "services/authService";
-import SearchUser from "components/common/search/SearchUser";
+import {
+  getAllAvatars,
+  getAllUsers,
+  getAvatarProfile,
+} from "services/authService";
+
+import { getAllPosts } from "services/postsServices";
+import { Avatar } from "components/common/avatar/Avatar";
+import { HeroBtn } from "components";
+import { MainContent } from "./mainContent";
+
 
 const Home = () => {
-  const navigate = useNavigate()
-  const {authToken, userId, allUsers} = useAppSelector(store => store.auth)
-  const dispatch = useAppDispatch()
+  const navigate = useNavigate();
+  const { authToken, userId, allUsers } = useAppSelector((store) => store.auth);
+  const dispatch = useAppDispatch();
 
-  const menuData = ["home", "explore", "bookmark", "notifications", "person"]
+  const menuData = ["home", "explore", "bookmark", "notifications", "person"];
 
   useEffect(() => {
-    if (!localStorage.getItem('authToken')) {
-      navigate('/login')
+    if (!localStorage.getItem("authToken")) {
+      navigate("/login");
     }
-  }, [authToken])
+  }, [authToken]);
 
   useEffect(() => {
-    dispatch(getAllUsers())
-    dispatch(getAvatarProfile())
-  }, [])
+    dispatch(getAllUsers());
+    dispatch(getAvatarProfile());
+    dispatch(getAllPosts());
+    dispatch(getAllAvatars());
+  }, []);
   
+  const { avatarList } = useAppSelector((store) => store.auth)
+  // console.log(avatarList);
+
   return (
     <div className="grid grid-cols-8 h-100">
-      <h1 className="col-span-8">
+      <div className="col-span-8">
         <Header />
-      </h1>
+      </div>
       <div className="xs:hidden md:block col-span-2">
         <Drawer />
       </div>
       <div className="relative xs:col-span-8 md:col-span-6 lg:col-span-4 border-l-2 border-r-2">
-        <SearchUser classnames="md:hidden w-11/12 mx-auto block"/>
-        <CreatePost />
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
+        <MainContent />
       </div>
       <div className="hidden lg:block col-span-2">
         <UserSidebar />
@@ -55,10 +61,9 @@ const Home = () => {
       </div> */}
 
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-slate-200 py-1 flex justify-around text-primary-color">
-        {menuData.map(icon => (
-          <span className="material-icons text-3xl">{icon}</span>
+        {menuData.map((icon, index) => (
+          <span className="material-icons text-3xl" key={index}>{icon}</span>
         ))}
-        
       </div>
     </div>
   );

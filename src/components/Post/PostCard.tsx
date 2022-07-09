@@ -1,32 +1,41 @@
-import avatar from "assets/avatar.png";
 import { CreateComment } from "../Comment/CreateComment";
 import { useState } from "react";
 import { CommentCard } from "components/Comment/CommentCard";
 import { MoreOptionsmOdal } from "components/common/moreOptions/MoreOptionsModal";
 import { Avatar } from "components/common/avatar/Avatar";
+import { useAppSelector } from "hooks";
 
-const PostCard = () => {
+const PostCard = ({item} : {item:any}) => {
   const [commentCard, setCommentCard] = useState(false);
   const [moreOptions, setMoreOPtions] = useState(false);
   const commentHandler = () => {
     setCommentCard((prev) => !prev);
   };
+
+  const {allUsers, authToken} = useAppSelector((store) => store.auth)
+  let userDetails:any = allUsers.find(user => user?.id === item?.id)
+  
+  const {avatarList} = useAppSelector(store => store.auth)
+  const getUserAvatar = avatarList.find((user:any) => user?.id === userDetails?.id)
+
+
+ 
   return (
     <div className="flex flex-col p-5 md:m-9 m-4 bg-white-neutral shadow-lg ">
       <div className="flex flex-col space-x-3">
         <div className="flex  gap-3 relative">
-         <Avatar classnames="h-14 w-14"/>
+         <Avatar classnames="h-14 w-14" profileAvatar={getUserAvatar?.url}/>
           <div>
             <div className="flex flex-col">
               <div className="flex items-center gap-4">
                 <p className="text-black text-xl font-semibold">
-                  Vishruta Patil
+                  {userDetails?.name}
                 </p>
                 <p className="text-secondary-color text-sm md:block hidden">1 min</p>
               </div>
 
               <p className="text-secondary-color text-sm text-left">
-                @Vishruta_patil
+                @{userDetails?.username}
               </p>
             </div>
 
@@ -39,11 +48,10 @@ const PostCard = () => {
               </span>
             </div>
           </div>
-          {moreOptions && <MoreOptionsmOdal />}
+          {moreOptions && <MoreOptionsmOdal userId={userDetails?.id} postId={item?.uid} setMoreOPtions={setMoreOPtions}/>}
         </div>
         <div className="text-left mt-5 text-base">
-          Shree Krishna Govinda Harae Murari Hae Nath Narayan Vasudeva, Radhae
-          Radhae! Ambadnya, Nathasanvidh!
+         {item?.content}
         </div>
         <div className="flex justify-between">
           <div className="flex gap-1 items-center">

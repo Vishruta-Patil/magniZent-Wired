@@ -1,9 +1,8 @@
-import avatar from "assets/avatar.png";
 import { Avatar } from "components/common/avatar/Avatar";
 import { HeroBtn } from "components/common/button/HeroBtn";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { useEffect, useState } from "react";
-import { getAvatarProfile, updateUser, uploadAvatarProfile } from "services/authService";
+import { getAllUsers, getAvatarProfile, updateUser, uploadAvatarProfile } from "services/authService";
 import { userDetailsType } from "types/auth.types";
 
 type updateProfileType = {
@@ -61,7 +60,7 @@ export const UpdateProfileModal = ({
               className="h-14 w-14 rounded-full relative bg-blue-500 text-white-neutral"
             />
           ) : (
-            <Avatar classnames="h-14 w-14" />
+            <Avatar classnames="h-14 w-14" profileAvatar={avatar}/>
           )}
           <span className="material-icons text-lg ml-auto absolute bottom-0 right-0 cursor-pointer">
             add_a_photo
@@ -124,7 +123,10 @@ export const UpdateProfileModal = ({
         eventHandler={() => {
           dispatch(updateUser(updatedData));
           avatarProfile !== null && dispatch(uploadAvatarProfile(avatarProfile));
+          dispatch(getAvatarProfile())
+          dispatch(getAllUsers())
           setUserProfileModal(false);
+         
         }}
       >
         Update
