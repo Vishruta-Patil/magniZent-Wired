@@ -15,7 +15,7 @@ export const Userprofile = () => {
   const dispatch = useAppDispatch();
   const params = useParams();
   const { profileId } = params;
-  const { allUsers } = useAppSelector((store) => store.auth);
+  const { allUsers, authToken } = useAppSelector((store) => store.auth);
 
   useEffect(() => {
     dispatch(getAllUsers());
@@ -30,7 +30,7 @@ export const Userprofile = () => {
     <div>
     <section className="p-7 mt-9 m-4 relative bg-white-neutral shadow-lg space-x-3">
       <div className="flex flex-col justify-center items-center md:items-start md:flex-row">
-        <Avatar classnames="md:h-24 md:w-24 h-28 md:m-0 m-5 w-28" profileAvatar={avatar}/>
+        <Avatar classnames="md:h-24 md:w-24 h-28 md:m-0 m-5 w-28" profileAvatar={avatar} id={authToken}/>
           <div className="flex flex-col justify-center items-center md:block ml-5 text-left text-secondary-color">
             <div className="flex gap-4 items-center md:block">
             <p className="text-2xl text-primary-color font-semibold  mb-1">
