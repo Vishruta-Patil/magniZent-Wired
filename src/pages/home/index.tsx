@@ -12,14 +12,12 @@ import {
 } from "services/authService";
 
 import { getAllPosts } from "services/postsServices";
-import { Avatar } from "components/common/avatar/Avatar";
-import { HeroBtn } from "components";
 import { MainContent } from "./mainContent";
 
 
 const Home = () => {
   const navigate = useNavigate();
-  const { authToken, userId, allUsers } = useAppSelector((store) => store.auth);
+  const { authToken } = useAppSelector((store) => store.auth);
   const dispatch = useAppDispatch();
 
   const menuData = ["home", "explore", "bookmark", "notifications", "person"];
@@ -36,9 +34,7 @@ const Home = () => {
     dispatch(getAllPosts());
     dispatch(getAllAvatars());
   }, []);
-  
-  const { avatarList } = useAppSelector((store) => store.auth)
-  // console.log(avatarList);
+
 
   return (
     <div className="grid grid-cols-8 h-100">

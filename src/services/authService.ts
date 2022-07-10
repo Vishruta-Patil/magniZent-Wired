@@ -7,7 +7,6 @@ import {
 import { toast } from "react-toastify";
 import {
   collection,
-  addDoc,
   getDocs,
   doc,
   setDoc,
@@ -18,8 +17,6 @@ import { getUserCredentials } from "redux/slices/authSlice";
 import { userDetailsType } from "types/auth.types";
 import { storage } from "firebase-config";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
-import { async } from "@firebase/util";
-import { resolve } from "path";
 
 export const addUser = (createAsyncThunk as any)(
   "auth/addUser",
@@ -211,44 +208,3 @@ export const getAllAvatars = (createAsyncThunk as any)(
     }
   }
 );
-
-// **** Add doc in collection without id ****
-// await addDoc(collection(db, "users"), {
-//   name,
-//   username,
-//   email,
-// });
-
-// console.log("asd" + returnPromise)
-
-// const res1 = response.items.reduce(async(acc:any, curr) => {    // (in promise) TypeError: acc.push is not a function
-//   const reqURL = getDownloadURL(curr)
-//   let obj:any= {}
-//   obj[curr.name] = reqURL
-//   acc.push(obj)
-//   return acc
-// }, [])
-// // console.log({res1})
-
-// const res2 = response.items.reduce((acc:any, curr) => {
-//   const reqURL = getDownloadURL(curr).then(url => url)
-//   let obj:any= {}
-//   obj[curr.name] = reqURL
-//   acc.push(obj)
-//   return acc
-// }, [])
-// console.log({res2})
-
-// let pty
-//     const res4 = Promise.all(response.items.map(async(item) => {
-//       const reqURL = await getDownloadURL(item)
-//       const obj:any = {}
-//       obj[item.name] = reqURL
-//       res = [...res, obj]
-//     })).then(arr => arr)
-
-//     if(resPromiseCount === lengthRes) {
-//          p
-//     }
-
-// console.log({res4})

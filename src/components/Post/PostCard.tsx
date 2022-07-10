@@ -48,7 +48,7 @@ const PostCard = ({item} : {item:any}) => {
               </span>
             </div>
           </div>
-          {editPostModal && <EditPostModal content={item?.content} setEditPostModal={setEditPostModal} postId={item?.uid}/>}
+          {editPostModal && <EditPostModal userDetails={userDetails} content={item?.content} setEditPostModal={setEditPostModal} postId={item?.uid}/>}
           {moreOptions && <MoreOptionsmOdal userId={userDetails?.id} postId={item?.uid} setMoreOPtions={setMoreOPtions} setEditPostModal={setEditPostModal}/>}
         </div>
         <div className="text-left mt-5 text-base">

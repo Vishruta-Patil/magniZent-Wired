@@ -25,7 +25,7 @@ export const UpdateProfileModal = ({
 
   const [avatarProfile, setAvatarProfile] = useState<File | null>(null);
 
-  const { avatar } = useAppSelector((store) => store.auth);
+  const { avatar, authToken } = useAppSelector((store) => store.auth);
   const dispatch = useAppDispatch();
 
   const clickHandler = (event: any) => {
@@ -60,7 +60,7 @@ export const UpdateProfileModal = ({
               className="h-14 w-14 rounded-full relative bg-blue-500 text-white-neutral"
             />
           ) : (
-            <Avatar classnames="h-14 w-14" profileAvatar={avatar}/>
+            <Avatar classnames="h-14 w-14" profileAvatar={avatar} id={authToken}/>
           )}
           <span className="material-icons text-lg ml-auto absolute bottom-0 right-0 cursor-pointer">
             add_a_photo

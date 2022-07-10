@@ -19,9 +19,8 @@ export const Userprofile = () => {
 
   useEffect(() => {
     dispatch(getAllUsers());
-  }, [userProfileModal]);
-
-  useEffect(() => {dispatch(getAvatarProfile())}, [userProfileModal])
+    dispatch(getAvatarProfile())
+  }, [userProfileModal, allUsers]);
 
   const data = allUsers.find((item: userDetailsType) => item["id"] === profileId);
   const {avatar} = useAppSelector(store => store.auth)

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { auth, db } from "firebase-config";
+import { db } from "firebase-config";
 import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 
@@ -25,7 +25,6 @@ export const createNewPost = (createAsyncThunk as any)("/posts/createPost", asyn
 
 export const editPostService = (createAsyncThunk as any)("posts/editPost", async({updatedPost,postId}:{updatedPost:any,postId:any}) => {
   try {
-    console.log(updatedPost)
       const userDoc = doc(db, "posts", postId);
       const updatedUser = await updateDoc(userDoc, {content:updatedPost});
       toast.success("Updated Post sucessfully!");

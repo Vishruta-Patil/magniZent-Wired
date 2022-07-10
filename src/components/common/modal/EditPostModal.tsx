@@ -8,10 +8,12 @@ export const EditPostModal = ({
   content,
   setEditPostModal,
   postId,
+  userDetails
 }: {
   content: string;
   setEditPostModal: React.Dispatch<SetStateAction<boolean>>;
   postId:string
+  userDetails: any
 }) => {
   const { avatar, authToken } = useAppSelector((store) => store.auth);
   const dispatch = useAppDispatch();
@@ -28,8 +30,8 @@ export const EditPostModal = ({
         <div className="flex gap-3 text-left">
           <Avatar profileAvatar={avatar} classnames="w-14 h-14" id={authToken}/>
           <div className="flex flex-col ">
-            <p className="text-lg font-semibold">Vishruta Patil</p>
-            <p>@vishruta_patil</p>
+            <p className="text-lg font-semibold">{userDetails?.name}</p>
+            <p>@{userDetails?.username}</p>
           </div>
           <span
             className="material-icons ml-auto cursor-pointer"
