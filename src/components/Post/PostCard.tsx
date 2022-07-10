@@ -4,24 +4,23 @@ import { CommentCard } from "components/Comment/CommentCard";
 import { MoreOptionsmOdal } from "components/common/moreOptions/MoreOptionsModal";
 import { Avatar } from "components/common/avatar/Avatar";
 import { useAppSelector } from "hooks";
+import { EditPostModal } from "components/common/modal/EditPostModal";
 
 const PostCard = ({item} : {item:any}) => {
   const [commentCard, setCommentCard] = useState(false);
   const [moreOptions, setMoreOPtions] = useState(false);
+  const [editPostModal,  setEditPostModal] = useState(false)
+
+  const {allUsers, avatarList} = useAppSelector((store) => store.auth)
+  let userDetails:any = allUsers.find(user => user?.id === item?.id)
+  const getUserAvatar = avatarList.find((user:any) => user?.id === userDetails?.id)
+
   const commentHandler = () => {
     setCommentCard((prev) => !prev);
   };
-
-  const {allUsers, authToken} = useAppSelector((store) => store.auth)
-  let userDetails:any = allUsers.find(user => user?.id === item?.id)
-  
-  const {avatarList} = useAppSelector(store => store.auth)
-  const getUserAvatar = avatarList.find((user:any) => user?.id === userDetails?.id)
-
-
  
   return (
-    <div className="flex flex-col p-5 md:m-9 m-4 bg-white-neutral shadow-lg ">
+    <div className="flex flex-col p-5 md:m-9 m-4 bg-white-neutral shadow-lg ">    
       <div className="flex flex-col space-x-3">
         <div className="flex  gap-3 relative">
          <Avatar classnames="h-14 w-14" profileAvatar={getUserAvatar?.url}/>
@@ -48,7 +47,8 @@ const PostCard = ({item} : {item:any}) => {
               </span>
             </div>
           </div>
-          {moreOptions && <MoreOptionsmOdal userId={userDetails?.id} postId={item?.uid} setMoreOPtions={setMoreOPtions}/>}
+          {editPostModal && <EditPostModal content={item?.content} setEditPostModal={setEditPostModal} postId={item?.uid}/>}
+          {moreOptions && <MoreOptionsmOdal userId={userDetails?.id} postId={item?.uid} setMoreOPtions={setMoreOPtions} setEditPostModal={setEditPostModal}/>}
         </div>
         <div className="text-left mt-5 text-base">
          {item?.content}
@@ -90,6 +90,8 @@ const PostCard = ({item} : {item:any}) => {
         )}
       </>
       {/* <CommentCard /> */}
+
+      
     </div>
   );
 };

@@ -4,20 +4,19 @@ import { getAllPosts } from "services/postsServices";
 type PostsState = {
     allPosts: [],
     postsById: [],
-    allPostsStatus: string
+    allPostsStatus: string,
 }
 
 const initialState:PostsState = {
     allPosts: [],
     postsById: [],
-    allPostsStatus: "idle"
+    allPostsStatus: "idle",
 }
 
 export const postsSlice = createSlice({
     name: "posts",
     initialState,
-    reducers: {
-
+    reducers: {      
     },
 
     extraReducers: {
