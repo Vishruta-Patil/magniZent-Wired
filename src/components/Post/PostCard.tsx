@@ -11,19 +11,20 @@ const PostCard = ({item} : {item:any}) => {
   const [moreOptions, setMoreOPtions] = useState(false);
   const [editPostModal,  setEditPostModal] = useState(false)
 
-  const {allUsers, avatarList} = useAppSelector((store) => store.auth)
+  const {allUsers, avatarList, authToken} = useAppSelector((store) => store.auth)
   let userDetails:any = allUsers.find(user => user?.id === item?.id)
   const getUserAvatar = avatarList.find((user:any) => user?.id === userDetails?.id)
 
   const commentHandler = () => {
     setCommentCard((prev) => !prev);
   };
+
  
   return (
     <div className="flex flex-col p-5 md:m-9 m-4 bg-white-neutral shadow-lg ">    
       <div className="flex flex-col space-x-3">
         <div className="flex  gap-3 relative">
-         <Avatar classnames="h-14 w-14" profileAvatar={getUserAvatar?.url}/>
+         <Avatar classnames="h-14 w-14" profileAvatar={getUserAvatar?.url} id={userDetails?.id}/>
           <div>
             <div className="flex flex-col">
               <div className="flex items-center gap-4">

@@ -1,40 +1,31 @@
 import { useAppDispatch, useAppSelector } from "hooks";
 import { useEffect } from "react";
-import { getAvatarProfile } from "services/authService";
+import { getAllAvatars, getAvatarProfile } from "services/authService";
 import { useState } from "react";
 
 export const Avatar = ({
   classnames,
   profileAvatar,
+  id
 }: {
   classnames: string;
   profileAvatar: any;
+  id?:string
 }) => {
   const { avatar, name } = useAppSelector((store) => store.auth);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getAvatarProfile());
+    dispatch(getAllAvatars())
   }, []);
 
-  //   const {allUsers} = useAppSelector((store) => store.auth)
-  // let userDetails:any = allUsers.find(user => user?.id === item?.id)
-
-  const { authToken } = useAppSelector((store) => store.auth);
   const { avatarList } = useAppSelector((store) => store.auth);
-  const getUserAvatar = avatarList.some((user: any) => user?.id === authToken);
-  const [isAvatar, setIsAvatar] = useState(false);
-
-  useEffect(() => {
-    if (getUserAvatar) {
-      setIsAvatar(true);
-    } else setIsAvatar(false);
-  }, []);
-
+  const getUserAvatar = avatarList.some((user: any) => user?.id === id);
 
   return (
     <>
-      {profileAvatar ? (
+      {getUserAvatar ? (
         <img
           src={profileAvatar}
           alt="avatar"

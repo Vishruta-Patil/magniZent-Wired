@@ -17,7 +17,7 @@ const CreatePost = () => {
   return (
     <div className="bg-slate-200 p-3 my-9 md:m-9 m-4 relative">
       <div className="flex space-x-3 items-center mb-9">
-        <Avatar classnames={"h-16 w-16"} profileAvatar={avatar} />
+        <Avatar classnames={"h-16 w-16"} profileAvatar={avatar} id={authToken}/>
         <textarea
           className="
       bg-slate-200

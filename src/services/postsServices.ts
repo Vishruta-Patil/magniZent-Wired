@@ -29,8 +29,7 @@ export const editPostService = (createAsyncThunk as any)("posts/editPost", async
       const userDoc = doc(db, "posts", postId);
       const updatedUser = await updateDoc(userDoc, {content:updatedPost});
       toast.success("Updated Post sucessfully!");
-      return updatedUser;
-      
+      return updatedUser;     
   } catch (err) {
       console.log(err);
     }

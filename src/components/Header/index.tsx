@@ -25,7 +25,7 @@ const Header = () => {
       <div onClick={() => dispatch(logoutUser())}></div> 
 
       <Link to={authToken ? `/profile/${authToken}` : '/login'}>
-      {authToken && <Avatar classnames="w-12 h-12" profileAvatar={avatar}/> }
+      {authToken && <Avatar classnames="w-12 h-12" profileAvatar={avatar} id={authToken}/> }
       </Link>
       
       
