@@ -11,7 +11,7 @@ const Header = () => {
   const {avatar} = useAppSelector(store => store.auth)
   return (
     <div className="p-2 pl-4 pr-9 flex justify-between shadow-sm items-center">
-      <Link to="/">
+      <Link to="/bookmark">
         <div className="flex space-x-3 items-center">
           <img src={icon} alt="" className="md:w-14 md:h-14 w-12 h-12" />
           <h1 className="text-primary-color font-roboto font-bold md:text-4xl text-3xl">

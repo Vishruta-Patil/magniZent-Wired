@@ -20,7 +20,7 @@ const initialState: AuthState = {
   email: "",
   allUsers: [],
   avatar: "",
-  avatarList: []
+  avatarList: [],
 };
 
 export const authSlice = createSlice({

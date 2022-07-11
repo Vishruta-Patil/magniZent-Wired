@@ -1,10 +1,16 @@
 import { CreateComment } from "../Comment/CreateComment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CommentCard } from "components/Comment/CommentCard";
 import { MoreOptionsmOdal } from "components/common/moreOptions/MoreOptionsModal";
 import { Avatar } from "components/common/avatar/Avatar";
-import { useAppSelector } from "hooks";
+import { useAppDispatch, useAppSelector } from "hooks";
 import { EditPostModal } from "components/common/modal/EditPostModal";
+import { useBookmark } from "hooks/useBookmark";
+import { addBookmark } from "services/userService";
+import { getAllUsers } from "services/authService";
+import { getAllPosts } from "services/postsServices";
+import { getBookmarkList } from "redux/slices/userSlice";
+import { store } from "redux/store";
 
 const PostCard = ({item} : {item:any}) => {
   const [commentCard, setCommentCard] = useState(false);
@@ -18,6 +24,23 @@ const PostCard = ({item} : {item:any}) => {
   const commentHandler = () => {
     setCommentCard((prev) => !prev);
   };
+
+  const { bookmarkList } = useAppSelector((store) => store.user);
+  const {allPosts} = useAppSelector(store => store.posts)
+  const bookmarkData:any = useBookmark()
+  const dispatch = useAppDispatch()
+
+  const bookmarkHandler = () => {
+    const UpdatedData:any = [...bookmarkData, item]
+    dispatch(addBookmark(UpdatedData))
+    console.log("working")
+  }
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+    dispatch(getAllPosts())
+    dispatch(getBookmarkList(bookmarkData))
+  }, [allPosts, allUsers]);
 
  
   return (
@@ -74,7 +97,7 @@ const PostCard = ({item} : {item:any}) => {
               share
             </span>
           </div>
-          <div>
+          <div onClick={bookmarkHandler}>
             <span className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200">
               bookmark_outline
             </span>

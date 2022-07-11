@@ -6,6 +6,7 @@ import PostCard from "components/Post/PostCard";
 import UserSidebar from "components/UserSidebar";
 
 import { Userprofile } from "components/Profile/UserProfile";
+import { MobileNav } from "components/common/mobileNav/MobileNav";
 
 export const Profile = () => {
 
@@ -23,6 +24,7 @@ export const Profile = () => {
       <div className="hidden lg:block col-span-2">
         <UserSidebar />
       </div>
+      <MobileNav />
     </div>
   );
 };
