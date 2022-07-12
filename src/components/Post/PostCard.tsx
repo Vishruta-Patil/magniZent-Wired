@@ -5,7 +5,13 @@ import { MoreOptionsmOdal } from "components/common/moreOptions/MoreOptionsModal
 import { Avatar } from "components/common/avatar/Avatar";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { EditPostModal } from "components/common/modal/EditPostModal";
-import { addBookmark, getBookmark, removeBookmark } from "services/userService";
+import {
+  addBookmark,
+  decrementLike,
+  getBookmark,
+  incrementLike,
+  removeBookmark,
+} from "services/userService";
 
 const PostCard = ({ item }: { item: any }) => {
   const [commentCard, setCommentCard] = useState(false);
@@ -26,10 +32,15 @@ const PostCard = ({ item }: { item: any }) => {
 
   const { bookmarkList } = useAppSelector((store) => store.user);
   const dispatch = useAppDispatch();
+
   const isBookmark =
-    bookmarkList && bookmarkList.some((data: any) => item.uid === data.uid);
+    bookmarkList && bookmarkList.some((data: any) => item?.uid === data?.uid);
+  const likedByList = item?.likes?.likedBy;
+  const checkLiked =
+    likedByList && likedByList.some((data: string) => data === authToken);
 
   const [isSaved, setISaved] = useState(isBookmark);
+  const [isLiked, setIsLiked] = useState(checkLiked);
 
   const bookmarkHandler = () => {
     dispatch(addBookmark({ bookmarkList, item }));
@@ -41,11 +52,21 @@ const PostCard = ({ item }: { item: any }) => {
     setISaved((prev) => !prev);
   };
 
+  const likeHandler = () => {
+    dispatch(incrementLike({ postId: item.uid, userId: authToken }));
+    setIsLiked((prev: boolean) => !prev);
+  };
+
+  const removeLikeHandler = () => {
+    dispatch(decrementLike({ postId: item.uid, userId: authToken}))
+    setIsLiked((prev: boolean) => !prev);
+  };
+
   useEffect(() => {
     dispatch(getBookmark());
   }, [isSaved]);
 
-  const isBookmarkPath = window.location.pathname === "/bookmark"
+  const isBookmarkPath = window.location.pathname === "/bookmark";
 
   return (
     <div className="flex flex-col p-5 md:m-9 m-4 bg-white-neutral shadow-lg ">
@@ -76,7 +97,7 @@ const PostCard = ({ item }: { item: any }) => {
               onClick={() => setMoreOPtions((prev) => !prev)}
               className="ml-auto absolute top-2 right-0"
             >
-              {!isBookmarkPath &&(
+              {!isBookmarkPath && (
                 <span className="material-icons text-2xl cursor-pointer ml-auto">
                   more_vert
                 </span>
@@ -103,10 +124,17 @@ const PostCard = ({ item }: { item: any }) => {
         <div className="text-left mt-5 text-base">{item?.content}</div>
         <div className="flex justify-between">
           <div className="flex gap-1 items-center">
-            <span className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200">
-              favorite_outline
-            </span>
-            <p>1</p>
+            {isLiked ? (
+              <span onClick={removeLikeHandler} className="material-icons text-2xl text-primary-color cursor-pointer p-2 rounded-full hover:bg-slate-200">
+                favorite
+              </span>
+            ) : (
+              <span onClick={likeHandler} className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200">
+                favorite_outline
+              </span>
+            )}
+
+            <p>{item?.likes?.likeCount}</p>
           </div>
           <div>
             <span

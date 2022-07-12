@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "firebase-config";
-import { arrayRemove, arrayUnion, collection, doc, onSnapshot, query, updateDoc, where } from "firebase/firestore";
+import { arrayRemove, arrayUnion, collection, doc, increment, onSnapshot, query, updateDoc, where } from "firebase/firestore";
 import { toast } from "react-toastify";
 
 export const getBookmark = (createAsyncThunk as any)("user/getBookmark", async () => {
@@ -52,6 +52,27 @@ export const removeBookmark = createAsyncThunk("user/removeBookmark", async({boo
         const userDoc = doc(db, "users", userId)
         await updateDoc(userDoc, {bookmark: arrayRemove(item)}) 
         toast.success("Bookmark removed Sucessfully")
+    } catch(err) {
+        console.log(err)
+    }
+})
+
+export const incrementLike = createAsyncThunk("user/incrementLike", async({postId, userId}:{postId:string, userId:string}) => {
+    try {
+        const postDoc = doc(db, "posts", postId)
+        await updateDoc(postDoc, {"likes.likeCount": increment(1), "likes.likedBy":arrayUnion(userId)}) 
+        console.log(postId)
+    } catch(err) {
+        console.log(err)
+    }
+})
+
+
+export const decrementLike = createAsyncThunk("user/decrementLike", async({postId, userId}:{postId:string, userId:string}) => {
+    try {
+        const postDoc = doc(db, "posts", postId)
+        await updateDoc(postDoc, {"likes.likeCount": increment(-1), "likes.likedBy":arrayRemove(userId)}) 
+        console.log(postId)
     } catch(err) {
         console.log(err)
     }
