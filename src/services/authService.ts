@@ -186,7 +186,7 @@ export const getAllAvatars = (createAsyncThunk as any)(
       const lengthRes = response.items.length;
       let resPromiseCount = 0;
 
-      const returnPromise = await (async () => {
+        await (async () => {
         return new (Promise as any)((resolve: any, reject: any) => {
           response.items.forEach(async (item) => {
             const reqURL = await getDownloadURL(item);

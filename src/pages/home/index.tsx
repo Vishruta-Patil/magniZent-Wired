@@ -14,11 +14,13 @@ import {
 import { getAllPosts } from "services/postsServices";
 import { MainContent } from "./mainContent";
 import { MobileNav } from "components/common/mobileNav/MobileNav";
+import { getBookmark } from "services/userService";
 
 
 const Home = () => {
   const navigate = useNavigate();
   const { authToken } = useAppSelector((store) => store.auth);
+  const { bookmarkList } = useAppSelector((store) => store.user);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -32,6 +34,7 @@ const Home = () => {
     dispatch(getAvatarProfile());
     dispatch(getAllPosts());
     dispatch(getAllAvatars());
+    dispatch(getBookmark())
   }, []);
 
 

@@ -2,6 +2,9 @@ import './App.css';
 import Router from 'components/Router';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAppDispatch, useAppSelector } from 'hooks';
+import { useBookmark } from 'hooks/useBookmark';
+import { useEffect } from 'react';
 
 function App() {
   return (

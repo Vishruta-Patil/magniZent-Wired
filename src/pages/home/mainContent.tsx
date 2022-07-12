@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "hooks";
 import { useEffect } from "react";
 import { getAllPosts } from "services/postsServices";
 import { useBookmark } from "hooks/useBookmark";
-import { getBookmarkList } from "redux/slices/userSlice";
+// import { getBookmarkList } from "redux/slices/userSlice";
 import { userDetailsType } from "types/auth.types";
 
 export const MainContent = () => {
@@ -18,7 +18,7 @@ export const MainContent = () => {
   
   useEffect(() => {
     dispatch(getAllPosts());
-    dispatch(getBookmarkList(bookmarkData))
+    // dispatch(getBookmarkList(bookmarkData))
   }, [allPosts]);
 
   // console.log(bookmarkList)

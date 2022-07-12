@@ -2,26 +2,18 @@ import PostCard from "components/Post/PostCard";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { useBookmark } from "hooks/useBookmark";
 import { useEffect } from "react";
-import { getBookmarkList } from "redux/slices/userSlice";
+// import { getBookmarkList } from "redux/slices/userSlice";
 import { getAllUsers } from "services/authService";
 import { getAllPosts } from "services/postsServices";
+import { getBookmark } from "services/userService";
 
 export const BookMarkContent = () => {
   const { bookmarkList } = useAppSelector((store) => store.user);
-  const { allPosts } = useAppSelector((store) => store.posts);
-  const {allUsers} = useAppSelector(store => store.auth)
-  const bookmarkData = useBookmark()
   const dispatch = useAppDispatch()
-
-  // useEffect(() => {
-  //   dispatch(getAllUsers())
-  // }, [bookmarkList, bookmarkData, allPosts, allUsers])
   
   useEffect(() => {
-    dispatch(getAllUsers());
-    dispatch(getAllPosts())
-    dispatch(getBookmarkList(bookmarkData))
-  }, [allPosts]);
+    dispatch(getBookmark())
+  }, [bookmarkList]);
 
   return (
     <div>
@@ -34,12 +26,23 @@ export const BookMarkContent = () => {
   );
 };
 
-// content
-// "Shree Krishna Govinda Hare Murari Hae Nath Narayan Vasudeva Radhae, Radhae!!"
-// id
-// "oxj4JTPfjLO7KuLo1gxG3nt5ygG2"
 
-// content
-// "Learning full-stack web development in neoG camp'22"
-// id
-// "5J47iRN6QuM26gOZ2IrPpiJFLiC3"
+/*
+
+const isBookmarkHandler = () => {
+    const getBoookmarkData = bookmarkData.find((data:any) => data.uid === item.uid)
+    if(getBoookmarkData) {
+      setIsBookmark(true)
+    } else {
+      setIsBookmark(false)
+    }
+  }
+
+  const bookmarkHandler = () => {
+    console.log(bookmarkList)
+    dispatch(addBookmark(item))
+    console.log(bookmarkList)
+    isBookmarkHandler()
+  }
+
+*/
