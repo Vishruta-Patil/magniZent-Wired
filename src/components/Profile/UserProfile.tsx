@@ -1,4 +1,3 @@
-import avatar from "assets/avatar.png";
 import { HeroBtn } from "components/common/button/HeroBtn";
 import { OutlineBtn } from "components/common/button/OutlineBtn";
 import { useState, useEffect } from "react";
@@ -6,7 +5,7 @@ import { UpdateProfileModal } from "./UpdateProfileModal";
 import { logoutUser } from "redux/slices/authSlice";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "hooks";
-import { getAllUsers, uploadAvatarProfile } from "services/authService";
+import { getAllUsers, getAvatarProfile, uploadAvatarProfile } from "services/authService";
 import { userDetailsType } from "types/auth.types";
 import { Avatar } from "components/common/avatar/Avatar";
 
@@ -16,19 +15,22 @@ export const Userprofile = () => {
   const dispatch = useAppDispatch();
   const params = useParams();
   const { profileId } = params;
-  const { allUsers } = useAppSelector((store) => store.auth);
+  const { allUsers, authToken } = useAppSelector((store) => store.auth);
 
   useEffect(() => {
     dispatch(getAllUsers());
   }, [userProfileModal]);
 
+  useEffect(() => {dispatch(getAvatarProfile())}, [userProfileModal])
+
   const data = allUsers.find((item: userDetailsType) => item["id"] === profileId);
+  const {avatar} = useAppSelector(store => store.auth)
 
   return (
     <div>
     <section className="p-7 mt-9 m-4 relative bg-white-neutral shadow-lg space-x-3">
       <div className="flex flex-col justify-center items-center md:items-start md:flex-row">
-        <Avatar classnames="md:h-24 md:w-24 h-28 md:m-0 m-5 w-28"/>
+        <Avatar classnames="md:h-24 md:w-24 h-28 md:m-0 m-5 w-28" profileAvatar={avatar} id={authToken}/>
           <div className="flex flex-col justify-center items-center md:block ml-5 text-left text-secondary-color">
             <div className="flex gap-4 items-center md:block">
             <p className="text-2xl text-primary-color font-semibold  mb-1">

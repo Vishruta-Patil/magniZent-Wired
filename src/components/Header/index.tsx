@@ -1,4 +1,3 @@
-import avatar from "assets/avatar.png";
 import icon from "assets/icon.png";
 import SearchUser from "components/common/search/SearchUser";
 import { useAppDispatch, useAppSelector } from "hooks";
@@ -9,7 +8,7 @@ import { Avatar } from "components/common/avatar/Avatar";
 const Header = () => {
   const dispatch = useAppDispatch()
   const {authToken} = useAppSelector((store) => store.auth)
- 
+  const {avatar} = useAppSelector(store => store.auth)
   return (
     <div className="p-2 pl-4 pr-9 flex justify-between shadow-sm items-center">
       <Link to="/">
@@ -26,7 +25,7 @@ const Header = () => {
       <div onClick={() => dispatch(logoutUser())}></div> 
 
       <Link to={authToken ? `/profile/${authToken}` : '/login'}>
-      {authToken && <Avatar classnames="w-12 h-12"/> }
+      {authToken && <Avatar classnames="w-12 h-12" profileAvatar={avatar} id={authToken}/> }
       </Link>
       
       

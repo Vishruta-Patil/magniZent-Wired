@@ -23,6 +23,7 @@ module.exports = {
       'dark-grey': '#141319',
       'border-color': '#dfe1e5',
       'box-shadow': '0 1px 6px 0 rgb(32 33 36 / 28%)',
+      'overlay-color': 'rgba(0,0,0,0.3)'
     },
     fontFamily: {
       'roboto': ['Roboto Slab', 'serif']

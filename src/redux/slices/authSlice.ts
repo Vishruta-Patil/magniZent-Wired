@@ -7,7 +7,8 @@ import {
   signInUser,
   updateUser,
   uploadAvatarProfile,
-  getAvatarProfile
+  getAvatarProfile,
+  getAllAvatars
 } from "services/authService";
 import { AuthState } from "types/auth.types";
 
@@ -18,7 +19,8 @@ const initialState: AuthState = {
   name: "",
   email: "",
   allUsers: [],
-  avatar: ""
+  avatar: "",
+  avatarList: []
 };
 
 export const authSlice = createSlice({
@@ -122,6 +124,17 @@ export const authSlice = createSlice({
       state.avatar = action.payload
     },
     [getAvatarProfile.rejected]: (state) => {
+      state.authStatus = "rejected";
+    },
+
+    [getAllAvatars.pending]: (state) => {
+      state.authStatus = "loading";
+    },
+    [getAllAvatars.fulfilled]: (state, action) => {
+      state.authStatus = "fulfilled";
+      state.avatarList = action.payload
+    },
+    [getAllAvatars.rejected]: (state) => {
       state.authStatus = "rejected";
     },
   },
