@@ -1,7 +1,4 @@
-import { useAppDispatch, useAppSelector } from "hooks"
-import { useEffect } from "react"
-// import { getBookmarkList } from "redux/slices/userSlice"
-import { getAllUsers } from "services/authService"
+import { useAppSelector } from "hooks"
 import { userDetailsType } from "types/auth.types"
 
 export const useBookmark = () => {

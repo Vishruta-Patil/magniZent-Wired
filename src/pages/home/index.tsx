@@ -20,7 +20,6 @@ import { getBookmark } from "services/userService";
 const Home = () => {
   const navigate = useNavigate();
   const { authToken } = useAppSelector((store) => store.auth);
-  const { bookmarkList } = useAppSelector((store) => store.user);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

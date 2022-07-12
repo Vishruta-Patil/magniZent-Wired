@@ -26,27 +26,26 @@ const PostCard = ({ item }: { item: any }) => {
 
   const { bookmarkList } = useAppSelector((store) => store.user);
   const dispatch = useAppDispatch();
-  const isBookmark = bookmarkList && bookmarkList.some((data: any) => item.uid === data.uid);
+  const isBookmark =
+    bookmarkList && bookmarkList.some((data: any) => item.uid === data.uid);
 
-  const [isSaved, setISaved] = useState(isBookmark)
+  const [isSaved, setISaved] = useState(isBookmark);
 
   const bookmarkHandler = () => {
     dispatch(addBookmark({ bookmarkList, item }));
-    setISaved(prev => !prev)
-    console.log(bookmarkList)
+    setISaved((prev) => !prev);
   };
 
   const removebBookmarkHandler = () => {
     dispatch(removeBookmark({ bookmarkList, item }));
-    setISaved(prev => !prev)
-    console.log(bookmarkList)
+    setISaved((prev) => !prev);
   };
 
   useEffect(() => {
-    dispatch(getBookmark())
-    console.log(bookmarkList)
-  }, [isSaved])
+    dispatch(getBookmark());
+  }, [isSaved]);
 
+  const isBookmarkPath = window.location.pathname === "/bookmark"
 
   return (
     <div className="flex flex-col p-5 md:m-9 m-4 bg-white-neutral shadow-lg ">
@@ -77,9 +76,11 @@ const PostCard = ({ item }: { item: any }) => {
               onClick={() => setMoreOPtions((prev) => !prev)}
               className="ml-auto absolute top-2 right-0"
             >
-              <span className="material-icons text-2xl cursor-pointer ml-auto">
-                more_vert
-              </span>
+              {!isBookmarkPath &&(
+                <span className="material-icons text-2xl cursor-pointer ml-auto">
+                  more_vert
+                </span>
+              )}
             </div>
           </div>
           {editPostModal && (
@@ -122,11 +123,17 @@ const PostCard = ({ item }: { item: any }) => {
           </div>
           <div>
             {isSaved ? (
-              <span onClick={removebBookmarkHandler} className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200">
+              <span
+                onClick={removebBookmarkHandler}
+                className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200"
+              >
                 bookmark
               </span>
             ) : (
-              <span onClick={bookmarkHandler} className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200">
+              <span
+                onClick={bookmarkHandler}
+                className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200"
+              >
                 bookmark_outline
               </span>
             )}

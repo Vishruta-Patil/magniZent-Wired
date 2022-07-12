@@ -35,7 +35,6 @@ export const getBookmark = (createAsyncThunk as any)("user/getBookmark", async (
 })
 
 export const addBookmark = createAsyncThunk("user/addBookmark", async({bookmarkList,item}:any) => {
-    console.log("addBookmark")
     const userId:any = localStorage.getItem("authToken") //doubt : userId: string|null
     try {
         const userDoc = doc(db, "users", userId)
@@ -48,7 +47,6 @@ export const addBookmark = createAsyncThunk("user/addBookmark", async({bookmarkL
 
 
 export const removeBookmark = createAsyncThunk("user/removeBookmark", async({bookmarkList,item}:any) => {
-    console.log("removeBookmark")
     const userId:any = localStorage.getItem("authToken") //doubt : userId: string|null
     try {
         const userDoc = doc(db, "users", userId)

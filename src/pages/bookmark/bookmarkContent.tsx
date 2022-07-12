@@ -25,24 +25,3 @@ export const BookMarkContent = () => {
     </div>
   );
 };
-
-
-/*
-
-const isBookmarkHandler = () => {
-    const getBoookmarkData = bookmarkData.find((data:any) => data.uid === item.uid)
-    if(getBoookmarkData) {
-      setIsBookmark(true)
-    } else {
-      setIsBookmark(false)
-    }
-  }
-
-  const bookmarkHandler = () => {
-    console.log(bookmarkList)
-    dispatch(addBookmark(item))
-    console.log(bookmarkList)
-    isBookmarkHandler()
-  }
-
-*/
