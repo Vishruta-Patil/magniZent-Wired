@@ -5,7 +5,9 @@ export type userDetailsType = {
   username: string;
   bio?: string;
   website?: string;
-  bookmark?: []
+  bookmark?: [],
+  follower?: any,
+  foloowing?: any
 };
 
 export interface AuthState {

@@ -36,9 +36,6 @@ const Home = () => {
     dispatch(getBookmark())
   }, []);
 
-  // console.log(allUsers)
-
-
   return (
     <div className="grid  h-100 grid-cols-12">
       <div className="col-span-12">

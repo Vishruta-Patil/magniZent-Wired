@@ -17,10 +17,10 @@ export const Profile = () => {
       <div className="xs:hidden md:block  col-span-1 relative">
         <Drawer />
       </div>
-      <div className="relative lg:col-span-8 border-l-2 border-r-2 col-span-12 md:col-span-7">
+      <div className="relative lg:col-span-8 border-l-2 border-r-2 col-span-12 md:col-span-11">
         <Userprofile />
       </div>
-      <div className="xs:hidden md:block block lg:col-span-3 md:col-span-4">
+      <div className="lg:col-span-3 md:col-span-4 hidden lg:block">
         <UserSidebar />
       </div>
       <MobileNav />

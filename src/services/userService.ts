@@ -70,7 +70,6 @@ export const decrementLike = createAsyncThunk("user/decrementLike", async({postI
 
 export const addFollowing = ((createAsyncThunk as any)("user/addFollowing", async({userId, item, authToken, authItem}:any) => {
     try {
-        console.log({userId, item, authToken, authItem} )
         const userDocUserId = doc(db, "users", userId)
         const userDocAuthId = doc(db, "users", authToken)
         await updateDoc(userDocUserId, {"follower.followerCount": increment(1), "follower.followedBy":arrayUnion(authItem)})
@@ -86,7 +85,7 @@ export const removeFollowing = (createAsyncThunk("user/addFollower", async({user
         const userDocUserId = doc(db, "users", userId)
         const userDocAuthId = doc(db, "users", authToken)
         await updateDoc(userDocUserId, {"follower.followerCount": increment(-1), "follower.followedBy":arrayRemove(authItem)})
-        await updateDoc(userDocAuthId, {"following.followingCount": increment(-1), "follower.followingBy":arrayRemove(item)})
+        await updateDoc(userDocAuthId, {"following.followingCount": increment(-1), "following.followingBy":arrayRemove(item)})
     } catch(err) {
         console.log(err)
     }

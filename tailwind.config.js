@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     screens: {
       'xs': '0px',
-      'sm': '640px',
+      'sm': '540px',
       'md': '768px',
       'lg': '1024px',
       'xl': '1280px',
@@ -23,7 +23,8 @@ module.exports = {
       'dark-grey': '#141319',
       'border-color': '#dfe1e5',
       'box-shadow': '0 1px 6px 0 rgb(32 33 36 / 28%)',
-      'overlay-color': 'rgba(0,0,0,0.3)'
+      'overlay-color': 'rgba(0,0,0,0.3)',
+      'secondary-pale': '#E0E0E0'
     },
     fontFamily: {
       'roboto': ['Roboto Slab', 'serif']
