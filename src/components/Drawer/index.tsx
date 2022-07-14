@@ -6,7 +6,8 @@ const Drawer = () => {
   const {authToken} = useAppSelector(store => store.auth)
 
   let activeStyle: any = {
-    color: "#0072FF"
+    color: "#0072FF",
+    fontWeight: 700
   };
 
   return (
@@ -18,7 +19,7 @@ const Drawer = () => {
             isActive ? activeStyle : undefined
           }
         >
-          <div className="flex space-x-3 items-center mb-7 font-bold ">
+          <div className="flex space-x-3 items-center mb-7 font-bold">
             <span className="material-icons text-3xl">home</span>
             <p>Home</p>
           </div>
