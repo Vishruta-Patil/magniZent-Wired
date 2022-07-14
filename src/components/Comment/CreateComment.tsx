@@ -1,11 +1,11 @@
 import avatar from "assets/avatar.png";
 import React, { SetStateAction } from "react";
 
-export const CreateComment = ({commentCard, setCommentCard} : {commentCard : boolean, setCommentCard: React.Dispatch<SetStateAction<boolean>>}) => {
+export const CreateComment = () => {
     return (
-        <div className="flex gap-2 border-2 p-1 rounded-3xl mt-2">
-            <img src={avatar} className="h-9 w-9 rounded-full"/>
-            <input placeholder="comment here" className="bg-transparent flex-1 outline-none"/>
+        <div className="flex gap-4 border-2 rounded-3xl mt-2 p-5 md:m-9 m-4 lg:mx-14 md:mx-9 items-center">
+            <img src={avatar} className="h-12 w-12 rounded-full"/>
+            <textarea placeholder="Pen down your views" className="bg-transparent flex-1 outline-none"/>
             <span className="material-icons text-2xl cursor-pointer">send</span>
         </div>
     )

@@ -5,6 +5,7 @@ import { Connections } from "pages/connections";
 import Home from "pages/home";
 import { NotFoundPage } from "pages/notFound";
 import { Profile } from "pages/profile";
+import { SinglePost } from "pages/singlePost";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { PrivateRoute } from "./PrivateRoute";
 
@@ -50,6 +51,14 @@ const Router = () => {
         }
       />
     
+    <Route
+        path="/posts/:postId"
+        element={
+          <PrivateRoute>
+            <SinglePost />
+          </PrivateRoute>
+        }
+      />
     </Routes>
   );
 };

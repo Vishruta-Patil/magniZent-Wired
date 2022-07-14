@@ -7,20 +7,24 @@ import { createNewPost } from "services/postsServices";
 const CreatePost = () => {
   const { avatar, authToken } = useAppSelector((store) => store.auth);
   const [post, setPost] = useState("");
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const newPostHandler = () => {
-    dispatch(createNewPost({post, authToken}))
-    setPost("")
-  }
+    dispatch(createNewPost({ post, authToken }));
+    setPost("");
+  };
 
   return (
-    <div className="bg-slate-200 p-3 my-9 md:m-9 lg:mx-14 md:mx-9 m-4 relative lg:mb-24">
+    <div className="bg-secondary-pale p-3 my-9 md:m-9 lg:mx-14 md:mx-9 m-4 relative lg:mb-24">
       <div className="flex space-x-3 items-center mb-9">
-        <Avatar classnames={"h-16 w-16"} profileAvatar={avatar} id={authToken}/>
+        <Avatar
+          classnames={"h-16 w-16"}
+          profileAvatar={avatar}
+          id={authToken}
+        />
         <textarea
           className="
-      bg-slate-200
+          bg-secondary-pale
         w-full
         px-3
         py-1.5
@@ -36,7 +40,10 @@ const CreatePost = () => {
           onChange={(e) => setPost(e.target.value)}
         ></textarea>
       </div>
-      <HeroBtn classnames="px-8 text-sm rounded-full ml-auto absolute right-5 bottom-5" eventHandler={newPostHandler}>
+      <HeroBtn
+        classnames="px-10 font-bold text-md rounded-full ml-auto absolute right-5 bottom-5"
+        eventHandler={newPostHandler}
+      >
         Post
       </HeroBtn>
     </div>
