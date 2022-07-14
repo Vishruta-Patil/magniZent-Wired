@@ -5,27 +5,21 @@ import UserSidebar from "components/UserSidebar";
 import { BookMarkContent } from "./bookmarkContent";
 
 export const Bookmark = () => {
-    return (
-              <div className="grid grid-cols-8 h-100">
-                <div className="col-span-8">
-                  <Header />
-                </div>
-                <div className="xs:hidden md:block col-span-2">
-                  <Drawer />
-                </div>
-                <div className="relative xs:col-span-8 md:col-span-6 lg:col-span-4 border-l-2 border-r-2">
-                  <BookMarkContent />
-                </div>
-                <div className="hidden lg:block col-span-2">
-                  <UserSidebar />
-                </div>
-          
-                {/* TODO: For future reference */}
-                {/* <div className="col-span-8 p-3 bg-green-100">
-                  <Footer />
-                </div> */}
-          
-                <MobileNav />
-              </div>
-            );
-          };
+  return (
+    <div className="grid  h-100 grid-cols-12">
+      <div className="col-span-12">
+        <Header />
+      </div>
+      <div className="xs:hidden md:block  col-span-1 relative">
+        <Drawer />
+      </div>
+      <div className="relative lg:col-span-8 border-l-2 border-r-2 col-span-12 md:col-span-7">
+        <BookMarkContent />
+      </div>
+      <div className="xs:hidden md:block block lg:col-span-3 md:col-span-4">
+        <UserSidebar />
+      </div>
+      <MobileNav />
+    </div>
+  );
+};

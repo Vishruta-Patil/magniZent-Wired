@@ -69,7 +69,7 @@ const PostCard = ({ item }: { item: any }) => {
   const isBookmarkPath = window.location.pathname === "/bookmark";
 
   return (
-    <div className="flex flex-col p-5 md:m-9 m-4 bg-white-neutral shadow-lg ">
+    <div className="flex flex-col p-5 md:m-9 m-4 lg:mx-14 md:mx-9 bg-white-neutral shadow-lg ">
       <div className="flex flex-col space-x-3">
         <div className="flex  gap-3 relative">
           <Avatar

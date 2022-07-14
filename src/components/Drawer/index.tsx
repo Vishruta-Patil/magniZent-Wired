@@ -1,17 +1,19 @@
 import { HeroBtn } from "components/common/button/HeroBtn";
-import { useAppSelector } from "hooks";
+import { useAppDispatch, useAppSelector } from "hooks";
 import { NavLink } from "react-router-dom";
+import { logoutUser } from "redux/slices/authSlice";
 
 const Drawer = () => {
   const {authToken} = useAppSelector(store => store.auth)
-
+const dispatch = useAppDispatch()
   let activeStyle: any = {
     color: "#0072FF",
     fontWeight: 700
   };
 
   return (
-    <div className="p-3 m-3 mt-9  lg:m-9 text-secondary-color">
+    <div className="p-3 mt-9 m-3 text-secondary-color sticky top-5">
+       {/* fixed top-20 overflow-hidden h-full  */}
       <div className="flex flex-col text-xl">
         <NavLink
           to="/"
@@ -19,9 +21,8 @@ const Drawer = () => {
             isActive ? activeStyle : undefined
           }
         >
-          <div className="flex space-x-3 items-center mb-7 font-bold">
-            <span className="material-icons text-3xl">home</span>
-            <p>Home</p>
+          <div className="flex space-x-3 items-center mb-7 justify-center">
+            <span className="material-icons text-4xl">home</span>
           </div>
         </NavLink>
 
@@ -31,9 +32,19 @@ const Drawer = () => {
             isActive ? activeStyle : undefined
           }
         >
-        <div className="flex space-x-3 items-center mb-7">
-          <span className="material-icons text-3xl">explore</span>
-          <p>Explore</p>
+        <div className="flex space-x-3 items-center mb-7 justify-center">
+          <span className="material-icons text-4xl">explore</span>
+        </div>
+        </NavLink>
+
+        <NavLink
+          to="/connections"
+          style={({ isActive }: { isActive: boolean }) =>
+            isActive ? activeStyle : undefined
+          }
+        >
+        <div className="flex space-x-3 items-center mb-7 justify-center">
+          <span className="material-icons text-4xl">group_add</span>
         </div>
         </NavLink>
 
@@ -43,21 +54,8 @@ const Drawer = () => {
             isActive ? activeStyle : undefined
           }
         >
-        <div className="flex space-x-3 items-center mb-7">
-          <span className="material-icons text-3xl">bookmark</span>
-          <p>Bookmark</p>
-        </div>
-        </NavLink>
-
-        <NavLink
-          to="/notification"
-          style={({ isActive }: { isActive: boolean }) =>
-            isActive ? activeStyle : undefined
-          }
-        >
-        <div className="flex space-x-3 items-center mb-7">
-          <span className="material-icons text-3xl">notifications</span>
-          <p>Notification</p>
+        <div className="flex space-x-3 items-center mb-7 justify-center">
+          <span className="material-icons text-4xl">bookmark</span>
         </div>
         </NavLink>
 
@@ -67,13 +65,19 @@ const Drawer = () => {
             isActive ? activeStyle : undefined
           }
         >
-        <div className="flex space-x-3 items-center mb-7">
-          <span className="material-icons text-3xl">person</span>
-          <p>Profile</p>
+        <div className="flex space-x-3 items-center justify-center mb-7">
+          <span className="material-icons text-4xl">person</span>
         </div>
         </NavLink>
 
-        <HeroBtn classnames="lg:w-3/4">Create New Post</HeroBtn>
+        <div
+          onClick={() => dispatch(logoutUser())}
+        >
+        {/* absolute bottom-5 */}
+        <div className="flex space-x-3 items-center justify-center mb-7 cursor-pointer"> 
+          <span className="material-icons text-4xl">logout</span>
+        </div>
+        </div>
       </div>
     </div>
   );

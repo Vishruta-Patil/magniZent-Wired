@@ -2,14 +2,18 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getBookmark } from "services/userService";
 
 
-type BookmarkState = {
+type UserState = {
     bookmarkList: [],
-    bookmarkStatus: string
+    bookmarkStatus: string,
+    followers: [],
+    following: []
 }   
 
-const initialState:BookmarkState = {
+const initialState:UserState = {
     bookmarkList: [],
-    bookmarkStatus: "idle"
+    bookmarkStatus: "idle",
+    followers: [],
+    following: []
 }
 
 export const userSlice = createSlice({
