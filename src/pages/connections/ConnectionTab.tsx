@@ -40,7 +40,7 @@ export const ConnectionTab = () => {
   }, [allUsers])
 
   return (
-    <div className="p-7 mt-9 lg:m-16 m-8">
+    <div className="p-7 mt-9 lg:m-16 md:m-8 m-3">
       <Tab.Group>
         <Tab.List className="flex space-x-1 rounded-xl bg-primary-color p-1">
           {categories.map((category) => (

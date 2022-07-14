@@ -29,7 +29,7 @@ export const ConnectionContent = () => {
         <img
           src="https://res.cloudinary.com/debanftke/image/upload/v1657799390/118_dpyfkz.png"
           alt="connections"
-          className="lg:w-72 lg:h-44 lg:mr-3 w-52 h-40"
+          className="lg:w-72 lg:h-44 lg:mr-3 w-52 h-40 hidden md:block"
         />
       </div>
     </section>
