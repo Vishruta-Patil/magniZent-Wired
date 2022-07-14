@@ -72,5 +72,6 @@ export const EditPostModal = ({
   );
 };
 
+ /* for reference */
 // fixed p-4 left-0 right-0 top-0 h-screen z-50 flex justify-center items-center bg-overlay-color
 // bg-slate-200 rounded-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8/12  min-w-[60%] p-4
