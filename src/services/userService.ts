@@ -2,7 +2,10 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "firebase-config";
 import { arrayRemove, arrayUnion, collection, doc, getDocs, increment, onSnapshot, query, updateDoc, where } from "firebase/firestore";
 import { toast } from "react-toastify";
+import { CommentData } from "types/user.types";
 
+
+// Bookmark Services
 export const getBookmark = (createAsyncThunk as any)("user/getBookmark", async () => {
     const userId:any = localStorage.getItem("authToken") 
     const usersRef = collection(db, "users")
@@ -37,7 +40,6 @@ export const addBookmark = createAsyncThunk("user/addBookmark", async({bookmarkL
     }
 })
 
-
 export const removeBookmark = createAsyncThunk("user/removeBookmark", async({bookmarkList,item}:any) => {
     const userId:any = localStorage.getItem("authToken") //doubt : userId: string|null
     try {
@@ -49,6 +51,8 @@ export const removeBookmark = createAsyncThunk("user/removeBookmark", async({boo
     }
 })
 
+
+// Like Post Services
 export const incrementLike = createAsyncThunk("user/incrementLike", async({postId, userId}:{postId:string, userId:string}) => {
     try {
         const postDoc = doc(db, "posts", postId)
@@ -57,7 +61,6 @@ export const incrementLike = createAsyncThunk("user/incrementLike", async({postI
         console.log(err)
     }
 })
-
 
 export const decrementLike = createAsyncThunk("user/decrementLike", async({postId, userId}:{postId:string, userId:string}) => {
     try {
@@ -68,9 +71,10 @@ export const decrementLike = createAsyncThunk("user/decrementLike", async({postI
     }
 })
 
+
+// Follow UnFollow Services
 export const addFollowing = ((createAsyncThunk as any)("user/addFollowing", async({userId, item, authToken, authItem}:any) => {
     try {
-        console.log(userId, item, authToken, authItem)
         const userDocUserId = doc(db, "users", userId)
         const userDocAuthId = doc(db, "users", authToken)
 
@@ -92,10 +96,8 @@ export const addFollowing = ((createAsyncThunk as any)("user/addFollowing", asyn
     }
 }))
 
-
 export const removeFollowing = (createAsyncThunk("user/removeFollowing", async({userId, item, authToken, authItem}:{userId:string, item:any, authToken:string, authItem:any}) => {
     try {
-        console.log("removed")
         const userDocUserId = doc(db, "users", userId)
         const userDocAuthId = doc(db, "users", authToken)
         const authObj =  {
@@ -115,6 +117,17 @@ export const removeFollowing = (createAsyncThunk("user/removeFollowing", async({
     }
 }))
 
+
+// Comments Services
+
+export const addComment = createAsyncThunk("user/addComment", async({postId, data}:{postId:string, data:CommentData}) => {
+    try {
+        const postDoc = doc(db, "posts", postId)
+        await updateDoc(postDoc, {"comments":arrayUnion(data)}) 
+    } catch(err) {
+        console.log(err)
+    }
+})
 
 
 

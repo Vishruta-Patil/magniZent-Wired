@@ -5,25 +5,28 @@ import { useAppDispatch, useAppSelector } from "hooks"
 import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { getAllPosts } from "services/postsServices"
+import { CommentData } from "types/user.types"
 
 export const SinglePageContent = () => {
     const dispatch = useAppDispatch()
-    const {allPosts} = useAppSelector(store => store.posts)
     const params = useParams()
 
+    const {allPosts} = useAppSelector(store => store.posts)
     const {postId} = params
-
-    const userPost = allPosts.find((post:any) => post?.uid === postId)
+    const userPost:any = allPosts.find((post:any) => post?.uid === postId)
 
     useEffect(() => {
         dispatch(getAllPosts())
-    }, [])
+    }, [userPost])
+
+    
     return (
         <div>
             <PostCard item={userPost}/>
-            <CreateComment />
-            <CommentCard />
-            <CommentCard />
+            {postId && <CreateComment postId={postId}/>}
+            {userPost?.comments && userPost?.comments.map((comment:CommentData,index:number) => (
+                <CommentCard comment={comment}/>
+            ))}
         </div>
     )
 }

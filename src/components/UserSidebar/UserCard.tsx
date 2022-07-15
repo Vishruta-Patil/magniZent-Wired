@@ -36,9 +36,9 @@ const unFollowHandler = () => {
     setFollowStatus((prev:Boolean) => !prev)
 } 
 
-useEffect(() => {
-  setFollowStatus(authItem?.following?.followingBy.some((user:any) => user.id === item.id))
-}, [authItem])
+// useEffect(() => {
+//   setFollowStatus(authItem?.following?.followingBy.some((user:any) => user.id === item.id))
+// }, [authItem])
 
 
     return (
