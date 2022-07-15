@@ -4,12 +4,14 @@ import { getAllUsers } from "services/authService";
 import { UserCard } from "./UserCard";
 
 const UserSidebar = () => {
-  const { allUsers } = useAppSelector((store) => store.auth);
+  const { allUsers, authToken } = useAppSelector((store) => store.auth);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getAllUsers());
   }, []);
+
+  const userList = allUsers.filter(user => user.id !== authToken)
 
   return (
     <div className="p-3 mt-9 m-3 text-secondary-color sticky top-5">
@@ -17,7 +19,7 @@ const UserSidebar = () => {
         Who to Follow
       </h3>
       <div className="flex flex-col">
-        {allUsers.map((item, index) => (
+        {userList.map((item, index) => (
           <UserCard item={item} key={index} />
         ))}
       </div>
