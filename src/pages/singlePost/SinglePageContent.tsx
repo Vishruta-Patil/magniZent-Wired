@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "hooks"
 import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { getAllPosts } from "services/postsServices"
-import { CommentData } from "types/user.types"
+import { CommentDataType } from "types/user.types"
 
 export const SinglePageContent = () => {
     const dispatch = useAppDispatch()
@@ -24,8 +24,8 @@ export const SinglePageContent = () => {
         <div>
             <PostCard item={userPost}/>
             {postId && <CreateComment postId={postId}/>}
-            {userPost?.comments && userPost?.comments.map((comment:CommentData,index:number) => (
-                <CommentCard comment={comment}/>
+            {userPost?.comments && userPost?.comments.map((comment:CommentDataType,index:number) => (
+                <CommentCard comment={comment} postId={postId}/>
             ))}
         </div>
     )

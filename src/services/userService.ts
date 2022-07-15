@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "firebase-config";
 import { arrayRemove, arrayUnion, collection, doc, getDocs, increment, onSnapshot, query, updateDoc, where } from "firebase/firestore";
 import { toast } from "react-toastify";
-import { CommentData } from "types/user.types";
+import { CommentDataType } from "types/user.types";
 
 
 // Bookmark Services
@@ -120,10 +120,21 @@ export const removeFollowing = (createAsyncThunk("user/removeFollowing", async({
 
 // Comments Services
 
-export const addComment = createAsyncThunk("user/addComment", async({postId, data}:{postId:string, data:CommentData}) => {
+export const addComment = createAsyncThunk("user/addComment", async({postId, data}:{postId:string, data:CommentDataType}) => {
     try {
         const postDoc = doc(db, "posts", postId)
         await updateDoc(postDoc, {"comments":arrayUnion(data)}) 
+    } catch(err) {
+        console.log(err)
+    }
+})
+
+
+export const deleteComment = createAsyncThunk("user/deleteComment", async({postId, data}:{postId:string, data:CommentDataType}) => {
+    try {
+        const postDoc = doc(db, "posts", postId)
+        await updateDoc(postDoc, {"comments":arrayRemove(data)}) 
+        toast.success("Comment deleted successfully!")
     } catch(err) {
         console.log(err)
     }
