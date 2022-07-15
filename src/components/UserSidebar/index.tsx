@@ -1,57 +1,25 @@
-import avatar from "assets/avatar.png";
-import { HeroBtn } from "components/common/button/HeroBtn";
+import { useAppDispatch, useAppSelector } from "hooks";
+import { useEffect } from "react";
+import { getAllUsers } from "services/authService";
+import { UserCard } from "./UserCard";
 
 const UserSidebar = () => {
+  const { allUsers } = useAppSelector((store) => store.auth);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, []);
+
   return (
-    <div className="p-3 m-9 text-secondary-color">
-      <h3 className="text-xl m-6 font-extrabold text-secondary-color">Who to Follow</h3>
+    <div className="p-3 mt-9 m-3 text-secondary-color sticky top-5">
+      <h3 className="text-xl m-6 font-extrabold text-secondary-color">
+        Who to Follow
+      </h3>
       <div className="flex flex-col">
-
-        <div className="flex justify-between items-center mb-6 flex-wrap">
-          <div className="flex items-center space-x-3">
-            <img src={avatar} alt="avatar" className="h-10 w-10 rounded-full" />
-            <div className="flex-col">
-              <p className="text-black text-base font-semibold">
-                Vishruta Patil
-              </p>
-              <p className="text-secondary-color text-sm">@Vishruta_patil</p>
-            </div>
-          </div>
-          <HeroBtn classnames="px-8 m-3 text-sm text-white-neutral rounded-full">
-            follow
-          </HeroBtn>
-        </div>
-
-        <div className="flex justify-between items-center mb-6 flex-wrap">
-          <div className="flex items-center space-x-3">
-            <img src={avatar} alt="avatar" className="h-10 w-10 rounded-full" />
-            <div className="flex-col">
-              <p className="text-black text-base font-semibold">
-                Vishruta Patil
-              </p>
-              <p className="text-secondary-color text-sm">@Vishruta_patil</p>
-            </div>
-          </div>
-          <HeroBtn classnames="px-8 m-3 text-sm text-white-neutral rounded-full">
-            follow
-          </HeroBtn>
-        </div>
-
-        <div className="flex justify-between items-center mb-6 flex-wrap">
-          <div className="flex items-center space-x-3">
-            <img src={avatar} alt="avatar" className="h-10 w-10 rounded-full" />
-            <div className="flex-col">
-              <p className="text-black text-base font-semibold">
-                Vishruta Patil
-              </p>
-              <p className="text-secondary-color text-sm">@Vishruta_patil</p>
-            </div>
-          </div>
-          <HeroBtn classnames="px-8 m-3 text-sm text-white-neutral rounded-full">
-            follow
-          </HeroBtn>
-        </div>
-
+        {allUsers.map((item, index) => (
+          <UserCard item={item} key={index} />
+        ))}
       </div>
     </div>
   );

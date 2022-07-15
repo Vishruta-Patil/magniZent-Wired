@@ -1,6 +1,7 @@
 import Login from "pages/auth/login";
 import SignIn from "pages/auth/SignIn";
 import { Bookmark } from "pages/bookmark";
+import { Connections } from "pages/connections";
 import Home from "pages/home";
 import { NotFoundPage } from "pages/notFound";
 import { Profile } from "pages/profile";
@@ -39,6 +40,16 @@ const Router = () => {
           </PrivateRoute>
         }
       />
+
+<Route
+        path="/connections"
+        element={
+          <PrivateRoute>
+            <Connections />
+          </PrivateRoute>
+        }
+      />
+    
     </Routes>
   );
 };

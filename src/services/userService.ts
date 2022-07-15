@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "firebase-config";
-import { arrayRemove, arrayUnion, collection, doc, increment, onSnapshot, query, updateDoc, where } from "firebase/firestore";
+import { arrayRemove, arrayUnion, collection, doc, getDocs, increment, onSnapshot, query, updateDoc, where } from "firebase/firestore";
 import { toast } from "react-toastify";
 
 export const getBookmark = (createAsyncThunk as any)("user/getBookmark", async () => {
@@ -8,14 +8,6 @@ export const getBookmark = (createAsyncThunk as any)("user/getBookmark", async (
     const usersRef = collection(db, "users")
     const q = query(usersRef, where("id", "==", userId))
     let user:any = []
-    onSnapshot(q, (snapshot) => {
-        let user:any = []
-        snapshot.docs.forEach((doc:any) => {
-            user.push(doc.data())
-        })
-        return user[0]?.bookmark
-    })  
-
     let resPromiseCount = 0;
     
     await(async () => {
@@ -61,7 +53,6 @@ export const incrementLike = createAsyncThunk("user/incrementLike", async({postI
     try {
         const postDoc = doc(db, "posts", postId)
         await updateDoc(postDoc, {"likes.likeCount": increment(1), "likes.likedBy":arrayUnion(userId)}) 
-        console.log(postId)
     } catch(err) {
         console.log(err)
     }
@@ -72,8 +63,36 @@ export const decrementLike = createAsyncThunk("user/decrementLike", async({postI
     try {
         const postDoc = doc(db, "posts", postId)
         await updateDoc(postDoc, {"likes.likeCount": increment(-1), "likes.likedBy":arrayRemove(userId)}) 
-        console.log(postId)
     } catch(err) {
         console.log(err)
     }
 })
+
+export const addFollowing = ((createAsyncThunk as any)("user/addFollowing", async({userId, item, authToken, authItem}:any) => {
+    try {
+        const userDocUserId = doc(db, "users", userId)
+        const userDocAuthId = doc(db, "users", authToken)
+        await updateDoc(userDocUserId, {"follower.followerCount": increment(1), "follower.followedBy":arrayUnion(authItem)})
+        await updateDoc(userDocAuthId, {"following.followingCount": increment(1), "following.followingBy":arrayUnion(item)})
+    } catch(err) {
+        console.log(err)
+    }
+}))
+
+
+export const removeFollowing = (createAsyncThunk("user/addFollower", async({userId, item, authToken, authItem}:{userId:string, item:any, authToken:string, authItem:any}) => {
+    try {
+        const userDocUserId = doc(db, "users", userId)
+        const userDocAuthId = doc(db, "users", authToken)
+        await updateDoc(userDocUserId, {"follower.followerCount": increment(-1), "follower.followedBy":arrayRemove(authItem)})
+        await updateDoc(userDocAuthId, {"following.followingCount": increment(-1), "following.followingBy":arrayRemove(item)})
+    } catch(err) {
+        console.log(err)
+    }
+}))
+
+
+
+
+
+

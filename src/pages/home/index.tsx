@@ -19,7 +19,7 @@ import { getBookmark } from "services/userService";
 
 const Home = () => {
   const navigate = useNavigate();
-  const { authToken } = useAppSelector((store) => store.auth);
+  const { authToken, allUsers } = useAppSelector((store) => store.auth);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -36,19 +36,18 @@ const Home = () => {
     dispatch(getBookmark())
   }, []);
 
-
   return (
-    <div className="grid grid-cols-8 h-100">
-      <div className="col-span-8">
+    <div className="grid  h-100 grid-cols-12">
+      <div className="col-span-12">
         <Header />
       </div>
-      <div className="xs:hidden md:block col-span-2">
+      <div className="xs:hidden md:block  col-span-1 relative">
         <Drawer />
       </div>
-      <div className="relative xs:col-span-8 md:col-span-6 lg:col-span-4 border-l-2 border-r-2">
+      <div className="relative lg:col-span-8 border-l-2 border-r-2 col-span-12 md:col-span-7">
         <MainContent />
       </div>
-      <div className="hidden lg:block col-span-2">
+      <div className="xs:hidden md:block block lg:col-span-3 md:col-span-4">
         <UserSidebar />
       </div>
 
