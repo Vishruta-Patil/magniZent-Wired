@@ -3,7 +3,7 @@ const SearchUser = ({classnames} : {classnames:string}) => {
       <input
         placeholder="Search User"
         className={`
-      bg-slate-200
+      bg-secondary-pale
         px-3
         py-1.5
         text-base

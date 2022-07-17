@@ -1,6 +1,4 @@
-import { CreateComment } from "../Comment/CreateComment";
 import { useEffect, useState } from "react";
-import { CommentCard } from "components/Comment/CommentCard";
 import { MoreOptionsmOdal } from "components/common/moreOptions/MoreOptionsModal";
 import { Avatar } from "components/common/avatar/Avatar";
 import { useAppDispatch, useAppSelector } from "hooks";
@@ -12,9 +10,10 @@ import {
   incrementLike,
   removeBookmark,
 } from "services/userService";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const PostCard = ({ item }: { item: any }) => {
-  const [commentCard, setCommentCard] = useState(false);
   const [moreOptions, setMoreOPtions] = useState(false);
   const [editPostModal, setEditPostModal] = useState(false);
 
@@ -25,10 +24,6 @@ const PostCard = ({ item }: { item: any }) => {
   const getUserAvatar = avatarList.find(
     (user: any) => user?.id === userDetails?.id
   );
-
-  const commentHandler = () => {
-    setCommentCard((prev) => !prev);
-  };
 
   const { bookmarkList } = useAppSelector((store) => store.user);
   const dispatch = useAppDispatch();
@@ -67,6 +62,11 @@ const PostCard = ({ item }: { item: any }) => {
   }, [isSaved]);
 
   const isBookmarkPath = window.location.pathname === "/bookmark";
+
+  const sharePost = () => {
+    navigator.clipboard.writeText(`https://magnizent-wired.netlify.app/posts/${item?.uid}`)
+    toast.success("Link copied, share the post now!")
+  }
 
   return (
     <div className="flex flex-col p-5 md:m-9 m-4 lg:mx-14 md:mx-9 bg-white-neutral shadow-lg ">
@@ -136,16 +136,19 @@ const PostCard = ({ item }: { item: any }) => {
 
             <p>{item?.likes?.likeCount}</p>
           </div>
+
+          <Link to={`posts/${item?.uid}`}>
           <div>
             <span
-              className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200"
-              onClick={commentHandler}
+              className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200"              
             >
               comment
             </span>
           </div>
+          </Link>
+
           <div>
-            <span className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200">
+            <span className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200" onClick={sharePost}>
               share
             </span>
           </div>
@@ -168,16 +171,6 @@ const PostCard = ({ item }: { item: any }) => {
           </div>
         </div>
       </div>
-
-      <>
-        {commentCard && (
-          <CreateComment
-            commentCard={commentCard}
-            setCommentCard={setCommentCard}
-          />
-        )}
-      </>
-      {/* <CommentCard /> */}
     </div>
   );
 };

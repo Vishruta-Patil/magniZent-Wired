@@ -18,9 +18,9 @@ export const MainContent = () => {
     <>
       <SearchUser classnames="md:hidden w-11/12 mx-auto block" />
       <CreatePost />
-      {allPosts.map((item, index) => (
+      {allPosts.map((item:any, index) => (
         <div>
-          <PostCard item={item} key={index} />
+            <PostCard item={item} key={index} />
         </div>
       ))}
     </>

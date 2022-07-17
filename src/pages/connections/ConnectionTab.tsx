@@ -40,7 +40,7 @@ export const ConnectionTab = () => {
   }, [allUsers])
 
   return (
-    <div className="p-7 mt-9 lg:m-16 m-8">
+    <div className="p-7 mt-9 lg:m-16 md:m-8 m-3">
       <Tab.Group>
         <Tab.List className="flex space-x-1 rounded-xl bg-primary-color p-1">
           {categories.map((category) => (
@@ -67,7 +67,8 @@ export const ConnectionTab = () => {
                 'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
               )}
             >
-              {explore?.map((item:any,index:number) => (
+              {(explore === undefined || explore.length === 0) ? <h2 className='text-primary-color font-semibold text-xl'>No users are available in explore section</h2> :
+              explore?.map((item:any,index:number) => (
                 <UserCard item={item} key={index}/>
               ))}
             </Tab.Panel>
@@ -78,9 +79,11 @@ export const ConnectionTab = () => {
                 'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
               )}
             >
-              {followers?.map((item:any,index:number) => (
+              {(followers === undefined || followers.length === 0) ? <h2 className='text-primary-color font-semibold text-xl'>No followers</h2> :
+              followers?.map((item:any,index:number) => (
                 <UserCard item={item} key={index}/>
-              ))}
+              ))
+}
             </Tab.Panel>
 
             <Tab.Panel
@@ -89,7 +92,8 @@ export const ConnectionTab = () => {
                 'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
               )}
             >
-              {following?.map((item:any,index:number) => (
+              {(following === undefined || following.length === 0) ? <h2 className='text-primary-color font-semibold text-xl'>You are not following any user</h2> :
+              following?.map((item:any,index:number) => (
                 <UserCard item={item} key={index}/>
               ))}
             </Tab.Panel>

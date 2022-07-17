@@ -36,7 +36,6 @@ const unFollowHandler = () => {
     setFollowStatus((prev:Boolean) => !prev)
 } 
 
-
     return (
       <div className="flex justify-between items-center mb-6">
         <div className="flex items-center space-x-3">

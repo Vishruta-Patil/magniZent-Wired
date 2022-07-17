@@ -3,13 +3,11 @@ import { getAllPosts } from "services/postsServices";
 
 type PostsState = {
     allPosts: [],
-    postsById: [],
     allPostsStatus: string,
 }
 
 const initialState:PostsState = {
     allPosts: [],
-    postsById: [],
     allPostsStatus: "idle",
 }
 

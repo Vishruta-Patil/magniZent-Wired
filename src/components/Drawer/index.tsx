@@ -1,4 +1,3 @@
-import { HeroBtn } from "components/common/button/HeroBtn";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { NavLink } from "react-router-dom";
 import { logoutUser } from "redux/slices/authSlice";

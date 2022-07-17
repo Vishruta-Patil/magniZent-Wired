@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from "react";
 import Header from "components/Header";
 import Drawer from "components/Drawer";
-import CreatePost from "components/Post/CreatePost";
-import PostCard from "components/Post/PostCard";
 import UserSidebar from "components/UserSidebar";
 
 import { Userprofile } from "components/Profile/UserProfile";
