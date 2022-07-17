@@ -55,21 +55,24 @@ export const removeBookmark = createAsyncThunk("user/removeBookmark", async({boo
 
 
 // Like Post Services
-export const incrementLike = createAsyncThunk("user/incrementLike", async({postId, userId}:{postId:string, userId:string}) => {
-    // console.log({postId})
-    
+export const incrementLike = createAsyncThunk("user/incrementLike", async({postId, userId}:{postId:string, userId:string}, {dispatch}:{dispatch:any}) => {    
     try {
         const postDoc = doc(db, "posts", postId)
+        console.log(userId)
         await updateDoc(postDoc, {"likes.likeCount": increment(1), "likes.likedBy":arrayUnion(userId)}) 
+        dispatch(getAllPosts())
+        dispatch(getAllUsers())
     } catch(err) {
         console.log(err)
     }
 })
 
-export const decrementLike = createAsyncThunk("user/decrementLike", async({postId, userId}:{postId:string, userId:string}) => {
+export const decrementLike = createAsyncThunk("user/decrementLike", async({postId, userId}:{postId:string, userId:string}, {dispatch}:{dispatch:any}) => {
     try {
         const postDoc = doc(db, "posts", postId)
         await updateDoc(postDoc, {"likes.likeCount": increment(-1), "likes.likedBy":arrayRemove(userId)}) 
+        dispatch(getAllPosts())
+        dispatch(getAllUsers())
     } catch(err) {
         console.log(err)
     }
@@ -119,6 +122,7 @@ export const removeFollowing = (createAsyncThunk("user/removeFollowing", async({
         await updateDoc(userDocUserId, {"follower.followerCount": increment(-1), "follower.followedBy":arrayRemove(authObj)})
         await updateDoc(userDocAuthId, {"following.followingCount": increment(-1), "following.followingBy":arrayRemove(userObj)})
         dispatch(getAllPosts())
+        dispatch(getAllUsers())
     } catch(err) {
         console.log(err)
     }

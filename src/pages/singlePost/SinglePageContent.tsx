@@ -25,8 +25,6 @@ export const SinglePageContent = () => {
         const getPost:any = allPosts.find((post:any) => post?.uid === postId)
         setUserPost(getPost)
     }, [allPosts])
-
-    console.log(allPosts)
     
     return (
         <div>

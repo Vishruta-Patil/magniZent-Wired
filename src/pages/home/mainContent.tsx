@@ -38,17 +38,15 @@ export const MainContent = () => {
     setFilteredPost(postsOfFollowing);
   }, [allPosts, userDetails]);
 
-  console.log(allPosts);
-
   return (
     <>
       <SearchUser classnames="md:hidden w-11/12 mx-auto block" />
       <CreatePost />
-      {filteredPost?.map((item: any, index: number) => (
+      { filteredPost !== 0 ? filteredPost?.map((item: any, index: number) => (
         <div>
           <PostCard item={item} key={index} />
         </div>
-      ))}
+      )) : <h1>Looks like you don't follow anyone, follow now to get updated</h1>}
     </>
   );
 };

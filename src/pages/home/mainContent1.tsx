@@ -25,10 +25,10 @@ export const MainContent1 = () => {
   );
 
   useEffect(() => {
+    dispatch(getAllPosts())
     dispatch(getAllUsers());
     setFollowing(userDetails?.following?.followingBy);
   }, []);
-
 
   const followingId = following?.map((user: any) => user?.id);
   const userIdOfPosts = following && [...followingId, authToken];
@@ -38,30 +38,27 @@ export const MainContent1 = () => {
 
   const [filteredPost, setFilteredPost] = useState(postsOfFollowing);
 
-  const postsByLiked = 
-  filteredPost && ([...filteredPost]?.sort(
+  const postsByLiked =
+    filteredPost &&
+    [...filteredPost]?.sort(
       (a: any, b: any) => b?.likes?.likeCount - a?.likes?.likeCount
-    ))
-  
+    );
+
   const [trendingPosts, setTrendingPosts] = useState(postsByLiked);
 
   useEffect(() => {
     setFollowing(userDetails?.following?.followingBy);
     setFilteredPost(postsOfFollowing);
-    
   }, [allPosts, userDetails]);
 
   useEffect(() => {
-
-    filteredPost && setTrendingPosts([...filteredPost]?.sort(
-        (a: any, b: any) => b?.likes?.likeCount - a?.likes?.likeCount
-      ),
-    )
-  }, [filteredPost, allPosts, userDetails])
-
-  console.log(trendingPosts);
-
- 
+    filteredPost &&
+      setTrendingPosts(
+        [...filteredPost]?.sort(
+          (a: any, b: any) => b?.likes?.likeCount - a?.likes?.likeCount
+        )
+      );
+  }, [filteredPost, allPosts, userDetails]);
 
   return (
     <>
@@ -89,20 +86,35 @@ export const MainContent1 = () => {
           </Tab.List>
           <Tab.Panels className="mt-9">
             <Tab.Panel>
-              {filteredPost?.map((item: any, index: number) => (
-                <div>
-                  <PostCard item={item} key={index} />
-                </div>
-              ))}
+              {filteredPost?.length > 0 ? (
+                filteredPost?.map((item: any, index: number) => (
+                  <div>
+                    <PostCard item={item} key={index} />
+                  </div>
+                ))
+              ) : (
+                <h1 className="text-secondary-color font-semibold text-xl">
+                  Looks like you don't follow anyone,{" "}
+                  <span className="text-primary-color">FOLLOW NOW</span> to get
+                  updated
+                </h1>
+              )}
             </Tab.Panel>
 
-            <Tab.Panel
-            >
-              {trendingPosts?.map((item: any, index: number) => (
-                <div>
-                  <PostCard item={item} key={index} />
-                </div>
-              ))}
+            <Tab.Panel>
+              {trendingPosts?.length > 0 ? (
+                trendingPosts?.map((item: any, index: number) => (
+                  <div>
+                    <PostCard item={item} key={index} />
+                  </div>
+                ))
+              ) : (
+                <h1 className="text-secondary-color font-semibold text-xl">
+                  Looks like you don't follow anyone,{" "}
+                  <span className="text-primary-color">FOLLOW NOW</span> to get
+                  updated
+                </h1>
+              )}
             </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>

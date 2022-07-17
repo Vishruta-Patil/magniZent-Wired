@@ -1,12 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "firebase-config";
-import { addDoc, collection, deleteDoc, doc, getDocs, onSnapshot, updateDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDocs, onSnapshot, orderBy, query, serverTimestamp, updateDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 
 export const getAllPosts = (createAsyncThunk as any)("posts/getAllPosts", async() => {
     const postsCollectionRef = collection(db, "posts")
+    const q = query(postsCollectionRef, orderBy('createdAt', 'desc'))
     try {
-        const response = await getDocs(postsCollectionRef)
+        const response = await getDocs(q)
         const postsArr = response.docs.map(doc => Object.assign({ uid: doc.id }, doc.data()))     
         return postsArr
     } catch (err) {
@@ -14,32 +15,9 @@ export const getAllPosts = (createAsyncThunk as any)("posts/getAllPosts", async(
       }
 })
 
-// export const getAllPosts = (createAsyncThunk as any)("posts/getAllPosts", async() => {
-//     const postsCollectionRef = collection(db, "posts")
-   
-//     let user:any = []
-//     let resPromiseCount = 0
-    
-//     await(async () => {
-//         return new (Promise as any)((resolve: any, reject: any) => {
-//             onSnapshot(postsCollectionRef, (snapshot) => {
-//                 snapshot.docs.forEach((doc:any) => {
-//                     user.push(Object.assign({ uid: doc.id }, doc.data()))
-//                 })
-//                 resPromiseCount++;
-//                 if (resPromiseCount === 1) {
-//                     resolve(user);
-//                   }
-//             })        
-//         });
-//       })();
-//       console.log(user)
-//      return user
-// })
-
 export const createNewPost = (createAsyncThunk as any)("/posts/createPost", async({post, authToken}:{post:string, authToken:string}) => {
     try {
-        await addDoc(collection(db, "posts"), {content: post, id:authToken, likes: {likeCount:0, likedBy:[]}});
+        await addDoc(collection(db, "posts"), {content: post, id:authToken, comments: [], likes: {likeCount:0, likedBy:[]}, createdAt: serverTimestamp()});
         toast.success("Created Post sucessfully!");
     } catch(err) {
         console.log(err);

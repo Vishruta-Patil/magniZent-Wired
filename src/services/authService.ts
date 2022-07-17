@@ -75,31 +75,6 @@ export const getAllUsers = (createAsyncThunk as any)(
   }
 );
 
-// export const getAllUsers = (createAsyncThunk as any)(
-//   "auth/getAllUsers",
-//   async () => {
-//     const usersCollectionRef = collection(db, "users");
-   
-//     let user:any = []
-//     let resPromiseCount = 0
-    
-//     await(async () => {
-//         return new (Promise as any)((resolve: any, reject: any) => {
-//             onSnapshot(usersCollectionRef, (snapshot) => {
-//                 snapshot.docs.forEach((doc:any) => {
-//                     user.push(Object.assign({ uid: doc.id }, doc.data()))
-//                 })
-//                 resPromiseCount++;
-//                 if (resPromiseCount === 1) {
-//                     resolve(user);
-//                   }
-//             })        
-//         });
-//       })();
-//       console.log(user)
-//      return user
-// })
-
 
 export const signInUser = (createAsyncThunk as any)(
   "auth/signInUser",

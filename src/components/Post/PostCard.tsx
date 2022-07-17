@@ -17,6 +17,7 @@ import { getAllPosts } from "services/postsServices";
 const PostCard = ({ item }: { item: any }) => {
   const [moreOptions, setMoreOPtions] = useState(false);
   const [editPostModal, setEditPostModal] = useState(false);
+  // const datereq = new Date(item?.createdAt.seconds*1000).toLocaleDateString()  <<< TODO
 
   const { allUsers, avatarList, authToken } = useAppSelector(
     (store) => store.auth
@@ -37,12 +38,12 @@ const PostCard = ({ item }: { item: any }) => {
   const dispatch = useAppDispatch();
 
   const isBookmark =
-    bookmarkList && bookmarkList.some((data: any) => item?.uid === data?.uid);
+    bookmarkList ? bookmarkList.some((data: any) => item?.uid === data?.uid) : false
   const likedByList = item?.likes?.likedBy;
   const checkLiked =
     likedByList && likedByList.some((data: string) => data === authToken);
 
-  const [isSaved, setISaved] = useState(isBookmark);
+  const [isSaved, setISaved] = useState<boolean>(isBookmark);
   const [isLiked, setIsLiked] = useState(checkLiked);
 
 
@@ -55,6 +56,12 @@ const PostCard = ({ item }: { item: any }) => {
     dispatch(removeBookmark({ bookmarkList, item }));
     setISaved((prev) => !prev);
   };
+
+  const toggleBookmarkHandler = () => {
+    const isBookmarked:boolean = bookmarkList ? bookmarkList.some((data: any) => item?.uid === data?.uid) : false
+    isBookmark ? dispatch(removeBookmark({ bookmarkList, item })) :  dispatch(addBookmark({ bookmarkList, item }));
+    setISaved(isBookmarked)
+  }
 
   const likeHandler = () => {
     dispatch(incrementLike({ postId: item.uid, userId: authToken }));
@@ -94,9 +101,9 @@ const PostCard = ({ item }: { item: any }) => {
                 <p className="text-black text-xl font-semibold">
                   {userDetails?.name}
                 </p>
-                <p className="text-secondary-color text-sm md:block hidden">
-                  1 min
-                </p>
+                {/* <p className="text-secondary-color text-sm md:block hidden">
+                  {datereq}
+                </p> */}
               </div>
 
               <p className="text-secondary-color text-sm text-left">
@@ -145,7 +152,7 @@ const PostCard = ({ item }: { item: any }) => {
               </span>
             )}
 
-            <p>{item?.likes?.likeCount}</p>
+            <p>{item?.likes?.likeCount > 0 && item?.likes?.likeCount}</p>
           </div>
 
           <Link to={`posts/${item?.uid}`}>

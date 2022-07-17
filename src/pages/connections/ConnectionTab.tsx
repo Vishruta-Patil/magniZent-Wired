@@ -39,8 +39,6 @@ export const ConnectionTab = () => {
     setExplore(exploreList)
   }, [allUsers])
 
-  console.log(allUsers)
-
   return (
     <div className="p-7 mt-9 lg:m-16 md:m-8 m-3">
       <Tab.Group>

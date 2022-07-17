@@ -48,6 +48,7 @@ export const CommentCard = ({
                 comment={true}
                 commentDetails={comment}
                 postId={postId}
+                setMoreOPtions={setCommentOptions}
               />
             )}
           </div>

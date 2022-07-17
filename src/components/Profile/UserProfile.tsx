@@ -21,8 +21,6 @@ export const Userprofile = () => {
     dispatch(getAllUsers());
   }, [userProfileModal]);
 
-  console.log(allUsers)
-
   useEffect(() => {dispatch(getAvatarProfile())}, [userProfileModal])
 
   const data = allUsers.find((item: userDetailsType) => item["id"] === profileId);

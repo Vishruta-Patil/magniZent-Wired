@@ -42,6 +42,7 @@ export const MoreOptionsmOdal = ({
       comment: commentDetails?.comment,
     }
     postId && dispatch(deleteComment({postId, data}))
+    setMoreOPtions && setMoreOPtions(false);
   }
 
   return (
