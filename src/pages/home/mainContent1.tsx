@@ -49,7 +49,7 @@ export const MainContent1 = () => {
   useEffect(() => {
     setFollowing(userDetails?.following?.followingBy);
     setFilteredPost(postsOfFollowing);
-  }, [allPosts, userDetails]);
+  }, [allPosts, userDetails, allUsers]);
 
   useEffect(() => {
     filteredPost &&

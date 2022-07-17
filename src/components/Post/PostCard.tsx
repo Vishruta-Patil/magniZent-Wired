@@ -86,6 +86,8 @@ const PostCard = ({ item }: { item: any }) => {
     toast.success("Link copied, share the post now!")
   }
 
+  const pathname = window.location.pathname
+
   return (
     <div className="flex flex-col p-5 md:m-9 m-4 lg:mx-14 md:mx-9 bg-white-neutral shadow-lg ">
       <div className="flex flex-col space-x-3">
@@ -171,7 +173,14 @@ const PostCard = ({ item }: { item: any }) => {
             </span>
           </div>
           <div>
-            {isSaved ? (
+            {pathname === "/bookmark" ? <span
+                onClick={removebBookmarkHandler}
+                className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200"
+              >
+                bookmark
+              </span> :
+
+            isSaved ? (
               <span
                 onClick={removebBookmarkHandler}
                 className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200"
