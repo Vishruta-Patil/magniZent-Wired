@@ -13,7 +13,8 @@ export const BookMarkContent = () => {
   
   useEffect(() => {
     dispatch(getBookmark())
-  }, [bookmarkList]);
+  }, []); //bookmarklist  
+
 
   return (
     <div>

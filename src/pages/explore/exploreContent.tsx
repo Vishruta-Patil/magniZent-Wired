@@ -4,6 +4,7 @@ import PostCard from "components/Post/PostCard";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { useEffect } from "react";
 import { getAllPosts } from "services/postsServices";
+import { getBookmark } from "services/userService";
 
 export const ExploreContent = () => {
   const { allPosts } = useAppSelector((store) => store.posts);
@@ -11,7 +12,7 @@ export const ExploreContent = () => {
   
   useEffect(() => {
     dispatch(getAllPosts());
-  }, [allPosts]);
+  }, []);
   
   return (
     <>

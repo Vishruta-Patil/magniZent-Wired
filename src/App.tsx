@@ -5,8 +5,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { useBookmark } from 'hooks/useBookmark';
 import { useEffect } from 'react';
+import { getAllPosts } from 'services/postsServices';
+import { getAllUsers } from 'services/authService';
 
 function App() {
+const dispatch = useAppDispatch()
+const token = localStorage.getItem("authToken")
+  useEffect(() => {
+    dispatch(getAllPosts())
+    dispatch(getAllUsers())
+  }, [token,dispatch])
+  
   return (
     <div className="App">
       <ToastContainer

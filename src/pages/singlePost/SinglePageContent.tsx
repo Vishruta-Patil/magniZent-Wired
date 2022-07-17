@@ -2,7 +2,7 @@ import { CommentCard } from "components/Comment/CommentCard"
 import { CreateComment } from "components/Comment/CreateComment"
 import PostCard from "components/Post/PostCard"
 import { useAppDispatch, useAppSelector } from "hooks"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { getAllPosts } from "services/postsServices"
 import { CommentDataType } from "types/user.types"
@@ -13,12 +13,20 @@ export const SinglePageContent = () => {
 
     const {allPosts} = useAppSelector(store => store.posts)
     const {postId} = params
-    const userPost:any = allPosts.find((post:any) => post?.uid === postId)
+
+    
+    const [userPost, setUserPost] = useState<any>([]) //change 3
 
     useEffect(() => {
         dispatch(getAllPosts())
-    }, [userPost])
+    }, [])
 
+    useEffect(() => {
+        const getPost:any = allPosts.find((post:any) => post?.uid === postId)
+        setUserPost(getPost)
+    }, [allPosts])
+
+    console.log(allPosts)
     
     return (
         <div>

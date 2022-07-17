@@ -1,6 +1,6 @@
 import { MoreOptionsmOdal } from "components/common/moreOptions/MoreOptionsModal";
 import { useAppSelector } from "hooks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CommentDataType } from "types/user.types";
 
 export const CommentCard = ({
@@ -15,14 +15,19 @@ export const CommentCard = ({
     (store) => store.auth
   );
 
-  let userDetails: any = allUsers.find((user) => user?.id === comment?.id);
+  const [avatar, setAvatar] = useState<any>()
+
+  useEffect(() => { // change 1
+    let userDetails: any = allUsers.find((user) => user?.id === comment?.id);
   const getUserAvatar = avatarList.find(
     (user: any) => user?.id === userDetails?.id
   );
+  setAvatar(getUserAvatar)
+  }, [])
 
   return (
     <div className="flex gap-3 p-5 lg:mx-14 md:mx-9 mb-0 ">
-      <img src={getUserAvatar?.url} className="h-11 w-11 rounded-full" />
+      <img src={avatar?.url} className="h-11 w-11 rounded-full" />
       <div className="bg-slate-200 flex-1 p-3 rounded">
         <div className="flex md:gap-3 gap-1 text-secondary-color flex-wrap">
           <div className="flex flex-col lg:flex-row text-left lg:gap-4">

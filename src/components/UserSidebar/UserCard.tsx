@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { getAllUsers } from "services/authService";
 import {useState} from "react"
 import { addFollowing, removeFollowing } from "services/userService";
+import { getAllPosts } from "services/postsServices";
 
 export const UserCard = ({ item }: any) => {
     const { avatarList, allUsers, authToken } = useAppSelector((store) => store.auth);
@@ -29,11 +30,15 @@ export const UserCard = ({ item }: any) => {
    const followHandler = () => {
     dispatch(addFollowing({userId, item, authToken, authItem}))
     setFollowStatus((prev:Boolean) => !prev)
+    dispatch(getAllPosts())
+    dispatch(getAllUsers())
 }
 
 const unFollowHandler = () => {
     dispatch(removeFollowing({userId, item, authToken, authItem}))
     setFollowStatus((prev:Boolean) => !prev)
+    dispatch(getAllPosts())
+    dispatch(getAllUsers())
 } 
 
     return (

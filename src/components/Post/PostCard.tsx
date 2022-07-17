@@ -12,6 +12,7 @@ import {
 } from "services/userService";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { getAllPosts } from "services/postsServices";
 
 const PostCard = ({ item }: { item: any }) => {
   const [moreOptions, setMoreOPtions] = useState(false);
@@ -20,11 +21,18 @@ const PostCard = ({ item }: { item: any }) => {
   const { allUsers, avatarList, authToken } = useAppSelector(
     (store) => store.auth
   );
+
   let userDetails: any = allUsers.find((user) => user?.id === item?.id);
+  
   const getUserAvatar = avatarList.find(
     (user: any) => user?.id === userDetails?.id
   );
+  const [avatar, setAvatar] = useState(getUserAvatar)  //change 2
 
+  useEffect(() => {
+    setAvatar(getUserAvatar)
+  }, [avatarList])
+  
   const { bookmarkList } = useAppSelector((store) => store.user);
   const dispatch = useAppDispatch();
 
@@ -36,6 +44,7 @@ const PostCard = ({ item }: { item: any }) => {
 
   const [isSaved, setISaved] = useState(isBookmark);
   const [isLiked, setIsLiked] = useState(checkLiked);
+
 
   const bookmarkHandler = () => {
     dispatch(addBookmark({ bookmarkList, item }));
@@ -50,11 +59,13 @@ const PostCard = ({ item }: { item: any }) => {
   const likeHandler = () => {
     dispatch(incrementLike({ postId: item.uid, userId: authToken }));
     setIsLiked((prev: boolean) => !prev);
+    dispatch(getAllPosts());
   };
 
   const removeLikeHandler = () => {
     dispatch(decrementLike({ postId: item.uid, userId: authToken}))
     setIsLiked((prev: boolean) => !prev);
+    dispatch(getAllPosts());
   };
 
   useEffect(() => {
@@ -74,7 +85,7 @@ const PostCard = ({ item }: { item: any }) => {
         <div className="flex  gap-3 relative">
           <Avatar
             classnames="h-14 w-14"
-            profileAvatar={getUserAvatar?.url}
+            profileAvatar={avatar?.url}
             id={userDetails?.id}
           />
           <div>

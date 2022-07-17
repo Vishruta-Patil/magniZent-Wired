@@ -18,41 +18,37 @@ export const MainContent = () => {
   );
 
   useEffect(() => {
-    dispatch(getAllPosts());
-  }, [allPosts]);
-
-  useEffect(() => {
     dispatch(getAllUsers());
-  }, [following]);
+  }, []); 
 
   useEffect(() => {
     setFollowing(userDetails?.following?.followingBy);
-  }, [allUsers]);
+  }, []); 
 
-  const followingId = following && following.map((user: any) => user?.id);
+  const followingId = following?.map((user: any) => user?.id);
   const userIdOfPosts = following && [...followingId, authToken];
   const postsOfFollowing =
     following &&
-    allPosts.filter((post: any) => userIdOfPosts.includes(post?.id));
+    allPosts.filter((post: any) => userIdOfPosts?.includes(post?.id));
+
+  const [filteredPost, setFilteredPost] = useState(postsOfFollowing);
+
+  useEffect(() => {
+    setFollowing(userDetails?.following?.followingBy);
+    setFilteredPost(postsOfFollowing);
+  }, [allPosts, userDetails]);
+
+  console.log(allPosts);
 
   return (
     <>
       <SearchUser classnames="md:hidden w-11/12 mx-auto block" />
       <CreatePost />
-      {postsOfFollowing?.length === 0 || postsOfFollowing === undefined ? (
-        <>
-          <h1 className="text-secondary-color text-2xl">
-            <span className="text-3xl font-semibold text-primary-color">No Posts</span>, <br/> Start following your friends now to get updates on your
-            feed!
-          </h1>
-        </>
-      ) : (
-        postsOfFollowing?.map((item: any, index: number) => (
-          <div>
-            <PostCard item={item} key={index} />
-          </div>
-        ))
-      )}
+      {filteredPost?.map((item: any, index: number) => (
+        <div>
+          <PostCard item={item} key={index} />
+        </div>
+      ))}
     </>
   );
 };

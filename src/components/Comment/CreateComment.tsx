@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { getAllUsers } from "services/authService";
 import { addComment } from "services/userService";
 import { CommentDataType } from "types/user.types";
+import { getAllPosts } from "services/postsServices";
 
 export const CreateComment = ({postId} : {postId:string}) => {
   const [commentText, setCommentText] = useState("");
@@ -11,13 +12,14 @@ export const CreateComment = ({postId} : {postId:string}) => {
   const { allUsers, avatar } = useAppSelector((store) => store.auth);
   const dispatch = useAppDispatch();
 
-  const getUser = allUsers.find((user) => user.id === authToken);
 
   useEffect(() => {
     dispatch(getAllUsers());
   }, []);
 
   const addCommentHandler = () => {
+    const getUser = allUsers.find((user) => user.id === authToken);
+
     const data: CommentDataType = {
       id: authToken,
       name: getUser?.name,
@@ -26,6 +28,7 @@ export const CreateComment = ({postId} : {postId:string}) => {
     };
 
     dispatch(addComment({ postId, data }));
+    dispatch(getAllPosts())
     setCommentText("")
   };
 
