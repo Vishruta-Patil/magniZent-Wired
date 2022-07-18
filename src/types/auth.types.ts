@@ -8,6 +8,7 @@ export type userDetailsType = {
   bookmark?: [],
   follower?: any,
   foloowing?: any,
+  avatarUrl?:string | null | undefined
 };
 
 export interface AuthState {

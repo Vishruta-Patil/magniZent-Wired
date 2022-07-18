@@ -52,16 +52,10 @@ const PostCard = ({ item }: { item: any }) => {
     setISaved((prev) => !prev);
   };
 
-  const removebBookmarkHandler = () => {
+  const removeBookmarkHandler = () => {
     dispatch(removeBookmark({ bookmarkList, item }));
     setISaved((prev) => !prev);
   };
-
-  const toggleBookmarkHandler = () => {
-    const isBookmarked:boolean = bookmarkList ? bookmarkList.some((data: any) => item?.uid === data?.uid) : false
-    isBookmark ? dispatch(removeBookmark({ bookmarkList, item })) :  dispatch(addBookmark({ bookmarkList, item }));
-    setISaved(isBookmarked)
-  }
 
   const likeHandler = () => {
     dispatch(incrementLike({ postId: item.uid, userId: authToken }));
@@ -88,13 +82,15 @@ const PostCard = ({ item }: { item: any }) => {
 
   const pathname = window.location.pathname
 
+  console.log(userDetails)
+
   return (
     <div className="flex flex-col p-5 md:m-9 m-4 lg:mx-14 md:mx-9 bg-white-neutral shadow-lg ">
       <div className="flex flex-col space-x-3">
         <div className="flex  gap-3 relative">
           <Avatar
             classnames="h-14 w-14"
-            profileAvatar={avatar?.url}
+            profileAvatar={userDetails?.avatarUrl}
             id={userDetails?.id}
           />
           <div>
@@ -174,7 +170,7 @@ const PostCard = ({ item }: { item: any }) => {
           </div>
           <div>
             {pathname === "/bookmark" ? <span
-                onClick={removebBookmarkHandler}
+                onClick={removeBookmarkHandler}
                 className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200"
               >
                 bookmark
@@ -182,7 +178,7 @@ const PostCard = ({ item }: { item: any }) => {
 
             isSaved ? (
               <span
-                onClick={removebBookmarkHandler}
+                onClick={removeBookmarkHandler}
                 className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200"
               >
                 bookmark
