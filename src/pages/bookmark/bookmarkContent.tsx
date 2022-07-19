@@ -1,10 +1,6 @@
 import PostCard from "components/Post/PostCard";
 import { useAppDispatch, useAppSelector } from "hooks";
-import { useBookmark } from "hooks/useBookmark";
 import { useEffect } from "react";
-// import { getBookmarkList } from "redux/slices/userSlice";
-import { getAllUsers } from "services/authService";
-import { getAllPosts } from "services/postsServices";
 import { getBookmark } from "services/userService";
 
 export const BookMarkContent = () => {

@@ -1,5 +1,6 @@
 import { useAppDispatch } from "hooks";
-import React, { SetStateAction } from "react";
+import { useClickOutside } from "hooks/useClickOutside";
+import React, { SetStateAction, useRef } from "react";
 import { deletePost, getAllPosts } from "services/postsServices";
 import { deleteComment } from "services/userService";
 import { CommentDataType } from "types/user.types";
@@ -45,8 +46,9 @@ export const MoreOptionsmOdal = ({
     setMoreOPtions && setMoreOPtions(false);
   }
 
+
   return (
-    <div className="bg-slate-100 p-2 absolute top-10 right-0 w-40 md:w-60 rounded border-2">
+    <div   className="bg-slate-100 p-2 absolute top-10 right-0 w-40 md:w-60 rounded border-2">
       {comment ? <>
           <div
             className="flex gap-4 items-center cursor-pointer hover:bg-slate-200 p-1"
