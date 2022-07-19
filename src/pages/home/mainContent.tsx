@@ -67,7 +67,7 @@ export const MainContent = () => {
       <CreatePost />
       <div className="mx-7">
         <Tab.Group>
-          <Tab.List className="flex space-x-1 rounded-xl bg-primary-color p-1 mb-16">
+          <Tab.List className="flex space-x-1 rounded-xl bg-primary-color p-1 mb-1">
             {categories.map((category) => (
               <Tab
                 key={category}

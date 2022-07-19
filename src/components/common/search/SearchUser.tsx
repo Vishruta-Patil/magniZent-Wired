@@ -5,17 +5,11 @@ import { SearchSuggestions } from "./SearchSuggestions";
 
 const SearchUser = ({classnames} : {classnames:string}) => {
   const [searchedValue, setSearchedValue] = useState("")
-  const [isFocus, setIsFocus] = useState()
   const dispatch = useAppDispatch()
-
-  const inputRef:any = useRef(null)
-
-  // console.log(inputRef?.current.toFocus())
 
   return (  
     <div className="relative"> 
       <input
-        ref={inputRef}
         placeholder="Search User"
         className={`
       bg-secondary-pale
@@ -33,7 +27,7 @@ const SearchUser = ({classnames} : {classnames:string}) => {
       
       />
        <div onClick={() => dispatch(logoutUser())}></div> 
-       {searchedValue && <SearchSuggestions searchedValue={searchedValue} inputRef={inputRef}/>}
+       {searchedValue && <SearchSuggestions searchedValue={searchedValue}/>}
       </div>
   );
 };

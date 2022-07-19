@@ -16,25 +16,15 @@ import { MobileNav } from "components/common/mobileNav/MobileNav";
 import { getBookmark } from "services/userService";
 import { MainContent } from "./mainContent";
 
-
 const Home = () => {
   const navigate = useNavigate();
-  const { authToken, allUsers } = useAppSelector((store) => store.auth);
-  const dispatch = useAppDispatch();
+  const { authToken } = useAppSelector((store) => store.auth);
 
   useEffect(() => {
     if (!localStorage.getItem("authToken")) {
       navigate("/login");
     }
   }, [authToken]);
-
-  useEffect(() => {
-    dispatch(getAllUsers());
-    dispatch(getAvatarProfile());
-    dispatch(getAllPosts());
-    dispatch(getAllAvatars());
-    dispatch(getBookmark())
-  }, []);
 
   return (
     <div className="grid  h-100 grid-cols-12">
