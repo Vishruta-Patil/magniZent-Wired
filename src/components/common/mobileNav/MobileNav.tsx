@@ -25,6 +25,7 @@ export const MobileNav = () => {
           style={({ isActive }: { isActive: boolean }) =>
             isActive ? activeStyle : undefined
           }
+          key={index}
         >
           <span className="material-icons text-4xl" key={index}>
             {icon.name}

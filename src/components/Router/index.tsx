@@ -2,6 +2,7 @@ import Login from "pages/auth/login";
 import SignIn from "pages/auth/SignIn";
 import { Bookmark } from "pages/bookmark";
 import { Connections } from "pages/connections";
+import { Explore } from "pages/explore";
 import Home from "pages/home";
 import { NotFoundPage } from "pages/notFound";
 import { Profile } from "pages/profile";
@@ -42,7 +43,7 @@ const Router = () => {
         }
       />
 
-<Route
+      <Route
         path="/connections"
         element={
           <PrivateRoute>
@@ -50,8 +51,8 @@ const Router = () => {
           </PrivateRoute>
         }
       />
-    
-    <Route
+
+      <Route
         path="/posts/:postId"
         element={
           <PrivateRoute>
@@ -59,6 +60,10 @@ const Router = () => {
           </PrivateRoute>
         }
       />
+
+      <Route path="/explore" element={<PrivateRoute>
+        <Explore />
+      </PrivateRoute>} />
     </Routes>
   );
 };

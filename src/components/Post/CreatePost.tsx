@@ -2,24 +2,27 @@ import { Avatar } from "components/common/avatar/Avatar";
 import { HeroBtn } from "components/common/button/HeroBtn";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { useState } from "react";
-import { createNewPost } from "services/postsServices";
+import { createNewPost, getAllPosts } from "services/postsServices";
 
 const CreatePost = () => {
-  const { avatar, authToken } = useAppSelector((store) => store.auth);
+  const { avatar, authToken, allUsers } = useAppSelector((store) => store.auth);
   const [post, setPost] = useState("");
   const dispatch = useAppDispatch();
 
   const newPostHandler = () => {
     dispatch(createNewPost({ post, authToken }));
+    dispatch(getAllPosts())
     setPost("");
   };
 
+  let userDetails: any = allUsers.find((user) => user?.id === authToken);
+
   return (
-    <div className="bg-secondary-pale p-3 my-9 md:m-9 lg:mx-14 md:mx-9 m-4 relative lg:mb-24">
+    <div className="bg-secondary-pale p-3 my-9 md:m-9 lg:mx-14 md:mx-9 m-4 relative lg:mb-24 shadow-lg">
       <div className="flex space-x-3 items-center mb-9">
         <Avatar
           classnames={"h-16 w-16"}
-          profileAvatar={avatar}
+          profileAvatar={userDetails?.avatarUrl}
           id={authToken}
         />
         <textarea

@@ -13,14 +13,15 @@ export const BookMarkContent = () => {
   
   useEffect(() => {
     dispatch(getBookmark())
-  }, [bookmarkList]);
+  }, []);  
+
 
   return (
     <div>
-      {bookmarkList && bookmarkList.length === 0 ? (
-        <h1 className="mt-10 text-2xl font-bold">No Bookmark</h1>
-      ) : (
+      {bookmarkList && bookmarkList.length !== 0 ? (
         bookmarkList?.map((item, index) => <PostCard item={item} key={index} />)
+      ) : (
+        <h1 className="mt-10 text-2xl font-bold">No Bookmark</h1>
       )}
     </div>
   );

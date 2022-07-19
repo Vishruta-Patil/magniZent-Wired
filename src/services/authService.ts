@@ -11,6 +11,7 @@ import {
   doc,
   setDoc,
   updateDoc,
+  onSnapshot,
 } from "firebase/firestore";
 import { db } from "firebase-config";
 import { getUserCredentials } from "redux/slices/authSlice";
@@ -37,7 +38,16 @@ export const addUser = (createAsyncThunk as any)(
         name,
         username,
         email,
-        bookmark:[]
+        bookmark: [],
+        avatarUrl:"",
+        follower : {
+          followedBy: [],
+          followerCount: 0
+      },
+      following: {
+          followingBy: [],
+          followingCount: 0
+      }
       });
     } catch (err) {
       console.log(err);
@@ -192,6 +202,10 @@ export const getAllAvatars = (createAsyncThunk as any)(
           response.items.forEach(async (item) => {
             const reqURL = await getDownloadURL(item);
             resPromiseCount++;
+
+            // const userDoc = doc(db, "users", item?.name);
+            // await updateDoc(userDoc, {avatarUrl: reqURL});
+
             const obj: any = {};
             obj.id = item?.name;
             obj.url = reqURL;
@@ -204,6 +218,23 @@ export const getAllAvatars = (createAsyncThunk as any)(
         });
       })();
       return res;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
+export const getAvatarFromData = (createAsyncThunk as any)(
+  "/auth/getAvatarFromData",
+  async () => {
+    try {
+      const avatarRef = ref(storage, `avatar`);
+      const response = await listAll(avatarRef);
+      response.items.forEach(async (item) => {
+        const reqURL = await getDownloadURL(item);
+        const userDoc = doc(db, "users", item?.name);
+        await updateDoc(userDoc, { avatarUrl: reqURL });
+      });
     } catch (err) {
       console.log(err);
     }

@@ -12,37 +12,47 @@ import {
 } from "services/userService";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { getAllPosts } from "services/postsServices";
 
 const PostCard = ({ item }: { item: any }) => {
   const [moreOptions, setMoreOPtions] = useState(false);
   const [editPostModal, setEditPostModal] = useState(false);
+  // const datereq = new Date(item?.createdAt.seconds*1000).toLocaleDateString()  <<< TODO
 
   const { allUsers, avatarList, authToken } = useAppSelector(
     (store) => store.auth
   );
+
   let userDetails: any = allUsers.find((user) => user?.id === item?.id);
+  
   const getUserAvatar = avatarList.find(
     (user: any) => user?.id === userDetails?.id
   );
+  const [avatar, setAvatar] = useState(getUserAvatar)  //change 2
 
+  useEffect(() => {
+    setAvatar(getUserAvatar)
+  }, [avatarList])
+  
   const { bookmarkList } = useAppSelector((store) => store.user);
   const dispatch = useAppDispatch();
 
   const isBookmark =
-    bookmarkList && bookmarkList.some((data: any) => item?.uid === data?.uid);
+    bookmarkList ? bookmarkList.some((data: any) => item?.uid === data?.uid) : false
   const likedByList = item?.likes?.likedBy;
   const checkLiked =
     likedByList && likedByList.some((data: string) => data === authToken);
 
-  const [isSaved, setISaved] = useState(isBookmark);
+  const [isSaved, setISaved] = useState<boolean>(isBookmark);
   const [isLiked, setIsLiked] = useState(checkLiked);
+
 
   const bookmarkHandler = () => {
     dispatch(addBookmark({ bookmarkList, item }));
     setISaved((prev) => !prev);
   };
 
-  const removebBookmarkHandler = () => {
+  const removeBookmarkHandler = () => {
     dispatch(removeBookmark({ bookmarkList, item }));
     setISaved((prev) => !prev);
   };
@@ -50,11 +60,13 @@ const PostCard = ({ item }: { item: any }) => {
   const likeHandler = () => {
     dispatch(incrementLike({ postId: item.uid, userId: authToken }));
     setIsLiked((prev: boolean) => !prev);
+    dispatch(getAllPosts());
   };
 
   const removeLikeHandler = () => {
     dispatch(decrementLike({ postId: item.uid, userId: authToken}))
     setIsLiked((prev: boolean) => !prev);
+    dispatch(getAllPosts());
   };
 
   useEffect(() => {
@@ -68,13 +80,17 @@ const PostCard = ({ item }: { item: any }) => {
     toast.success("Link copied, share the post now!")
   }
 
+  const pathname = window.location.pathname
+
+  console.log(userDetails)
+
   return (
     <div className="flex flex-col p-5 md:m-9 m-4 lg:mx-14 md:mx-9 bg-white-neutral shadow-lg ">
       <div className="flex flex-col space-x-3">
         <div className="flex  gap-3 relative">
           <Avatar
             classnames="h-14 w-14"
-            profileAvatar={getUserAvatar?.url}
+            profileAvatar={userDetails?.avatarUrl}
             id={userDetails?.id}
           />
           <div>
@@ -83,9 +99,9 @@ const PostCard = ({ item }: { item: any }) => {
                 <p className="text-black text-xl font-semibold">
                   {userDetails?.name}
                 </p>
-                <p className="text-secondary-color text-sm md:block hidden">
-                  1 min
-                </p>
+                {/* <p className="text-secondary-color text-sm md:block hidden">
+                  {datereq}
+                </p> */}
               </div>
 
               <p className="text-secondary-color text-sm text-left">
@@ -134,7 +150,7 @@ const PostCard = ({ item }: { item: any }) => {
               </span>
             )}
 
-            <p>{item?.likes?.likeCount}</p>
+            <p>{item?.likes?.likeCount > 0 && item?.likes?.likeCount}</p>
           </div>
 
           <Link to={`posts/${item?.uid}`}>
@@ -153,9 +169,16 @@ const PostCard = ({ item }: { item: any }) => {
             </span>
           </div>
           <div>
-            {isSaved ? (
+            {pathname === "/bookmark" ? <span
+                onClick={removeBookmarkHandler}
+                className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200"
+              >
+                bookmark
+              </span> :
+
+            isSaved ? (
               <span
-                onClick={removebBookmarkHandler}
+                onClick={removeBookmarkHandler}
                 className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200"
               >
                 bookmark

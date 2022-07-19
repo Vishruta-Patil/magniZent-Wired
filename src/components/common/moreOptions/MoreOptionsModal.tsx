@@ -1,6 +1,6 @@
 import { useAppDispatch } from "hooks";
 import React, { SetStateAction } from "react";
-import { deletePost } from "services/postsServices";
+import { deletePost, getAllPosts } from "services/postsServices";
 import { deleteComment } from "services/userService";
 import { CommentDataType } from "types/user.types";
 
@@ -25,11 +25,13 @@ export const MoreOptionsmOdal = ({
   const deletePostHandler = () => {
     dispatch(deletePost(postId));
     setMoreOPtions && setMoreOPtions((prev: boolean) => !prev);
+    dispatch(getAllPosts())
   };
 
   const editPostHandler = () => {
     setEditPostModal && setEditPostModal(true)
     setMoreOPtions && setMoreOPtions((prev: boolean) => !prev);
+    dispatch(getAllPosts())
   }
 
   const deleteCommentHandler = () => {
@@ -40,6 +42,7 @@ export const MoreOptionsmOdal = ({
       comment: commentDetails?.comment,
     }
     postId && dispatch(deleteComment({postId, data}))
+    setMoreOPtions && setMoreOPtions(false);
   }
 
   return (

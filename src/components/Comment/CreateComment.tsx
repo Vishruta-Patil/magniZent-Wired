@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { getAllUsers } from "services/authService";
 import { addComment } from "services/userService";
 import { CommentDataType } from "types/user.types";
+import { getAllPosts } from "services/postsServices";
+import { Avatar } from "components/common/avatar/Avatar";
 
 export const CreateComment = ({postId} : {postId:string}) => {
   const [commentText, setCommentText] = useState("");
@@ -11,13 +13,14 @@ export const CreateComment = ({postId} : {postId:string}) => {
   const { allUsers, avatar } = useAppSelector((store) => store.auth);
   const dispatch = useAppDispatch();
 
-  const getUser = allUsers.find((user) => user.id === authToken);
 
   useEffect(() => {
     dispatch(getAllUsers());
   }, []);
 
   const addCommentHandler = () => {
+    const getUser:any = allUsers.find((user) => user.id === authToken);
+
     const data: CommentDataType = {
       id: authToken,
       name: getUser?.name,
@@ -26,13 +29,20 @@ export const CreateComment = ({postId} : {postId:string}) => {
     };
 
     dispatch(addComment({ postId, data }));
+    dispatch(getAllPosts())
     setCommentText("")
   };
 
-  
+  const getUser:any = allUsers.find((user) => user.id === authToken);
+
   return (
     <div className="flex gap-4 border-2 rounded-3xl mt-2 p-5 md:m-9 m-4 lg:mx-14 md:mx-9 items-center">
-      <img src={avatar} className="h-12 w-12 rounded-full" />
+      
+      <Avatar
+            classnames="h-12 w-12"
+            profileAvatar={getUser?.avatarUrl}
+            id={getUser?.id}
+          />
       <textarea
         placeholder="Pen down your views"
         className="bg-transparent flex-1 outline-none"
