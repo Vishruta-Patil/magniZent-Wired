@@ -6,7 +6,6 @@ type UserState = {
   bookmarkStatus: string;
   followers: [];
   following: [];
-//   searchValue: string;
 };
 
 const initialState: UserState = {
@@ -14,16 +13,12 @@ const initialState: UserState = {
   bookmarkStatus: "idle",
   followers: [],
   following: [],
-//   searchValue: "",
 };
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    // getSearchedValue: (state, action) => {
-    //   state.searchValue = action.payload;
-    // },
   },
 
   extraReducers: {
@@ -41,4 +36,3 @@ export const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-// export const {getSearchedValue} = userSlice.actions
