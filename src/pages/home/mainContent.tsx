@@ -63,11 +63,11 @@ export const MainContent = () => {
 
   return (
     <>
-      {/* <SearchUser classnames="md:hidden w-11/12 mx-auto block" /> */}
+      <SearchUser classnames="md:hidden w-11/12 mx-auto block" />
       <CreatePost />
-      <div className="p-7 pt-0 mt-3 lg:m-16 md:m-8 m-3">
+      <div className="mx-7">
         <Tab.Group>
-          <Tab.List className="flex space-x-1 rounded-xl bg-primary-color p-1">
+          <Tab.List className="flex space-x-1 rounded-xl bg-primary-color p-1 mb-16">
             {categories.map((category) => (
               <Tab
                 key={category}

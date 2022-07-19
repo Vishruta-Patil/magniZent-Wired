@@ -2,7 +2,7 @@ import { UserCard } from "components/UserSidebar/UserCard";
 import { useAppSelector } from "hooks";
 import { useEffect, useState } from "react";
 
-export const SearchSuggestions = ({searchedValue}:any) => {
+export const SearchSuggestions = ({searchedValue, inputRef}:any) => {
   const {  allUsers } = useAppSelector((store) => store.auth);
 
   const data: any =
@@ -22,6 +22,8 @@ export const SearchSuggestions = ({searchedValue}:any) => {
       setSearchFilteredData(data);
     }
   }, [searchedValue]);
+
+  
 
   console.log(searchFilteredData);
 

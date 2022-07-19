@@ -22,8 +22,8 @@ const Header = () => {
         </div>
       </Link>
 
-      <div className="md:w-9/12 justify-center m-auto items-center">
-      <SearchUser classnames="hidden md:block md:w-9/12 m-auto justify-center"/>
+      <div className="md:w-7/12 justify-center m-auto items-center">
+      <SearchUser classnames="hidden md:block md:w-full m-auto justify-center"/>
       </div> 
 
       {/* wierd error */}
