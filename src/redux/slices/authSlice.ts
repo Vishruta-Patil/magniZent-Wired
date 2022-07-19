@@ -21,6 +21,7 @@ const initialState: AuthState = {
   allUsers: [],
   avatar: "",
   avatarList: [],
+  searchValue: "",
 };
 
 export const authSlice = createSlice({
@@ -42,6 +43,9 @@ export const authSlice = createSlice({
       state.userId = action.payload.id;
       state.name = action.payload.name;
       state.email = action.payload.email;
+    },
+    getSearchedValue: (state, action) => {
+      state.searchValue = action.payload;
     },
   },
 
@@ -140,5 +144,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { logoutUser, getUserCredentials } = authSlice.actions;
+export const { logoutUser, getUserCredentials, getSearchedValue } = authSlice.actions;
 export default authSlice.reducer;

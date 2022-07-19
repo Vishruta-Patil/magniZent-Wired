@@ -21,7 +21,10 @@ const Header = () => {
           </h1>
         </div>
       </Link>
-      <SearchUser classnames="hidden md:block md:w-6/12"/>
+
+      <div className="md:w-9/12 justify-center m-auto items-center">
+      <SearchUser classnames="hidden md:block md:w-9/12 m-auto justify-center"/>
+      </div> 
 
       {/* wierd error */}
       <div onClick={() => dispatch(logoutUser())}></div> 

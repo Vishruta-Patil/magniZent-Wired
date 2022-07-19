@@ -24,9 +24,7 @@ export const Avatar = ({
   const { avatarList, allUsers } = useAppSelector((store) => store.auth);
   const getUserAvatar = avatarList.find((user: any) => user?.id === id);
   let userDetails: any = allUsers.find((user) => user?.id === id);
-
-  console.log(userDetails)
-
+  
   return (
     <>
     <Link to={`/profile/${id}`}>

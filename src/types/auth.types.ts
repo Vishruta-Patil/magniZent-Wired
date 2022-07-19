@@ -21,4 +21,5 @@ export interface AuthState {
   avatar?: string,
   avatarList?: any
   bookmark?:[],
+  searchValue: "",
 }

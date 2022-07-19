@@ -82,7 +82,6 @@ const PostCard = ({ item }: { item: any }) => {
 
   const pathname = window.location.pathname
 
-  console.log(userDetails)
 
   return (
     <div className="flex flex-col p-5 md:m-9 m-4 lg:mx-14 md:mx-9 bg-white-neutral shadow-lg ">
