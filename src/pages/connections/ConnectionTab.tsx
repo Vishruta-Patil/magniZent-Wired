@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Tab } from '@headlessui/react'
 import { useAppDispatch, useAppSelector } from 'hooks'
-import { getAllUsers } from 'services/authService'
+import { getAllUsers, getAvatarFromData } from 'services/authService'
 import { UserCard } from 'components/UserSidebar/UserCard'
 
 function classNames(...classes: any[]) {

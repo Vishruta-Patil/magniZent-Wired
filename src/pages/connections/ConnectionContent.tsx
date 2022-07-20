@@ -5,15 +5,9 @@ import { getAllUsers } from "services/authService";
 export const ConnectionContent = () => {
   const authToken = localStorage.getItem("authToken")
   const { allUsers } = useAppSelector((store) => store.auth);
-  const dispatch = useAppDispatch()
-  
-
-
   const getUser = allUsers.find(user => user.id === authToken)
 
-  useEffect(() => {
-    dispatch(getAllUsers());
-  }, []);
+
   return (
     <section className="p-7 mt-9 lg:m-16 m-8 relative bg-secondary-pale shadow-lg text-left">
       <div className="flex gap-2 justify-between items-center">

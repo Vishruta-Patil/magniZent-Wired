@@ -104,7 +104,7 @@ export const MainContent = () => {
 
             <Tab.Panel>
               {filteredPost?.length > 0 ? (
-                filteredPost?.reverse()?.map((item: any, index: number) => (
+                [...filteredPost]?.reverse()?.map((item: any, index: number) => (
                   <div>
                     <PostCard item={item} key={index} />
                   </div>
