@@ -15,7 +15,6 @@ function App() {
     if (token) {
       dispatch(getAllPosts());
       dispatch(getAllUsers());
-      dispatch(getAvatarFromData());
     }
   }, [token]);
 

@@ -2,7 +2,7 @@ import { Avatar } from "components/common/avatar/Avatar";
 import { HeroBtn } from "components/common/button/HeroBtn";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { useEffect } from "react";
-import { getAllAvatars, getAllUsers } from "services/authService";
+import { getAllAvatars, getAllUsers, getAvatarFromData } from "services/authService";
 import {useState} from "react"
 import { addFollowing, removeFollowing } from "services/userService";
 import { getAllPosts } from "services/postsServices";
@@ -14,7 +14,7 @@ export const UserCard = ({ item }: any) => {
   
     useEffect(() => {
       dispatch(getAllUsers());
-      dispatch(getAllAvatars())
+      dispatch(getAvatarFromData())
     }, []);
   
     let userDetails: any = allUsers.find((user) => user?.id === item.id);
