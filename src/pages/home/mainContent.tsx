@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { getAllUsers } from "services/authService";
 import { getAllPosts } from "services/postsServices";
 import { Tab } from "@headlessui/react";
+import { SearchSuggestions } from "components/common/search/SearchSuggestions";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -16,7 +17,7 @@ export const MainContent = () => {
   const { allPosts } = useAppSelector((store) => store.posts);
   const { allUsers } = useAppSelector((store) => store.auth);
 
-  const categories: string[] = ["Latest", "Trending"];
+  const categories: string[] = ["Latest", "Oldest", "Trending"];
 
   const authToken = localStorage.getItem("authToken");
   const userDetails: any = allUsers.find((user) => user?.id === authToken);
@@ -64,9 +65,9 @@ export const MainContent = () => {
     <>
       <SearchUser classnames="md:hidden w-11/12 mx-auto block" />
       <CreatePost />
-      <div className="p-7 pt-0 mt-3 lg:m-16 md:m-8 m-3">
+      <div className="mx-7">
         <Tab.Group>
-          <Tab.List className="flex space-x-1 rounded-xl bg-primary-color p-1">
+          <Tab.List className="flex space-x-1 rounded-xl bg-primary-color p-1 mb-1">
             {categories.map((category) => (
               <Tab
                 key={category}
@@ -102,6 +103,22 @@ export const MainContent = () => {
             </Tab.Panel>
 
             <Tab.Panel>
+              {filteredPost?.length > 0 ? (
+                filteredPost?.reverse()?.map((item: any, index: number) => (
+                  <div>
+                    <PostCard item={item} key={index} />
+                  </div>
+                ))
+              ) : (
+                <h1 className="text-secondary-color font-semibold text-xl">
+                  Looks like you don't follow anyone,{" "}
+                  <span className="text-primary-color">FOLLOW NOW</span> to get
+                  updated
+                </h1>
+              )}
+            </Tab.Panel>
+
+            <Tab.Panel>
               {trendingPosts?.length > 0 ? (
                 trendingPosts?.map((item: any, index: number) => (
                   <div>
@@ -119,6 +136,8 @@ export const MainContent = () => {
           </Tab.Panels>
         </Tab.Group>
       </div>
+
+      {/* <SearchSuggestions /> */}
     </>
   );
 };

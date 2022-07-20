@@ -58,7 +58,6 @@ export const removeBookmark = createAsyncThunk("user/removeBookmark", async({boo
 export const incrementLike = createAsyncThunk("user/incrementLike", async({postId, userId}:{postId:string, userId:string}, {dispatch}:{dispatch:any}) => {    
     try {
         const postDoc = doc(db, "posts", postId)
-        console.log(userId)
         await updateDoc(postDoc, {"likes.likeCount": increment(1), "likes.likedBy":arrayUnion(userId)}) 
         dispatch(getAllPosts())
         dispatch(getAllUsers())

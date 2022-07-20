@@ -18,7 +18,7 @@ const CreatePost = () => {
   let userDetails: any = allUsers.find((user) => user?.id === authToken);
 
   return (
-    <div className="bg-secondary-pale p-3 my-9 md:m-9 lg:mx-14 md:mx-9 m-4 relative lg:mb-24 shadow-lg">
+    <div className="bg-secondary-pale p-3 my-9 md:m-9 lg:mx-14 md:mx-9 m-4 relative lg:mb-20 shadow-lg">
       <div className="flex space-x-3 items-center mb-9">
         <Avatar
           classnames={"h-16 w-16"}
@@ -46,6 +46,7 @@ const CreatePost = () => {
       <HeroBtn
         classnames="px-10 font-bold text-md rounded-full ml-auto absolute right-5 bottom-5"
         eventHandler={newPostHandler}
+        disableProperty={post===""}
       >
         Post
       </HeroBtn>

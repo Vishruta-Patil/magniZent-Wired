@@ -40,8 +40,6 @@ const unFollowHandler = () => {
     setFollowStatus((prev:Boolean) => !prev)
     dispatch(getAllPosts())
     dispatch(getAllUsers())
-
-    console.log(item?.id)
 } 
 
     return (

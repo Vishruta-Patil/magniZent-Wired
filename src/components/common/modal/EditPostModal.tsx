@@ -1,8 +1,9 @@
 import { useAppDispatch, useAppSelector } from "hooks";
-import React, { SetStateAction, useState } from "react";
+import React, { SetStateAction, useRef, useState } from "react";
 import { Avatar } from "../avatar/Avatar";
 import { HeroBtn } from "../button/HeroBtn";
 import { editPostService } from "services/postsServices";
+import { useClickOutside } from "hooks/useClickOutside";
 
 export const EditPostModal = ({
   content,
@@ -18,15 +19,20 @@ export const EditPostModal = ({
   const { avatar, authToken } = useAppSelector((store) => store.auth);
   const dispatch = useAppDispatch();
   const [updatedPost, setUpdatedPost] = useState<string>(content);
+  const ref:any = useRef()
 
   const editPost = () => {
     dispatch(editPostService({updatedPost,postId}));
     setEditPostModal(false);
   };
 
+  let requiredNode:any = useClickOutside(() => {
+    setEditPostModal(false)
+  })
+
   return (
     <div className="fixed p-4 inset-0 h-screen z-50 flex justify-center items-center bg-overlay-color">
-      <div className=" bg-slate-200 rounded-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6/12 lg:w-3/12 min-w-[90%] md:min-w-[70%] lg:min-w-[40%] p-4">
+      <div ref={requiredNode} className=" bg-slate-200 rounded-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6/12 lg:w-3/12 min-w-[90%] md:min-w-[70%] lg:min-w-[40%] p-4">
         <div className="flex gap-3 text-left">
           <Avatar profileAvatar={avatar} classnames="w-14 h-14" id={authToken}/>
           <div className="flex flex-col ">
