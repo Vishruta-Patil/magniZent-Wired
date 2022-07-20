@@ -50,7 +50,7 @@ export const CreateComment = ({postId} : {postId:string}) => {
         onChange={(e) => setCommentText(e.target.value)}
       />
       <span
-        className="material-icons text-2xl cursor-pointer"
+        className="material-icons text-2xl cursor-pointer dark:text-white-neutral"
         onClick={addCommentHandler}
       >
         send

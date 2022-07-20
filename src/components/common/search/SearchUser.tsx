@@ -20,6 +20,10 @@ const SearchUser = ({classnames} : {classnames:string}) => {
         rounded
         m-5
         focus:outline-none
+        dark:bg-dark-highlight-color
+        dark:outline
+        dark: outline-1
+        dark:outline-secondary-color
         ${classnames}
       `}
       value={searchedValue}

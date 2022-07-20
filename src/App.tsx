@@ -18,8 +18,10 @@ function App() {
     }
   }, [token]);
 
+  const {theme} = useAppSelector((store:any) => store.theme)
+
   return (
-    <div className="App">
+    <div className={`App ${theme==='dark' ? 'dark bg-dark-background-color' : 'bg-background-color'}`} >
       <ToastContainer
         position="bottom-right"
         autoClose={1000}
@@ -35,5 +37,7 @@ function App() {
     </div>
   );
 }
+
+
 
 export default App;

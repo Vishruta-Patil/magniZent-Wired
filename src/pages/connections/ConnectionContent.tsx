@@ -9,7 +9,7 @@ export const ConnectionContent = () => {
 
 
   return (
-    <section className="p-7 mt-9 lg:m-16 m-8 relative bg-secondary-pale shadow-lg text-left">
+    <section className="p-7 mt-9 lg:m-16 m-8 relative bg-secondary-pale shadow-lg text-left dark:bg-dark-highlight-color dark:text-white-neutral rounded-lg">
       <div className="flex gap-2 justify-between items-center">
         <div>
           <h2 className="text-2xl font-semibold text-primary-color">Hey {getUser?.name ?? "User"},</h2>
@@ -17,7 +17,7 @@ export const ConnectionContent = () => {
             Make some cool connections now!
           </p>
           <p>
-          You can revisit your existing peers here, or even better find new people to connect to. Voice your thoughts out in the wild, you'll definitely hear an echo back
+          You can revisit your existing connections here, or even explore new people to connect to.
           </p>
         </div>
         <img

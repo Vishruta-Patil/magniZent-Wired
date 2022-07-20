@@ -51,7 +51,7 @@ const unFollowHandler = () => {
           />
           {/* <img src={item?.avatarUrl} /> */}
           <div className="flex-col flex-wrap">
-            <p className="text-black text-base font-semibold text-left">{item?.name}</p>
+            <p className="text-black text-base font-semibold text-left dark:text-white-neutral">{item?.name}</p>
             <p className="text-secondary-color text-sm text-left">
               @{item?.username}
             </p>
