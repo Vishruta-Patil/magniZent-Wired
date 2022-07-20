@@ -32,8 +32,10 @@ $ npm start
   - User Signup
   - User Login
   - User Logout
- - Fully Responsive
- - share post
+- Fully Responsive
+- share post
+- Toogle between Light and Dark Themes.
+ 
 
 
 
