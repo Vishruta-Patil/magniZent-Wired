@@ -31,7 +31,6 @@ export const ConnectionTab = () => {
 
   useEffect(() => {
     dispatch(getAllUsers())
-    dispatch(getAvatarFromData())
   }, [])
 
   useEffect(() => {

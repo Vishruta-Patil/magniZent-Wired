@@ -41,7 +41,7 @@ export const UpdateProfileModal = ({
     <section
       className={`${
         userProfileModal ? "block" : "hidden"
-      } p-7 max-w-md bg-slate-200 shadow-lg absolute top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2`}
+      } p-7 max-w-md bg-slate-200 shadow-lg absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2`}
     >
       <div className="flex">
         <h1 className="font-bold text-xl mb-7 text-center">Edit Profile</h1>

@@ -203,9 +203,6 @@ export const getAllAvatars = (createAsyncThunk as any)(
             const reqURL = await getDownloadURL(item);
             resPromiseCount++;
 
-            // const userDoc = doc(db, "users", item?.name);
-            // await updateDoc(userDoc, {avatarUrl: reqURL});
-
             const obj: any = {};
             obj.id = item?.name;
             obj.url = reqURL;

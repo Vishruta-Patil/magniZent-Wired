@@ -14,7 +14,6 @@ export const UserCard = ({ item }: any) => {
   
     useEffect(() => {
       dispatch(getAllUsers());
-      dispatch(getAvatarFromData())
     }, []);
   
     let userDetails: any = allUsers.find((user) => user?.id === item.id);
