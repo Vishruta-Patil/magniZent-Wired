@@ -28,15 +28,16 @@ const Login = () => {
   }, [authToken]);
 
   return (
-    <section>
+    <div className="h-screen ">
+    <section className="">
       <Header />
-      <div className="flex flex-col max-w-3xl mx-5 md:mx-auto mt-20 shadow-2xl bg-white-neutral">
+      <div className="flex flex-col max-w-3xl mx-5 md:mx-auto mt-20 shadow-2xl dark:border-white-neutral dark:border bg-white-neutral dark:bg-dark-background-color">
         <h1 className="text-primary-color mt-5 mb-2 text-3xl font-bold">
           LOGIN
         </h1>
 
         <input
-          className="m-3 mx-5 p-2 rounded-lg border-2"
+          className="m-3 mx-5 p-2 rounded-lg border-2 dark:bg-dark-highlight-color dark:border-0 dark:text-white-neutral"
           type="email"
           placeholder="Enter your email"
           value={credentials.email}
@@ -45,7 +46,7 @@ const Login = () => {
           }
         />
         <input
-          className="m-3 mx-5 p-2 rounded-lg border-2"
+          className="m-3 mx-5 p-2 rounded-lg border-2 dark:bg-dark-highlight-color dark:border-0 dark:text-white-neutral"
           type="password"
           placeholder="Enter password"
           value={credentials.password}
@@ -61,12 +62,12 @@ const Login = () => {
           Login
         </HeroBtn>
         <OutlineBtn
-          classnames="m-3 mx-5 mb-5 font-semibold"
+          classnames="m-3 mx-5 mb-5 font-semibold dark:bg-dark-background-color"
           eventHandler={loginUsingGuestCredentials}
         >
           Login using credentials
         </OutlineBtn>
-        <p className="mb-5">
+        <p className="mb-5 dark:text-white-neutral">
           Don't have an account?{" "}
           <Link to="/signin" className="text-primary-color">
             Sign In
@@ -74,6 +75,7 @@ const Login = () => {
         </p>
       </div>
     </section>
+    </div>
   );
 };
 

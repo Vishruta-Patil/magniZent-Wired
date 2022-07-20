@@ -20,15 +20,15 @@ const SignIn = () => {
   return (
     <section>
       <Header />
-      <div className="flex flex-col max-w-3xl mx-5 md:mx-auto mt-20 shadow-2xl bg-white-neutral">
+      <div className="flex flex-col max-w-3xl mx-5 md:mx-auto mt-20 shadow-2xl bg-white-neutral dark:border-white-neutral dark:border dark:bg-dark-background-color">
         <h1 className="text-primary-color my-4 mb-2 text-3xl font-bold">
           REGISTER
         </h1>
 
-        <p>Looks like you are new! Please fill in the information below.</p>
+        <p className="dark:text-white-neutral">Looks like you are new! Please fill in the information below.</p>
 
         <input
-          className="m-3 mt-7 p-2 rounded-lg border-2"
+          className="m-3 mt-7 p-2 rounded-lg border-2 dark:bg-dark-highlight-color dark:border-0 dark:text-white-neutral"
           type="text"
           placeholder="Enter your name"
           value={credentials.name}
@@ -37,7 +37,7 @@ const SignIn = () => {
           }
         />
         <input
-          className="m-3 mt-7 p-2 rounded-lg border-2"
+          className="m-3 mt-7 p-2 rounded-lg border-2 dark:bg-dark-highlight-color dark:border-0 dark:text-white-neutral"
           type="text"
           placeholder="Enter your user name"
           value={credentials.username}
@@ -46,7 +46,7 @@ const SignIn = () => {
           }
         />
         <input
-          className="m-3 p-2 rounded-lg border-2"
+           className="m-3 mt-7 p-2 rounded-lg border-2 dark:bg-dark-highlight-color dark:border-0 dark:text-white-neutral"
           type="email"
           placeholder="Enter your email"
           value={credentials.email}
@@ -55,7 +55,7 @@ const SignIn = () => {
           }
         />
         <input
-          className="m-3 p-2 rounded-lg border-2"
+           className="m-3 mt-7 p-2 rounded-lg border-2 dark:bg-dark-highlight-color dark:border-0 dark:text-white-neutral"
           type="password"
           placeholder="Enter password"
           value={credentials.password}
@@ -65,13 +65,13 @@ const SignIn = () => {
         />
 
         <HeroBtn
-          classnames="m-3 mt-9 mb-5 font-bold p-2"
+          classnames="m-3 mt-9 mb-5 font-bold p-4"
           eventHandler={() => dispatch(signInUser(credentials, dispatch))}
         >
           Sign In
         </HeroBtn>
 
-        <p className="mb-5">
+        <p className="mb-5 dark:text-white-neutral">
           Already have an account?{" "}
           <Link to="/login" className="text-primary-color">
             Log In!
