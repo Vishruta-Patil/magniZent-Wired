@@ -83,7 +83,7 @@ const PostCard = ({ item }: { item: any }) => {
   const pathname = window.location.pathname
 
   return (
-    <div className="flex flex-col p-5 md:m-9 m-4 lg:mx-14 md:mx-9 bg-white-neutral shadow-lg ">
+    <div className="flex flex-col p-5 md:m-9 m-4 lg:mx-14 md:mx-9 bg-white-neutral rounded-lg shadow-lg dark:bg-dark-highlight-color dark:text-white-neutral">
       <div className="flex flex-col space-x-3">
         <div className="flex  gap-3 relative">
           <Avatar
@@ -94,7 +94,7 @@ const PostCard = ({ item }: { item: any }) => {
           <div>
             <div className="flex flex-col">
               <div className="flex items-center gap-4">
-                <p className="text-black text-xl font-semibold">
+                <p className="text-black text-xl font-semibold dark:text-white-neutral">
                   {userDetails?.name}
                 </p>
                 {/* <p className="text-secondary-color text-sm md:block hidden">
@@ -139,11 +139,11 @@ const PostCard = ({ item }: { item: any }) => {
         <div className="flex justify-between">
           <div className="flex gap-1 items-center">
             {isLiked ? (
-              <span onClick={removeLikeHandler} className="material-icons text-2xl text-primary-color cursor-pointer p-2 rounded-full hover:bg-slate-200">
+              <span onClick={removeLikeHandler} className="material-icons text-2xl text-primary-color cursor-pointer p-2 rounded-full hover:bg-slate-200 dark:hover:bg-dark-drawer-color">
                 favorite
               </span>
             ) : (
-              <span onClick={likeHandler} className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200">
+              <span onClick={likeHandler} className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200 dark:hover:bg-dark-drawer-color">
                 favorite_outline
               </span>
             )}
@@ -154,7 +154,7 @@ const PostCard = ({ item }: { item: any }) => {
           <Link to={`posts/${item?.uid}`}>
           <div>
             <span
-              className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200"              
+              className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200 dark:hover:bg-dark-drawer-color"              
             >
               comment
             </span>
@@ -162,14 +162,14 @@ const PostCard = ({ item }: { item: any }) => {
           </Link>
 
           <div>
-            <span className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200" onClick={sharePost}>
+            <span className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200 dark:hover:bg-dark-drawer-color" onClick={sharePost}>
               share
             </span>
           </div>
           <div>
             {pathname === "/bookmark" ? <span
                 onClick={removeBookmarkHandler}
-                className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200"
+                className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200 dark:hover:bg-dark-drawer-color"
               >
                 bookmark
               </span> :
@@ -177,14 +177,14 @@ const PostCard = ({ item }: { item: any }) => {
             isSaved ? (
               <span
                 onClick={removeBookmarkHandler}
-                className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200"
+                className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200 dark:hover:bg-dark-drawer-color"
               >
                 bookmark
               </span>
             ) : (
               <span
                 onClick={bookmarkHandler}
-                className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200"
+                className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200 dark:hover:bg-dark-drawer-color"
               >
                 bookmark_outline
               </span>

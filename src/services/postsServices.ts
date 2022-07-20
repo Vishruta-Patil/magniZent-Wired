@@ -11,6 +11,7 @@ import {
   query,
   serverTimestamp,
   updateDoc,
+  startAfter, limit,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 
@@ -25,6 +26,37 @@ export const getAllPosts = (createAsyncThunk as any)(
         Object.assign({ uid: doc.id }, doc.data())
       );
       return postsArr;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
+export const getpaginatedPosts = (createAsyncThunk as any)(
+  "posts/getpaginatedPosts",
+  async () => {
+    const postsCollectionRef = collection(db, "posts");
+
+    try {
+      const first = query(
+        postsCollectionRef,
+        orderBy("createdAt", "desc"),
+        limit(4)
+      );
+      const documentSnapshots = await getDocs(first);
+
+      const lastVisible =
+        documentSnapshots.docs[documentSnapshots.docs.length - 1];
+      console.log("last", lastVisible);
+
+      const next = query(
+        postsCollectionRef,
+        orderBy("createdAt", "desc"),
+        startAfter(lastVisible),
+        limit(4)
+      );
+
+      
     } catch (err) {
       console.log(err);
     }

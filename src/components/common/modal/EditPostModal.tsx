@@ -31,8 +31,8 @@ export const EditPostModal = ({
   })
 
   return (
-    <div className="fixed p-4 inset-0 h-screen z-50 flex justify-center items-center bg-overlay-color">
-      <div ref={requiredNode} className=" bg-slate-200 rounded-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6/12 lg:w-3/12 min-w-[90%] md:min-w-[70%] lg:min-w-[40%] p-4">
+    <div className="fixed p-4 inset-0 h-screen z-50  flex justify-center items-center bg-overlay-color dark:bg-dark-overlay-color">
+      <div ref={requiredNode} className=" bg-slate-200 dark:bg-dark-highlight-color rounded-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6/12 lg:w-3/12 min-w-[90%] md:min-w-[70%] lg:min-w-[40%] p-4">
         <div className="flex gap-3 text-left">
           <Avatar profileAvatar={avatar} classnames="w-14 h-14" id={authToken}/>
           <div className="flex flex-col ">

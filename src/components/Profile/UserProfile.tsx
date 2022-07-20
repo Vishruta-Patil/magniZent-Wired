@@ -37,7 +37,7 @@ export const Userprofile = () => {
 
   return (
     <div>
-      <section className="p-7 mt-9 lg:m-16 m-8 relative bg-white-neutral shadow-lg space-x-3">
+      <section className="p-7 mt-9 lg:m-16 m-8 relative bg-white-neutral shadow-lg space-x-3 dark:bg-dark-highlight-color">
         <div className="flex flex-col justify-center items-center md:items-start md:flex-row">
           <Avatar
             classnames="md:h-24 md:w-24 h-28 md:m-0 m-5 w-28"
@@ -78,14 +78,14 @@ export const Userprofile = () => {
           </div>
           {data?.id === authToken ? (
             <OutlineBtn
-              classnames="hidden ml-auto text-base px-1 md:block"
+              classnames="hidden ml-auto text-base px-1 md:block dark:bg-dark-drawer-color"
               eventHandler={() => setUserProfileModal(!userProfileModal)}
             >
               Edit Profile
             </OutlineBtn>
           ) : (
             <OutlineBtn
-              classnames="hidden ml-auto text-base px-1 md:block"
+              classnames="hidden ml-auto text-base px-1 md:block dark:bg-dark-drawer-color"
               eventHandler={() => setUserProfileModal(!userProfileModal)}
               disableProperty={true}
             >

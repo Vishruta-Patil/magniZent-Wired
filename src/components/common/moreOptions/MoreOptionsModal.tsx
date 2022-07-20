@@ -48,10 +48,10 @@ export const MoreOptionsmOdal = ({
 
 
   return (
-    <div   className="bg-slate-100 p-2 absolute top-10 right-0 w-40 md:w-60 rounded border-2">
+    <div   className="bg-slate-100 absolute top-10 right-0 w-40 md:w-60 rounded-lg border-2 dark:bg-dark-highlight-color">
       {comment ? <>
           <div
-            className="flex gap-4 items-center cursor-pointer hover:bg-slate-200 p-1"
+            className="flex gap-4 items-center cursor-pointer hover:bg-slate-200 dark:hover:bg-dark-drawer-color p-1"
             onClick={deleteCommentHandler}
           >
             <span className="material-icons text-2xl cursor-pointer">
@@ -63,14 +63,14 @@ export const MoreOptionsmOdal = ({
       :
       userId === dataId ? (
         <>
-          <div className="flex gap-4 items-center mb-2 cursor-pointer hover:bg-slate-200 p-1" onClick={editPostHandler}>
+          <div className="flex gap-4 items-center mb-1 cursor-pointer hover:bg-slate-200 dark:hover:bg-dark-drawer-color p-2" onClick={editPostHandler}>
             <span className="material-icons text-xl md:text-2xl cursor-pointer">
               edit
             </span>
             <p className="text-base">Edit</p>
           </div>
           <div
-            className="flex gap-4 items-center cursor-pointer hover:bg-slate-200 p-1"
+            className="flex gap-4 items-center cursor-pointer hover:bg-slate-200 dark:hover:bg-dark-drawer-color p-2 rounded"
             onClick={deletePostHandler}
           >
             <span className="material-icons text-2xl cursor-pointer">

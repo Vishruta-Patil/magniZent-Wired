@@ -11,7 +11,7 @@ const dispatch = useAppDispatch()
   };
 
   return (
-    <div className="p-3 mt-9 m-3 text-secondary-color sticky top-5">
+    <div className="p-6 pt-9 text-secondary-color sticky top-5 dark:bg-dark-drawer-color dark:h-full">
        {/* fixed top-20 overflow-hidden h-full  */}
       <div className="flex flex-col text-xl">
         <NavLink

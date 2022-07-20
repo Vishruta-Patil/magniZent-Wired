@@ -34,7 +34,7 @@ const Home = () => {
       <div className="xs:hidden md:block  col-span-1 relative">
         <Drawer />
       </div>
-      <div className="relative lg:col-span-8 border-l-2 border-r-2 col-span-12 md:col-span-7">
+      <div className="relative lg:col-span-8 border-l border-r col-span-12 md:col-span-7 dark:border-dark-drawer-color">
         <MainContent />
        
       </div>

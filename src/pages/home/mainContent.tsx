@@ -67,16 +67,16 @@ export const MainContent = () => {
       <CreatePost />
       <div className="mx-7">
         <Tab.Group>
-          <Tab.List className="flex space-x-1 rounded-xl bg-primary-color p-1 mb-1">
+          <Tab.List className="flex space-x-1 rounded-xl bg-primary-color p-1 mb-1 dark:bg-dark-highlight-color">
             {categories.map((category) => (
               <Tab
                 key={category}
                 className={({ selected }) =>
                   classNames(
-                    "w-full rounded-lg py-2.5 text-md font-medium leading-5 text-blue-700",
+                    "w-full rounded-lg py-2.5 text-xl font-medium leading-5 text-primary-color",
                     "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
                     selected
-                      ? "bg-white shadow"
+                      ? "bg-white shadow dark:bg-primary-color dark:text-white-neutral dark:font-bold"
                       : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
                   )
                 }
