@@ -41,6 +41,7 @@ $ npm start
 
 ## **Built with -**
 
+- TypeScript
 - React JS
 - Redux Toolkit 
 - React Router v6
