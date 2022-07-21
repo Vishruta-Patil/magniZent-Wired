@@ -68,12 +68,12 @@ export const Userprofile = () => {
               <p>15 Following</p>
             </div>
             {data?.id === authToken && (
-            <HeroBtn
-              classnames="w-11/12 mt-3"
-              eventHandler={() => dispatch(logoutUser())}
-            >
-              Logout
-            </HeroBtn>
+              <HeroBtn
+                classnames="w-11/12 mt-3"
+                eventHandler={() => dispatch(logoutUser())}
+              >
+                Logout
+              </HeroBtn>
             )}
           </div>
           {data?.id === authToken ? (
@@ -101,7 +101,7 @@ export const Userprofile = () => {
         data={data}
       />
 
-<UserPosts />
+      <UserPosts />
     </div>
   );
 };

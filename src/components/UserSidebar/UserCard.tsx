@@ -8,23 +8,13 @@ import { addFollowing, removeFollowing } from "services/userService";
 import { getAllPosts } from "services/postsServices";
 
 export const UserCard = ({ item }: any) => {
-    const { avatarList, allUsers, authToken } = useAppSelector((store) => store.auth);
-   
+    const { allUsers, authToken } = useAppSelector((store) => store.auth);
     const dispatch = useAppDispatch();
-  
-    useEffect(() => {
-      dispatch(getAllUsers());
-    }, []);
-  
-    let userDetails: any = allUsers.find((user) => user?.id === item.id);
-    const getUserAvatar = avatarList.find(
-      (user: any) => user?.id === userDetails?.id
-    );
 
     const userId = item?.id
     let authItem: any = allUsers.find((user) => user?.id === authToken);
 
-   const isFollowed = () => authItem?.following?.followingBy.some((user:any) => user.id === item.id)
+   const isFollowed:any = authItem?.following?.followingId?.some((id:string) => id === item.id)
    const [followStatus, setFollowStatus] = useState(isFollowed)
 
    const followHandler = () => {
@@ -40,6 +30,10 @@ const unFollowHandler = () => {
     dispatch(getAllPosts())
     dispatch(getAllUsers())
 } 
+
+useEffect(() => {
+  setFollowStatus(isFollowed)
+}, [userId])
 
     return (
       <div className="flex justify-between items-center mb-6">

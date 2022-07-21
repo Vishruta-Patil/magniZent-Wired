@@ -13,13 +13,13 @@ function classNames(...classes: any[]) {
 }
 
 export const MainContent = () => {
+   const authToken = localStorage.getItem("authToken");
   const dispatch = useAppDispatch();
   const { allPosts } = useAppSelector((store) => store.posts);
   const { allUsers } = useAppSelector((store) => store.auth);
 
   const categories: string[] = ["Latest", "Oldest", "Trending"];
-
-  const authToken = localStorage.getItem("authToken");
+ 
   const userDetails: any = allUsers.find((user) => user?.id === authToken);
   const [following, setFollowing] = useState(
     userDetails?.following?.followingBy
@@ -50,7 +50,7 @@ export const MainContent = () => {
   useEffect(() => {
     setFollowing(userDetails?.following?.followingBy);
     setFilteredPost(postsOfFollowing);
-  }, [allPosts, allUsers]);
+  }, [following, allUsers]);
 
   useEffect(() => {
     filteredPost &&

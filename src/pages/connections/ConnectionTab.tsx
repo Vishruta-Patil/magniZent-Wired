@@ -19,25 +19,36 @@ export const ConnectionTab = () => {
   const authToken = localStorage.getItem("authToken")
 
   let userDetails: any = allUsers.find((user) => user?.id === authToken);
-  const [followers, setFollowers] = useState(userDetails?.follower?.followedBy)
-  const [following, setFollowing] = useState(userDetails?.following?.followingBy)
+  const [followers, setFollowers] = useState(userDetails?.follower?.followerId)
+  const [following, setFollowing] = useState(userDetails?.following?.followingId)
 
   const getFollowing = following && following.map((user:any) => user?.id)
-  const followingList = following && [...getFollowing, authToken]
-  const exploreList = following && allUsers.filter((user:any) => !followingList.includes(user?.id))
+  const followingList = following && ([...getFollowing, authToken] ?? [])
+  
+  const getFollowingUsers = following && allUsers.filter((item:any) => following.includes(item?.id))
+  const [followingUsers, setFollowingUsers] = useState(getFollowingUsers)
+
+  const exploreList = allUsers.filter((user:any) => !(followingUsers?.includes(user?.id))) ?? []
+
+  const getFollowerUsers = followers && allUsers.filter((item:any) => followers.includes(item?.id))
+  const [followerUsers, setFollowerUsers] = useState(getFollowerUsers)
   
   const [explore, setExplore] = useState(exploreList)
 
-
   useEffect(() => {
-    dispatch(getAllUsers())
-  }, [])
-
-  useEffect(() => {
-    setFollowers(userDetails?.follower?.followedBy)
-    setFollowing(userDetails?.following?.followingBy)
+    setFollowers(userDetails?.follower?.followerId)
+    setFollowing(userDetails?.following?.followingId)
     setExplore(exploreList)
   }, [allUsers])
+
+  useEffect(() => {
+    setFollowingUsers(getFollowingUsers)
+  }, [following])
+
+  useEffect(() => {
+    setExplore(exploreList)
+  }, [following])
+  
 
   return (
     <div className="p-7 mt-9 lg:m-16 md:m-8 m-3">
@@ -75,7 +86,7 @@ export const ConnectionTab = () => {
 
             <Tab.Panel
               className={classNames(
-                'rounded-xl bg-white p-3',
+                'rounded-xl bg-white p-3 dark:bg-dark-highlight-color',
                 'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
               )}
             >
@@ -88,12 +99,12 @@ export const ConnectionTab = () => {
 
             <Tab.Panel
               className={classNames(
-                'rounded-xl bg-white p-3',
+                'rounded-xl bg-white p-3 dark:bg-dark-highlight-color',
                 'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
               )}
             >
-              {(following === undefined || following.length === 0) ? <h2 className='text-primary-color font-semibold text-xl'>You are not following any user</h2> :
-              following?.map((item:any,index:number) => (
+              {(followingUsers === undefined || followingUsers.length === 0) ? <h2 className='text-primary-color font-semibold text-xl'>You are not following any user</h2> :
+              followingUsers?.map((item:any,index:number) => (
                 <UserCard item={item} key={index}/>
               ))}
             </Tab.Panel>

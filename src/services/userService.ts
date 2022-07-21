@@ -95,8 +95,8 @@ export const addFollowing = ((createAsyncThunk as any)("user/addFollowing", asyn
             username: item?.username
         }
         
-        await updateDoc(userDocUserId, {"follower.followerCount": increment(1), "follower.followedBy":arrayUnion(authObj)})
-        await updateDoc(userDocAuthId, {"following.followingCount": increment(1), "following.followingBy":arrayUnion(userObj)})
+        await updateDoc(userDocUserId, {"follower.followerCount": increment(1), "follower.followerId":arrayUnion(authItem?.id), "follower.followedBy":arrayUnion(authObj)})
+        await updateDoc(userDocAuthId, {"following.followingCount": increment(1), "following.followingId":arrayUnion(item?.id),"following.followingBy":arrayUnion(userObj)})
         dispatch(getAllPosts())
         dispatch(getAllUsers())
     } catch(err) {
@@ -118,8 +118,8 @@ export const removeFollowing = (createAsyncThunk("user/removeFollowing", async({
             name: item?.name,
             username: item?.username
         }
-        await updateDoc(userDocUserId, {"follower.followerCount": increment(-1), "follower.followedBy":arrayRemove(authObj)})
-        await updateDoc(userDocAuthId, {"following.followingCount": increment(-1), "following.followingBy":arrayRemove(userObj)})
+        await updateDoc(userDocUserId, {"follower.followerCount": increment(-1), "follower.followerId":arrayRemove(authItem?.id), "follower.followedBy":arrayRemove(authObj)})
+        await updateDoc(userDocAuthId, {"following.followingCount": increment(-1), "following.followingId":arrayRemove(item?.id), "following.followingBy":arrayRemove(userObj)})
         dispatch(getAllPosts())
         dispatch(getAllUsers())
     } catch(err) {
