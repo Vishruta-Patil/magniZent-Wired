@@ -36,10 +36,10 @@ export const CommentCard = ({
             id={userDetails?.id}
           />
 
-      <div className="bg-slate-200 flex-1 p-3 rounded">
+      <div className="bg-slate-200 flex-1 p-3 rounded dark:bg-dark-highlight-color dark:text-white-neutral">
         <div className="flex md:gap-3 gap-1 text-secondary-color flex-wrap">
           <div className="flex flex-col lg:flex-row text-left lg:gap-4">
-            <p className="text-black font-semibold">{comment.name}</p>
+            <p className="text-black dark:text-white-neutral font-semibold">{comment.name}</p>
             <p>@{comment.username}</p>
           </div>
           <div className="relative ml-auto">

@@ -40,7 +40,7 @@ export const SearchSuggestions = ({ searchedValue }: {searchedValue:string}) => 
 
 
   return (
-    <div className="bg-white shadow-lg p-5 w-9/12 absolute top-20  z-50 left-1/2 transform -translate-x-1/2 ">
+    <div className="bg-white shadow-lg p-5 w-9/12 absolute top-20  z-50 left-1/2 transform -translate-x-1/2 dark:bg-dark-highlight-color">
       {searchFilteredData?.length > 0 ? (
         searchFilteredData?.map((item: number, index: any) => (
           <UserCard item={item} />
@@ -48,7 +48,7 @@ export const SearchSuggestions = ({ searchedValue }: {searchedValue:string}) => 
       ) : searchedValue === "" ? (
         <h1>Search Now</h1>
       ) : (
-        <h1>No Users Found</h1>
+        <h1 className="dark:text-white-neutral">No Users Found</h1>
       )}
     </div>
   );

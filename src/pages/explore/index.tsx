@@ -1,3 +1,4 @@
+import { IntroCard } from "components/common/introductionCard/IntroCard";
 import { MobileNav } from "components/common/mobileNav/MobileNav";
 import Drawer from "components/Drawer";
 import Header from "components/Header";
@@ -13,7 +14,8 @@ export const Explore = () => {
       <div className="xs:hidden md:block  col-span-1 relative">
         <Drawer />
       </div>
-      <div className="relative lg:col-span-8 border-l-2 border-r-2 col-span-12 md:col-span-7">
+      <div className="relative lg:col-span-8 col-span-12 md:col-span-7 border-l-4 border-r-4 dark:border-overlay-color">
+        <IntroCard header="Give a look on the amazing content Now!" description="You can show your support by liking and commenting on this amazing posts"/>
         <ExploreContent />
       </div>
       <div className="xs:hidden md:block block lg:col-span-3 md:col-span-4">

@@ -45,7 +45,7 @@ export const CreateComment = ({postId} : {postId:string}) => {
           />
       <textarea
         placeholder="Pen down your views"
-        className="bg-transparent flex-1 outline-none"
+        className="bg-transparent flex-1 outline-none dark:text-white-neutral"
         value={commentText}
         onChange={(e) => setCommentText(e.target.value)}
       />
