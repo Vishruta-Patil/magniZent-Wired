@@ -18,7 +18,7 @@ export const MobileNav = () => {
   };
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 bg-secondary-pale py-1 flex justify-around text-black">
+    <div className="md:hidden fixed bottom-0 left-0 right-0 bg-secondary-pale py-1 flex justify-around text-black dark:text-white-neutral dark:bg-dark-drawer-color">
       {menuData.map((icon, index) => (
         <NavLink
           to={icon.link}
@@ -27,7 +27,7 @@ export const MobileNav = () => {
           }
           key={index}
         >
-          <span className="material-icons text-4xl" key={index}>
+          <span className="material-icons text-3xl" key={index}>
             {icon.name}
           </span>
         </NavLink>

@@ -28,7 +28,7 @@ export const Avatar = ({
     <>
     <Link to={`/profile/${id}`}>
       {profileAvatar == "" ? (
-        <div className={`h-14 w-14 rounded-full relative bg-blue-500 text-white-neutral flex items-center justify-center text-2xl ${classnames}`}>
+        <div className={`h-14 w-14 rounded-full relative bg-blue-500 text-white-neutral flex items-center justify-center text-lg md:text-xl ${classnames}`}>
           {(userDetails?.name)
             ?.split(" ")
             ?.map((item:any) => item?.slice(0, 1))

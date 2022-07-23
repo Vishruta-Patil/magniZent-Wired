@@ -48,7 +48,7 @@ export const MoreOptionsmOdal = ({
 
 
   return (
-    <div   className="bg-slate-100 absolute top-10 right-0 w-40 md:w-60 rounded-lg border-2 dark:bg-dark-highlight-color">
+    <div   className="bg-slate-100 absolute top-10 right-0 w-40 md:w-60 rounded-lg p-1 border-2 dark:bg-dark-highlight-color">
       {comment ? <>
           <div
             className="flex gap-4 items-center cursor-pointer hover:bg-slate-200 dark:hover:bg-dark-drawer-color p-1"
