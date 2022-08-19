@@ -1,3 +1,4 @@
+import { IntroCard } from "components/common/introductionCard/IntroCard";
 import { MobileNav } from "components/common/mobileNav/MobileNav";
 import Drawer from "components/Drawer";
 import Header from "components/Header";
@@ -5,7 +6,6 @@ import UserSidebar from "components/UserSidebar";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { useEffect, useState } from "react";
 import { getAllUsers } from "services/authService";
-import { ConnectionContent } from "./ConnectionContent";
 import { ConnectionTab } from "./ConnectionTab";
 
 export const Connections = () => {
@@ -28,8 +28,8 @@ export const Connections = () => {
       <div className="xs:hidden md:block  col-span-1 relative">
         <Drawer />
       </div>
-      <div className="relative lg:col-span-8 border-l-2 border-r-2 col-span-12 md:col-span-7">
-        <ConnectionContent />
+      <div className="relative lg:col-span-8 col-span-12 md:col-span-7 border-l-4 border-r-4 dark:border-overlay-color">
+        <IntroCard header="Make some cool connections now!" description="You can revisit your existing connections here, or even explore new people to connect to." />
         <ConnectionTab />
       </div>
       <div className="xs:hidden md:block block lg:col-span-3 md:col-span-4">

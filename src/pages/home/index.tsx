@@ -34,9 +34,8 @@ const Home = () => {
       <div className="xs:hidden md:block  col-span-1 relative">
         <Drawer />
       </div>
-      <div className="relative lg:col-span-8 border-l border-r col-span-12 md:col-span-7 dark:border-dark-drawer-color">
-        <MainContent />
-       
+      <div className="relative lg:col-span-8 col-span-12 md:col-span-7 border-l-4 border-r-4 dark:border-overlay-color">
+        <MainContent />       
       </div>
       <div className="xs:hidden md:block block lg:col-span-3 md:col-span-4">
         <UserSidebar />

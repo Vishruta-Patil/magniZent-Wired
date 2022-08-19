@@ -22,6 +22,7 @@ export const MoreOptionsmOdal = ({
 }) => {
   const dataId = localStorage.getItem("authToken");
   const dispatch = useAppDispatch();
+  
 
   const deletePostHandler = () => {
     dispatch(deletePost(postId));
@@ -46,12 +47,21 @@ export const MoreOptionsmOdal = ({
     setMoreOPtions && setMoreOPtions(false);
   }
 
+  let ref = useRef()
+
+  let requiredNode:any = useClickOutside(() => {
+    setMoreOPtions && setMoreOPtions(false)
+  })
+
+  
+
 
   return (
-    <div   className="bg-slate-100 absolute top-10 right-0 w-40 md:w-60 rounded-lg border-2 dark:bg-dark-highlight-color">
+    <div >
+    <div className="bg-slate-100 absolute top-10 right-0 w-40 md:w-60 rounded-lg border-2 dark:bg-dark-highlight-color">
       {comment ? <>
           <div
-            className="flex gap-4 items-center cursor-pointer hover:bg-slate-200 dark:hover:bg-dark-drawer-color p-1"
+            className="flex gap-4 p-2 items-center cursor-pointer hover:bg-slate-200 dark:hover:bg-dark-drawer-color text-red-500"
             onClick={deleteCommentHandler}
           >
             <span className="material-icons text-2xl cursor-pointer">
@@ -70,7 +80,7 @@ export const MoreOptionsmOdal = ({
             <p className="text-base">Edit</p>
           </div>
           <div
-            className="flex gap-4 items-center cursor-pointer hover:bg-slate-200 dark:hover:bg-dark-drawer-color p-2 rounded"
+            className="flex gap-4 items-center cursor-pointer hover:bg-slate-200 text-red-500 dark:hover:bg-dark-drawer-color p-2 rounded"
             onClick={deletePostHandler}
           >
             <span className="material-icons text-2xl cursor-pointer">
@@ -80,11 +90,12 @@ export const MoreOptionsmOdal = ({
           </div>
         </>
       ) : (
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 items-center p-2">
           <span className="material-icons text-2xl cursor-pointer">add</span>
           <p className="text-base">Follow</p>
         </div>
       )}
+    </div>
     </div>
   );
 };

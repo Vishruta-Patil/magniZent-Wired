@@ -6,25 +6,16 @@ import { getAllAvatars, getAllUsers, getAvatarFromData } from "services/authServ
 import {useState} from "react"
 import { addFollowing, removeFollowing } from "services/userService";
 import { getAllPosts } from "services/postsServices";
+import { Link } from "react-router-dom";
 
 export const UserCard = ({ item }: any) => {
-    const { avatarList, allUsers, authToken } = useAppSelector((store) => store.auth);
-   
+    const { allUsers, authToken } = useAppSelector((store) => store.auth);
     const dispatch = useAppDispatch();
-  
-    useEffect(() => {
-      dispatch(getAllUsers());
-    }, []);
-  
-    let userDetails: any = allUsers.find((user) => user?.id === item.id);
-    const getUserAvatar = avatarList.find(
-      (user: any) => user?.id === userDetails?.id
-    );
 
     const userId = item?.id
     let authItem: any = allUsers.find((user) => user?.id === authToken);
 
-   const isFollowed = () => authItem?.following?.followingBy.some((user:any) => user.id === item.id)
+   const isFollowed:any = authItem?.following?.followingId?.some((id:string) => id === item.id)
    const [followStatus, setFollowStatus] = useState(isFollowed)
 
    const followHandler = () => {
@@ -41,8 +32,14 @@ const unFollowHandler = () => {
     dispatch(getAllUsers())
 } 
 
+useEffect(() => {
+  setFollowStatus(isFollowed)
+}, [userId])
+
     return (
+      
       <div className="flex justify-between items-center mb-6">
+        <Link to={`/profile/${item?.id}`}>
         <div className="flex items-center space-x-3">
           <Avatar
             classnames="lg:h-12 lg:w-12 h-9 w-9"
@@ -57,7 +54,7 @@ const unFollowHandler = () => {
             </p>
           </div>
         </div>
-
+        </Link>
     {followStatus ?
         <HeroBtn classnames="px- m-3 text-sm text-white-neutral rounded-full" eventHandler={unFollowHandler}>
           unfollow
@@ -67,5 +64,6 @@ const unFollowHandler = () => {
       </HeroBtn>
 }
       </div>
+     
     );
   };

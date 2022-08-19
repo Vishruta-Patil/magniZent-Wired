@@ -15,7 +15,7 @@ const Header = () => {
 
   let userDetails: any = allUsers.find((user: any) => user?.id === authToken);
   return (
-    <div className="p-2 pl-4 pr-9 flex justify-between shadow-sm items-center dark:bg-dark-drawer-color dark:border-b dark:border-secondary-color">
+    <div className="p-2 pl-4 pr-9 flex justify-between shadow-sm items-center dark:bg-dark-drawer-color dark:border-overlay-color border-b-4">
       <Link to="/">
         <div className="flex space-x-3 items-center">
           <img src={icon} alt="" className="md:w-14 md:h-14 w-12 h-12" />

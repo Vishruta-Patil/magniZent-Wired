@@ -24,6 +24,7 @@ const SearchUser = ({classnames} : {classnames:string}) => {
         dark:outline
         dark: outline-1
         dark:outline-secondary-color
+        dark:text-white-neutral
         ${classnames}
       `}
       value={searchedValue}
