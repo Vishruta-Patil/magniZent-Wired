@@ -157,7 +157,7 @@ const PostCard = ({ item }: { item: any }) => {
             <p>{item?.likes?.likeCount > 0 && item?.likes?.likeCount}</p>
           </div>
 
-          <Link to={`posts/${item?.uid}`}>
+          <Link to={`/posts/${item?.uid}`}>
           <div>
             <span
               className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200 dark:hover:bg-dark-drawer-color"              

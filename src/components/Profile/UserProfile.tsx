@@ -13,6 +13,7 @@ import {
 import { userDetailsType } from "types/auth.types";
 import { Avatar } from "components/common/avatar/Avatar";
 import { UserPosts } from "pages/profile/userPosts";
+import { useFollowStatus } from "hooks/useFollowStatus";
 
 export const Userprofile = () => {
   const [userProfileModal, setUserProfileModal] = useState(false);
@@ -33,7 +34,9 @@ export const Userprofile = () => {
   const data = allUsers.find(
     (item: userDetailsType) => item["id"] === profileId
   );
-  const { avatar } = useAppSelector((store) => store.auth);
+
+  const { followHandler, unFollowHandler, followStatus } =
+    useFollowStatus(data);
 
   return (
     <div>
@@ -83,15 +86,21 @@ export const Userprofile = () => {
             >
               Edit Profile
             </OutlineBtn>
+          ) : (followStatus ? (
+            <OutlineBtn
+              classnames="hidden ml-auto text-base px-1 md:block dark:bg-dark-drawer-color"
+              eventHandler={unFollowHandler}
+            >
+              Unfollow
+            </OutlineBtn>
           ) : (
             <OutlineBtn
               classnames="hidden ml-auto text-base px-1 md:block dark:bg-dark-drawer-color"
-              eventHandler={() => setUserProfileModal(!userProfileModal)}
-              disableProperty={true}
+              eventHandler={followHandler}
             >
-              Edit Profile
+              Follow
             </OutlineBtn>
-          )}
+          ))}
         </div>
       </section>
 

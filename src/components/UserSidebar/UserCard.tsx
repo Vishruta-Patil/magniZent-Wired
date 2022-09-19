@@ -7,34 +7,10 @@ import {useState} from "react"
 import { addFollowing, removeFollowing } from "services/userService";
 import { getAllPosts } from "services/postsServices";
 import { Link } from "react-router-dom";
+import { useFollowStatus } from "hooks/useFollowStatus";
 
 export const UserCard = ({ item }: any) => {
-    const { allUsers, authToken } = useAppSelector((store) => store.auth);
-    const dispatch = useAppDispatch();
-
-    const userId = item?.id
-    let authItem: any = allUsers.find((user) => user?.id === authToken);
-
-   const isFollowed:any = authItem?.following?.followingId?.some((id:string) => id === item.id)
-   const [followStatus, setFollowStatus] = useState(isFollowed)
-
-   const followHandler = () => {
-    dispatch(addFollowing({userId, item, authToken, authItem}))
-    setFollowStatus((prev:Boolean) => !prev)
-    dispatch(getAllPosts())
-    dispatch(getAllUsers())
-}
-
-const unFollowHandler = () => {
-    dispatch(removeFollowing({userId, item, authToken, authItem}))
-    setFollowStatus((prev:Boolean) => !prev)
-    dispatch(getAllPosts())
-    dispatch(getAllUsers())
-} 
-
-useEffect(() => {
-  setFollowStatus(isFollowed)
-}, [userId])
+    const {followHandler, unFollowHandler, followStatus} = useFollowStatus(item)
 
     return (
       

@@ -48,9 +48,12 @@ export const MainContent = () => {
   const [trendingPosts, setTrendingPosts] = useState(postsByLiked);
 
   useEffect(() => {
-    setFollowing(userDetails?.following?.followingBy);
-    setFilteredPost(postsOfFollowing);
+    setFollowing(userDetails?.following?.followingBy);   
   }, [following, allUsers]);
+
+  useEffect(() => {
+    setFilteredPost(postsOfFollowing);
+  }, [following, allUsers, allPosts])
 
   useEffect(() => {
     filteredPost &&
@@ -60,6 +63,8 @@ export const MainContent = () => {
         )
       );
   }, [filteredPost, allPosts, allUsers]);
+
+
 
   return (
     <>

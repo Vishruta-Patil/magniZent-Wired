@@ -65,7 +65,7 @@ export const getpaginatedPosts = (createAsyncThunk as any)(
 
 export const createNewPost = (createAsyncThunk as any)(
   "/posts/createPost",
-  async ({ post, authToken }: { post: string; authToken: string }) => {
+  async ({ post, authToken, dispatch }: { post: string; authToken: string, dispatch:any }) => {
     try {
       await addDoc(collection(db, "posts"), {
         content: post,
@@ -75,6 +75,7 @@ export const createNewPost = (createAsyncThunk as any)(
         createdAt: serverTimestamp(),
       });
       toast.success("Created Post sucessfully!");
+      dispatch(getAllPosts())
     } catch (err) {
       console.log(err);
     }

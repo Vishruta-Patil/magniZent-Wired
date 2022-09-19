@@ -10,7 +10,7 @@ const CreatePost = () => {
   const dispatch = useAppDispatch();
 
   const newPostHandler = () => {
-    dispatch(createNewPost({ post, authToken }));
+    dispatch(createNewPost({ post, authToken, dispatch }));
     dispatch(getAllPosts())
     setPost("");
   };
