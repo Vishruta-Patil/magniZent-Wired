@@ -17,6 +17,15 @@ export const useFollowStatus = (item: any) => {
   );
   const [followStatus, setFollowStatus] = useState(isFollowed);
 
+ 
+  const totalFollowing = authItem?.following ? authItem?.following?.followingBy?.length : 0
+  const [noOfFollowing, setNoOfFollowing] = useState(totalFollowing)
+
+  console.log({authItem})
+
+  const totalFollower = authItem?.follower ? authItem?.follower?.followedBy?.length : 0
+  const [noOfFollower, setNoOfFollower] = useState(totalFollower)
+
   const followHandler = () => {
     dispatch(addFollowing({ userId, item, authToken, authItem }));
     dispatch(getAllPosts());
@@ -31,7 +40,9 @@ export const useFollowStatus = (item: any) => {
 
   useEffect(() => {
     setFollowStatus(isFollowed);
+    setNoOfFollowing(totalFollowing)
+    setNoOfFollower(totalFollower)
   }, [userId, authItem]);
 
-  return { followStatus, followHandler, unFollowHandler };
+  return { followStatus, followHandler, unFollowHandler, noOfFollowing, noOfFollower };
 };

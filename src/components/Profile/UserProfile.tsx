@@ -5,11 +5,7 @@ import { UpdateProfileModal } from "./UpdateProfileModal";
 import { logoutUser } from "redux/slices/authSlice";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "hooks";
-import {
-  getAllUsers,
-  getAvatarProfile,
-  uploadAvatarProfile,
-} from "services/authService";
+import { getAllUsers, getAvatarProfile } from "services/authService";
 import { userDetailsType } from "types/auth.types";
 import { Avatar } from "components/common/avatar/Avatar";
 import { UserPosts } from "pages/profile/userPosts";
@@ -23,6 +19,23 @@ export const Userprofile = () => {
   const { profileId } = params;
   const { allUsers, authToken } = useAppSelector((store) => store.auth);
 
+  const data = allUsers.find(
+    (item: userDetailsType) => item["id"] === profileId
+  );
+
+  const {
+    followHandler,
+    unFollowHandler,
+    followStatus,
+    noOfFollowing,
+    noOfFollower,
+  } = useFollowStatus(data);
+
+  const { allPosts } = useAppSelector((store) => store.posts);
+  let userDetails: any = allUsers.find((user: any) => user?.id === profileId);
+  const userPosts: any =
+    allPosts.filter((post: any) => post.id === userDetails?.id).length ?? 0;
+
   useEffect(() => {
     dispatch(getAllUsers());
   }, [userProfileModal]);
@@ -30,13 +43,6 @@ export const Userprofile = () => {
   useEffect(() => {
     dispatch(getAvatarProfile());
   }, [userProfileModal]);
-
-  const data = allUsers.find(
-    (item: userDetailsType) => item["id"] === profileId
-  );
-
-  const { followHandler, unFollowHandler, followStatus } =
-    useFollowStatus(data);
 
   return (
     <div>
@@ -66,9 +72,9 @@ export const Userprofile = () => {
             {data?.website && <p className="mb-1 text-lg">{data?.website}</p>}
 
             <div className="flex gap-6 mt-7 font-semibold">
-              <p>2 Posts</p>
-              <p>10 Followers</p>
-              <p>15 Following</p>
+              <p>{userPosts} Posts</p>
+              <p>{noOfFollower} Followers</p>
+              <p>{noOfFollowing} Following</p>
             </div>
             {data?.id === authToken && (
               <HeroBtn
@@ -86,7 +92,7 @@ export const Userprofile = () => {
             >
               Edit Profile
             </OutlineBtn>
-          ) : (followStatus ? (
+          ) : followStatus ? (
             <OutlineBtn
               classnames="hidden ml-auto text-base px-1 md:block dark:bg-dark-drawer-color"
               eventHandler={unFollowHandler}
@@ -100,7 +106,7 @@ export const Userprofile = () => {
             >
               Follow
             </OutlineBtn>
-          ))}
+          )}
         </div>
       </section>
 
