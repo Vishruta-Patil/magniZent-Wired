@@ -35,13 +35,13 @@ export const UpdateProfileModal = ({
 
   useEffect(() => {dispatch(getAvatarProfile())}, [userProfileModal])
 
-  let userDetails: any = allUsers.find((user) => user?.id === authToken);
+  let userDetails:userDetailsType|undefined = allUsers.find((user) => user?.id === authToken);
 
   return (
     <section
       className={`${
         userProfileModal ? "block" : "hidden"
-      } p-7 max-w-md bg-slate-200 shadow-lg absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2`}
+      } z-50 p-7 max-w-md bg-slate-200 dark:text-white-neutral dark:bg-dark-background-color shadow-lg absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2`}
     >
       <div className="flex">
         <h1 className="font-bold text-xl mb-7 text-center">Edit Profile</h1>
@@ -62,7 +62,7 @@ export const UpdateProfileModal = ({
               className="h-14 w-14 rounded-full relative bg-blue-500 text-white-neutral"
             />
           ) : (
-            <Avatar classnames="h-14 w-14" profileAvatar={userDetails?.avatarUrl} id={authToken}/>
+            <Avatar classnames="h-14 w-14" profileAvatar={userDetails?.avatarUrl!} id={authToken}/>
           )}
           <span className="material-icons text-lg ml-auto absolute bottom-0 right-0 cursor-pointer">
             add_a_photo

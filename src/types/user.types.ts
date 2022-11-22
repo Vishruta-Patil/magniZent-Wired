@@ -4,3 +4,8 @@ export type CommentDataType = {
     username: string | undefined;
     comment: string | undefined;
   };
+
+  export type AvatarType = {
+    id: string,
+    url: string
+  }

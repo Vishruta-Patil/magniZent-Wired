@@ -1,12 +1,13 @@
 import { UserCard } from "components/UserSidebar/UserCard";
 import { useAppSelector } from "hooks";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { userDetailsType } from "types/auth.types";
 
 export const SearchSuggestions = ({ searchedValue }: {searchedValue:string}) => {
   const { allUsers } = useAppSelector((store) => store.auth);
-  const [searchFilteredData, setSearchFilteredData] = useState([]);
+  const [searchFilteredData, setSearchFilteredData] = useState<any>([]);
 
-  const data: any =
+  const data:userDetailsType[]|undefined =
     searchedValue === ""
       ? []
       : allUsers.filter(
@@ -28,7 +29,7 @@ export const SearchSuggestions = ({ searchedValue }: {searchedValue:string}) => 
   }, [searchedValue]);
 
   // ***Different Approach to do same***
-  // const timerId:any = useRef()
+  // const timerId = useRef()
   // useEffect(() => {
   //   clearTimeout(timerId.current);
   //   timerId.current = setTimeout(() => {
@@ -42,8 +43,8 @@ export const SearchSuggestions = ({ searchedValue }: {searchedValue:string}) => 
   return (
     <div className="bg-white shadow-lg p-5 w-9/12 absolute top-20  z-50 left-1/2 transform -translate-x-1/2 dark:bg-dark-highlight-color">
       {searchFilteredData?.length > 0 ? (
-        searchFilteredData?.map((item: number, index: any) => (
-          <UserCard item={item} />
+        searchFilteredData?.map((item: userDetailsType|undefined|null, index: React.Key|null|undefined) => (
+          <UserCard item={item} key={index}/>
         ))
       ) : searchedValue === "" ? (
         <h1>Search Now</h1>

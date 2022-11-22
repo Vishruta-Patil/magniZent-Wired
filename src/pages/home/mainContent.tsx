@@ -7,6 +7,8 @@ import { getAllUsers } from "services/authService";
 import { getAllPosts } from "services/postsServices";
 import { Tab } from "@headlessui/react";
 import { SearchSuggestions } from "components/common/search/SearchSuggestions";
+import { PostDetailsType } from "types/post.types";
+import { userDetailsType } from "types/auth.types";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -20,7 +22,7 @@ export const MainContent = () => {
 
   const categories: string[] = ["Latest", "Oldest", "Trending"];
  
-  const userDetails: any = allUsers.find((user) => user?.id === authToken);
+  const userDetails:userDetailsType|undefined = allUsers.find((user) => user?.id === authToken);
   const [following, setFollowing] = useState(
     userDetails?.following?.followingBy
   );
@@ -31,18 +33,18 @@ export const MainContent = () => {
     setFollowing(userDetails?.following?.followingBy);
   }, []);
 
-  const followingId = following?.map((user: any) => user?.id);
+  const followingId = following?.map((user: userDetailsType) => user?.id);
   const userIdOfPosts = following && [...followingId, authToken];
   const postsOfFollowing =
     following &&
-    allPosts.filter((post: any) => userIdOfPosts?.includes(post?.id));
+    allPosts.filter((post: PostDetailsType) => userIdOfPosts?.includes(post?.id));
 
   const [filteredPost, setFilteredPost] = useState(postsOfFollowing);
 
   const postsByLiked =
     filteredPost &&
     [...filteredPost]?.sort(
-      (a: any, b: any) => b?.likes?.likeCount - a?.likes?.likeCount
+      (a, b) => b?.likes?.likeCount - a?.likes?.likeCount
     );
 
   const [trendingPosts, setTrendingPosts] = useState(postsByLiked);
@@ -59,7 +61,7 @@ export const MainContent = () => {
     filteredPost &&
       setTrendingPosts(
         [...filteredPost]?.sort(
-          (a: any, b: any) => b?.likes?.likeCount - a?.likes?.likeCount
+          (a, b) => b?.likes?.likeCount - a?.likes?.likeCount
         )
       );
   }, [filteredPost, allPosts, allUsers]);
@@ -93,7 +95,7 @@ export const MainContent = () => {
           <Tab.Panels className="mt-9">
             <Tab.Panel>
               {filteredPost?.length > 0 ? (
-                filteredPost?.map((item: any, index: number) => (
+                filteredPost?.map((item: PostDetailsType, index: number) => (
                   <div>
                     <PostCard item={item} key={index} />
                   </div>
@@ -109,7 +111,7 @@ export const MainContent = () => {
 
             <Tab.Panel>
               {filteredPost?.length > 0 ? (
-                [...filteredPost]?.reverse()?.map((item: any, index: number) => (
+                [...filteredPost]?.reverse()?.map((item: PostDetailsType, index: number) => (
                   <div>
                     <PostCard item={item} key={index} />
                   </div>
@@ -125,7 +127,7 @@ export const MainContent = () => {
 
             <Tab.Panel>
               {trendingPosts?.length > 0 ? (
-                trendingPosts?.map((item: any, index: number) => (
+                trendingPosts?.map((item: PostDetailsType, index: number) => (
                   <div>
                     <PostCard item={item} key={index} />
                   </div>

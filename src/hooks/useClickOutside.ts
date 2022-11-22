@@ -5,7 +5,6 @@ export const useClickOutside = (givenHandler: any) => {
 
   useEffect(() => {
     let reqHandler = (e: any) => {
-      console.log(e.target.value);
       if (!domRef.current.contains(e.target.value)) {
         givenHandler();
       }

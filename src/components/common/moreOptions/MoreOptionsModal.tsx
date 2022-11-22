@@ -47,14 +47,6 @@ export const MoreOptionsmOdal = ({
     setMoreOPtions && setMoreOPtions(false);
   }
 
-  let ref = useRef()
-
-  let requiredNode:any = useClickOutside(() => {
-    setMoreOPtions && setMoreOPtions(false)
-  })
-
-  
-
 
   return (
     <div >

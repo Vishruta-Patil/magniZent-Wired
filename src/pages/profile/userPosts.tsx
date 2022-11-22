@@ -2,6 +2,10 @@ import PostCard from "components/Post/PostCard";
 import { useAppSelector } from "hooks";
 import { useParams } from "react-router-dom";
 import { Tab } from "@headlessui/react";
+import { userDetailsType } from "types/auth.types";
+import { PostDetailsType } from "types/post.types";
+import { useEffect } from "react";
+import { getAllPosts } from "services/postsServices";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -13,14 +17,14 @@ export const UserPosts = () => {
   const params = useParams();
   const { profileId } = params;
 
-  let userDetails: any = allUsers.find((user: any) => user?.id === profileId);
+  let userDetails:userDetailsType|undefined = allUsers.find((user:userDetailsType) => user?.id === profileId);
 
-  const userPosts: any =
-    allPosts.filter((post: any) => post.id === userDetails?.id) ?? [];
+  const userPosts:PostDetailsType[]=
+    allPosts.filter((post:PostDetailsType) => post.id === userDetails?.id) ?? [];
 
   const categories: string[] = ["Posts", "Likes"];
 
-  const likedPosts = allPosts.filter((posts:any) => posts?.likes?.likedBy?.includes(profileId)) ?? []
+  const likedPosts = allPosts.filter((posts:PostDetailsType) => profileId && posts?.likes?.likedBy?.includes(profileId)) ?? []
 
   return (
     <div className="p-7 mt-9 lg:m-16 md:m-8 m-3">
@@ -50,7 +54,7 @@ export const UserPosts = () => {
               "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
             )}
           >
-            {userPosts.length > 0 ?  userPosts?.map((item: any, index: any) => (
+            {userPosts.length > 0 ?  userPosts?.map((item: PostDetailsType, index: React.Key|null|undefined) => (
               <div>
                 <PostCard item={item} key={index} />
               </div>
@@ -63,7 +67,7 @@ export const UserPosts = () => {
               "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
             )}
           >
-            {likedPosts.length > 0 ?  likedPosts?.map((item: any, index: any) => (
+            {likedPosts.length > 0 ?  likedPosts?.map((item: PostDetailsType, index: React.Key|null|undefined) => (
               <div>
                 <PostCard item={item} key={index} />
               </div>

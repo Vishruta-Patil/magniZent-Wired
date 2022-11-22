@@ -7,7 +7,7 @@ export const NotFoundPage = () => {
     <div>
       <Header />
 
-      <div className="mt-12 max-w-4xl m-auto flex-col justify-center items-center">
+      <div className="mt-12 max-w-4xl m-auto flex-col justify-center items-center h-screen">
         <div className="m-auto max-w-xl">
           <img src="https://res.cloudinary.com/dtrjdcrme/image/upload/v1649009736/ecommerce/404Image_s8lokh.webp" alt="404 Not Found" />
         </div>

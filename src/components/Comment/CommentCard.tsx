@@ -1,7 +1,8 @@
 import { Avatar } from "components/common/avatar/Avatar";
 import { MoreOptionsmOdal } from "components/common/moreOptions/MoreOptionsModal";
 import { useAppSelector } from "hooks";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
+import { userDetailsType } from "types/auth.types";
 import { CommentDataType } from "types/user.types";
 
 export const CommentCard = ({
@@ -16,23 +17,23 @@ export const CommentCard = ({
     (store) => store.auth
   );
 
-  const [avatar, setAvatar] = useState<any>()
+  const [avatar, setAvatar] = useState<React.Dispatch<SetStateAction<String>>>() 
 
   useEffect(() => { // change 1
-    let userDetails: any = allUsers.find((user) => user?.id === comment?.id);
+    let userDetails:userDetailsType|undefined = allUsers.find((user) => user?.id === comment?.id);
   const getUserAvatar = avatarList.find(
-    (user: any) => user?.id === userDetails?.id
+    (user:userDetailsType) => user?.id === userDetails?.id
   );
   setAvatar(getUserAvatar)
   }, [])
 
-  let userDetails: any = allUsers.find((user) => user?.id === comment?.id);
+  let userDetails:userDetailsType|undefined = allUsers.find((user) => user?.id === comment?.id);
 
   return (
     <div className="flex gap-3 p-5 lg:mx-14 md:mx-9 mb-0 ">
       <Avatar
             classnames="h-11 w-11"
-            profileAvatar={userDetails?.avatarUrl}
+            profileAvatar={userDetails?.avatarUrl!}
             id={userDetails?.id}
           />
 

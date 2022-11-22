@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "hooks";
 import { useEffect } from "react";
 import { getAllPosts } from "services/postsServices";
 import { getBookmark } from "services/userService";
+import { PostDetailsType } from "types/post.types";
 
 export const ExploreContent = () => {
   const { allPosts } = useAppSelector((store) => store.posts);
@@ -13,10 +14,11 @@ export const ExploreContent = () => {
   useEffect(() => {
     dispatch(getAllPosts());
   }, []);
+
   
   return (
     <>
-      {allPosts.map((item:any, index) => (
+      {allPosts.map((item:PostDetailsType, index) => (
         <div>
             <PostCard item={item} key={index} />
         </div>

@@ -10,6 +10,7 @@ import { userDetailsType } from "types/auth.types";
 import { Avatar } from "components/common/avatar/Avatar";
 import { UserPosts } from "pages/profile/userPosts";
 import { useFollowStatus } from "hooks/useFollowStatus";
+import { PostDetailsType } from "types/post.types";
 
 export const Userprofile = () => {
   const [userProfileModal, setUserProfileModal] = useState(false);
@@ -19,7 +20,7 @@ export const Userprofile = () => {
   const { profileId } = params;
   const { allUsers, authToken } = useAppSelector((store) => store.auth);
 
-  const data = allUsers.find(
+  const data: userDetailsType | undefined = allUsers.find(
     (item: userDetailsType) => item["id"] === profileId
   );
 
@@ -29,12 +30,15 @@ export const Userprofile = () => {
     followStatus,
     noOfFollowing,
     noOfFollower,
-  } = useFollowStatus(data);
+  } = useFollowStatus(data!);
 
   const { allPosts } = useAppSelector((store) => store.posts);
-  let userDetails: any = allUsers.find((user: any) => user?.id === profileId);
-  const userPosts: any =
-    allPosts.filter((post: any) => post.id === userDetails?.id).length ?? 0;
+  let userDetails: userDetailsType | undefined = allUsers.find(
+    (user: userDetailsType) => user?.id === profileId
+  );
+  const userPosts: number =
+    allPosts.filter((post: PostDetailsType) => post.id === userDetails?.id)
+      .length ?? 0;
 
   useEffect(() => {
     dispatch(getAllUsers());
@@ -50,7 +54,7 @@ export const Userprofile = () => {
         <div className="flex flex-col justify-center items-center md:items-start md:flex-row">
           <Avatar
             classnames="md:h-24 md:w-24 h-28 md:m-0 m-5 w-28"
-            profileAvatar={data?.avatarUrl}
+            profileAvatar={data?.avatarUrl!}
             id={authToken}
           />
           <div className="flex flex-col justify-center items-center md:block ml-5 text-left text-secondary-color">

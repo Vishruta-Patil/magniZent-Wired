@@ -13,59 +13,45 @@ import {
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { getAllPosts } from "services/postsServices";
+import { userDetailsType } from "types/auth.types";
+import { PostDetailsType } from "types/post.types";
 
-const PostCard = ({ item }: { item: any }) => {
+const PostCard = ({ item }: { item: PostDetailsType }) => {
   const [moreOptions, setMoreOPtions] = useState(false);
-  const [editPostModal, setEditPostModal] = useState(false);
-  // const datereq = new Date(item?.createdAt.seconds*1000).toLocaleDateString()  <<< TODO
-
-  const { allUsers, avatarList, authToken } = useAppSelector(
+  const [editPostModal, setEditPostModal] = useState(false); 
+  const { allUsers, authToken } = useAppSelector(
     (store) => store.auth
   );
+  const userDetails:userDetailsType|undefined = allUsers.find((user) => user?.id === item?.id)
 
-  let userDetails: any = allUsers.find((user) => user?.id === item?.id);
-  
-  const getUserAvatar = avatarList.find(
-    (user: any) => user?.id === userDetails?.id
-  );
-  const [avatar, setAvatar] = useState(getUserAvatar)  //change 2
-
-  useEffect(() => {
-    setAvatar(getUserAvatar)
-  }, [avatarList])
-  
   const { bookmarkList } = useAppSelector((store) => store.user);
   const dispatch = useAppDispatch();
 
   const isBookmark =
-    bookmarkList ? bookmarkList.some((data: any) => item?.uid === data?.uid) : false
+    bookmarkList ? bookmarkList.some((data:PostDetailsType) => item?.uid === data?.uid) : false
   const likedByList = item?.likes?.likedBy;
   const checkLiked =
-    likedByList && likedByList.some((data: string) => data === authToken);
+    likedByList && likedByList.some((data: String) => data === authToken);
 
   const [isSaved, setISaved] = useState<boolean>(isBookmark);
-  const [isLiked, setIsLiked] = useState(checkLiked);
-
 
   const bookmarkHandler = () => {
-    dispatch(addBookmark({ bookmarkList, item }));
+    dispatch(addBookmark({ item }));
     setISaved((prev) => !prev);
   };
 
   const removeBookmarkHandler = () => {
-    dispatch(removeBookmark({ bookmarkList, item }));
+    dispatch(removeBookmark({ item }));
     setISaved((prev) => !prev);
   };
 
   const likeHandler = () => {
-    dispatch(incrementLike({ postId: item.uid, userId: authToken }));
-    setIsLiked((prev: boolean) => !prev);
+    dispatch(incrementLike({ postId: item.uid!, userId: authToken }))
     dispatch(getAllPosts());
   };
 
   const removeLikeHandler = () => {
-    dispatch(decrementLike({ postId: item.uid, userId: authToken}))
-    setIsLiked((prev: boolean) => !prev);
+    dispatch(decrementLike({ postId: item.uid!, userId: authToken}))
     dispatch(getAllPosts());
   };
 
@@ -79,14 +65,11 @@ const PostCard = ({ item }: { item: any }) => {
     navigator.clipboard.writeText(`https://magnizent-wired.netlify.app/posts/${item?.uid}`)
     toast.success("Link copied, share the post now!")
   }
-
-  const pathname = window.location.pathname
-
-  const userId = item?.id
   
-  useEffect(() => {
-    setIsLiked(checkLiked)
-  }, [userId])
+  const likesCount:number|string =  item?.likes?.likedBy && item?.likes?.likedBy?.length > 0 ? (item?.likes?.likedBy?.length) : ""
+  const isPostLiked = item?.likes?.likedBy?.some(id => id === authToken)
+  
+
 
   return (
     <div className="flex flex-col p-5 md:m-9 m-4 lg:mx-14 md:mx-9 bg-white-neutral rounded-lg shadow-lg dark:bg-dark-highlight-color dark:text-white-neutral">
@@ -94,7 +77,7 @@ const PostCard = ({ item }: { item: any }) => {
         <div className="flex  gap-3 relative">
           <Avatar
             classnames="h-14 w-14"
-            profileAvatar={userDetails?.avatarUrl}
+            profileAvatar={userDetails?.avatarUrl!}
             id={userDetails?.id}
           />
           <div>
@@ -129,7 +112,7 @@ const PostCard = ({ item }: { item: any }) => {
               userDetails={userDetails}
               content={item?.content}
               setEditPostModal={setEditPostModal}
-              postId={item?.uid}
+              postId={item?.uid!}
             />
           )}
           {moreOptions && (
@@ -144,7 +127,7 @@ const PostCard = ({ item }: { item: any }) => {
         <div className="text-left mt-5 text-base">{item?.content}</div>
         <div className="flex justify-between">
           <div className="flex gap-1 items-center">
-            {isLiked ? (
+            {isPostLiked ? (
               <span onClick={removeLikeHandler} className="material-icons text-2xl text-primary-color cursor-pointer p-2 rounded-full hover:bg-slate-200 dark:hover:bg-dark-drawer-color">
                 favorite
               </span>
@@ -154,7 +137,7 @@ const PostCard = ({ item }: { item: any }) => {
               </span>
             )}
 
-            <p>{item?.likes?.likeCount > 0 && item?.likes?.likeCount}</p>
+            <p style={{width:"5px"}}>{likesCount}</p>
           </div>
 
           <Link to={`/posts/${item?.uid}`}>
@@ -173,7 +156,7 @@ const PostCard = ({ item }: { item: any }) => {
             </span>
           </div>
           <div>
-            {pathname === "/bookmark" ? <span
+            {isBookmarkPath ? <span
                 onClick={removeBookmarkHandler}
                 className="material-icons text-2xl cursor-pointer p-2 rounded-full hover:bg-slate-200 dark:hover:bg-dark-drawer-color"
               >

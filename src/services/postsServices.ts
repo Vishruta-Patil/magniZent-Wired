@@ -14,6 +14,7 @@ import {
   startAfter, limit,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
+import { PostDetailsType } from "types/post.types";
 
 export const getAllPosts = (createAsyncThunk as any)(
   "posts/getAllPosts",
@@ -47,7 +48,6 @@ export const getpaginatedPosts = (createAsyncThunk as any)(
 
       const lastVisible =
         documentSnapshots.docs[documentSnapshots.docs.length - 1];
-      console.log("last", lastVisible);
 
       const next = query(
         postsCollectionRef,
@@ -65,7 +65,7 @@ export const getpaginatedPosts = (createAsyncThunk as any)(
 
 export const createNewPost = (createAsyncThunk as any)(
   "/posts/createPost",
-  async ({ post, authToken, dispatch }: { post: string; authToken: string, dispatch:any }) => {
+  async ({ post, authToken, dispatch }: { post: string; authToken: string, dispatch: any }) => {
     try {
       await addDoc(collection(db, "posts"), {
         content: post,
@@ -85,7 +85,7 @@ export const createNewPost = (createAsyncThunk as any)(
 export const editPostService = (createAsyncThunk as any)(
   "posts/editPost",
   async (
-    { updatedPost, postId }: { updatedPost: any; postId: any },
+    { updatedPost, postId }: { updatedPost: PostDetailsType; postId: string },
     { dispatch }: any
   ) => {
     try {

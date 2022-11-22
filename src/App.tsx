@@ -18,7 +18,7 @@ function App() {
     }
   }, [token]);
 
-  const {theme} = useAppSelector((store:any) => store.theme)
+  const {theme} = useAppSelector((store) => store.theme)
 
   return (
     <div className={`App ${theme==='dark' ? 'dark bg-dark-background-color' : 'bg-background-color'}`} >

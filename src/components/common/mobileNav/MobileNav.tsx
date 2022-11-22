@@ -12,6 +12,11 @@ export const MobileNav = () => {
     { name: "person", link: `/profile/${authToken}`},
   ];
 
+  type activeStyleType = {
+    color: string,
+    fontWeight: number
+  }
+
   let activeStyle: any = {
     color: "#0072FF",
     fontWeight: 700,

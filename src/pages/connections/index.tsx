@@ -14,8 +14,6 @@ export const Connections = () => {
     (store) => store.auth
   );
 
-  let userDetails: any = allUsers.find((user) => user?.id === authToken);
-
   useEffect(() => {
     dispatch(getAllUsers())
   }, [])
@@ -25,7 +23,7 @@ export const Connections = () => {
       <div className="col-span-12">
         <Header />
       </div>
-      <div className="xs:hidden md:block  col-span-1 relative">
+      <div className="xs:hidden md:block  col-span-1 relative h-screen">
         <Drawer />
       </div>
       <div className="relative lg:col-span-8 col-span-12 md:col-span-7 border-l-4 border-r-4 dark:border-overlay-color">

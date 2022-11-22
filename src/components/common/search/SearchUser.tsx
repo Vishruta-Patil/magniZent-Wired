@@ -1,5 +1,5 @@
 import { useAppDispatch } from "hooks";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { getSearchedValue, logoutUser } from "redux/slices/authSlice";
 import { SearchSuggestions } from "./SearchSuggestions";
 
@@ -32,7 +32,7 @@ const SearchUser = ({classnames} : {classnames:string}) => {
       
       />
        <div onClick={() => dispatch(logoutUser())}></div> 
-       {searchedValue && <SearchSuggestions searchedValue={searchedValue}/>}
+       {searchedValue && <SearchSuggestions searchedValue={searchedValue} />}
       </div>
   );
 };

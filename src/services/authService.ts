@@ -58,10 +58,10 @@ export const addUser = (createAsyncThunk as any)(
 export const updateUser = (createAsyncThunk as any)(
   "auth/updateUser",
   async (newData: { newData: userDetailsType }) => {
-    const id: any = localStorage.getItem("authToken");
+    const id:string|null = localStorage.getItem("authToken");
     try {
-      const userDoc = doc(db, "users", id);
-      const updatedUser = await updateDoc(userDoc, newData);
+      const userDoc = id && doc(db, "users", id);
+      const updatedUser = userDoc && await updateDoc(userDoc, newData);
       toast.success("Profile updated sucessfully!");
       return updatedUser;
     } catch (err) {
@@ -149,7 +149,7 @@ export const loginInUser = (createAsyncThunk as any)(
 
 export const uploadAvatarProfile = (createAsyncThunk as any)(
   "auth/uploadAvatarProfile",
-  async (avatarImage: any) => {
+  async (avatarImage: Blob | Uint8Array | ArrayBuffer) => {
     try {
       const dataId = localStorage.getItem("authToken");
       const avatarRef = ref(storage, `avatar/${dataId}`);
@@ -168,13 +168,13 @@ export const getAvatarProfile = (createAsyncThunk as any)(
       const avatarRef = ref(storage, `avatar`);
       const response = await listAll(avatarRef);
       const dataId = localStorage.getItem("authToken");
-      let reqURL: any;
-      const profileExists: any = response.items.some(
+      let reqURL: Promise<string> | string;
+      const profileExists:boolean = response.items.some(
         (item) => item.name === dataId
       );
       const getProfile: any = response.items.find(
         (item) => item.name === dataId
-      );
+      )
 
       if (profileExists) {
         reqURL = (async () => await getDownloadURL(getProfile))();

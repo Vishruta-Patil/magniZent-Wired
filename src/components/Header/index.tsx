@@ -8,12 +8,8 @@ import { darkThemeHandler, lightThemeHandler } from "redux/slices/themeSlice";
 
 const Header = () => {
   const dispatch = useAppDispatch();
-  const { authToken, allUsers } = useAppSelector((store: any) => store.auth);
-  const { avatar } = useAppSelector((store: any) => store.auth);
-
   const { theme } = useAppSelector((store: any) => store.theme);
 
-  let userDetails: any = allUsers.find((user: any) => user?.id === authToken);
   return (
     <div className="p-2 pl-4 pr-9 flex justify-between shadow-sm items-center dark:bg-dark-drawer-color dark:border-overlay-color border-b-4">
       <Link to="/">

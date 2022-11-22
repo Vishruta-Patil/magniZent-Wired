@@ -15,7 +15,7 @@ export const BookMarkContent = () => {
   return (
     <div>
       {bookmarkList && bookmarkList.length !== 0 ? (
-        bookmarkList?.map((item, index) => <PostCard item={item} key={index} />)
+        [...bookmarkList].reverse()?.map((item, index) => <PostCard item={item} key={index} />)
       ) : (
         <h1 className="mt-10 text-2xl font-bold dark:text-white-neutral">No Bookmark</h1>
       )}
