@@ -3,7 +3,6 @@ import SearchUser from "components/common/search/SearchUser";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { Link } from "react-router-dom";
 import { logoutUser } from "redux/slices/authSlice";
-import { Avatar } from "components/common/avatar/Avatar";
 import { darkThemeHandler, lightThemeHandler } from "redux/slices/themeSlice";
 
 const Header = () => {

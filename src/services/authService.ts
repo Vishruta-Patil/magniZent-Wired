@@ -11,7 +11,6 @@ import {
   doc,
   setDoc,
   updateDoc,
-  onSnapshot,
 } from "firebase/firestore";
 import { db } from "firebase-config";
 import { getUserCredentials } from "redux/slices/authSlice";

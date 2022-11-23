@@ -14,7 +14,9 @@ export const ConnectionTab = () => {
 
   const authToken = localStorage.getItem("authToken");
 
-  let userDetails:userDetailsType|undefined = allUsers.find((user) => user?.id === authToken);
+  let userDetails: userDetailsType | undefined = allUsers.find(
+    (user) => user?.id === authToken
+  );
   const [followers, setFollowers] = useState(userDetails?.follower?.followerId);
   const [following, setFollowing] = useState(
     userDetails?.following?.followingId
@@ -23,6 +25,11 @@ export const ConnectionTab = () => {
   const getFollowingUsers =
     following &&
     allUsers.filter((item: userDetailsType) => following.includes(item?.id));
+
+  const getFollowerUsers =
+    followers &&
+    allUsers.filter((item: userDetailsType) => followers.includes(item?.id));
+
   const [followingUsers, setFollowingUsers] = useState(getFollowingUsers);
 
   const exploreList =
@@ -79,7 +86,7 @@ export const ConnectionTab = () => {
                 No users are available in explore section
               </h2>
             ) : (
-              explore?.map((item:userDetailsType, index: number) => (
+              explore?.map((item: userDetailsType, index: number) => (
                 <UserCard item={item} key={index} />
               ))
             )}
@@ -96,7 +103,7 @@ export const ConnectionTab = () => {
                 No followers
               </h2>
             ) : (
-              followers?.map((item:userDetailsType, index: number) => (
+              getFollowerUsers?.map((item: userDetailsType, index: number) => (
                 <UserCard item={item} key={index} />
               ))
             )}
@@ -113,9 +120,11 @@ export const ConnectionTab = () => {
                 You are not following any user
               </h2>
             ) : (
-              followingUsers?.map((item: userDetailsType|undefined|null, index: number) => (
-                <UserCard item={item} key={index} />
-              ))
+              followingUsers?.map(
+                (item: userDetailsType | undefined | null, index: number) => (
+                  <UserCard item={item} key={index} />
+                )
+              )
             )}
           </Tab.Panel>
         </Tab.Panels>

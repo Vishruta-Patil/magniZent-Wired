@@ -6,7 +6,6 @@ import {
   deleteDoc,
   doc,
   getDocs,
-  onSnapshot,
   orderBy,
   query,
   serverTimestamp,
@@ -108,7 +107,6 @@ export const deletePost = (createAsyncThunk as any)(
       const res = await deleteDoc(postDoc);
       toast.success("Deleted Post sucessfully!");
       dispatch(getAllPosts());
-      console.log(res);
     } catch (err) {
       console.log(err);
     }

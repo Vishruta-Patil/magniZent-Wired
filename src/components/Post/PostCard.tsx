@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import { getAllPosts } from "services/postsServices";
 import { userDetailsType } from "types/auth.types";
 import { PostDetailsType } from "types/post.types";
+import moment from 'moment';
 
 const PostCard = ({ item }: { item: PostDetailsType }) => {
   const [moreOptions, setMoreOPtions] = useState(false);
@@ -28,10 +29,7 @@ const PostCard = ({ item }: { item: PostDetailsType }) => {
   const dispatch = useAppDispatch();
 
   const isBookmark =
-    bookmarkList ? bookmarkList.some((data:PostDetailsType) => item?.uid === data?.uid) : false
-  const likedByList = item?.likes?.likedBy;
-  const checkLiked =
-    likedByList && likedByList.some((data: String) => data === authToken);
+    bookmarkList ? bookmarkList.some((data:PostDetailsType) => item?.uid === data?.uid) : false 
 
   const [isSaved, setISaved] = useState<boolean>(isBookmark);
 
@@ -57,7 +55,7 @@ const PostCard = ({ item }: { item: PostDetailsType }) => {
 
   useEffect(() => {
     dispatch(getBookmark());
-  }, [isSaved]);
+  }, [isSaved, dispatch]);
 
   const isBookmarkPath = window.location.pathname === "/bookmark";
 
@@ -69,8 +67,9 @@ const PostCard = ({ item }: { item: PostDetailsType }) => {
   const likesCount:number|string =  item?.likes?.likedBy && item?.likes?.likedBy?.length > 0 ? (item?.likes?.likedBy?.length) : ""
   const isPostLiked = item?.likes?.likedBy?.some(id => id === authToken)
   
-
-
+  const timeStamp:Date|undefined|any = item?.createdAt
+  const postTime:string = timeStamp && moment(timeStamp?.seconds*1000).calendar()
+  
   return (
     <div className="flex flex-col p-5 md:m-9 m-4 lg:mx-14 md:mx-9 bg-white-neutral rounded-lg shadow-lg dark:bg-dark-highlight-color dark:text-white-neutral">
       <div className="flex flex-col space-x-3">
@@ -84,17 +83,20 @@ const PostCard = ({ item }: { item: PostDetailsType }) => {
             <div className="flex flex-col">
               <div className="flex items-center gap-4">
                 <p className="text-black text-xl font-semibold dark:text-white-neutral">
-                  {userDetails?.name}
+                  {userDetails?.name} 
                 </p>
-                {/* <p className="text-secondary-color text-sm md:block hidden">
-                  {datereq}
-                </p> */}
+                <p className="text-secondary-color font-medium text-sm md:block hidden">
+                  {postTime}
+                </p>
               </div>
 
               <p className="text-secondary-color text-sm text-left">
                 @{userDetails?.username}
               </p>
+              
             </div>
+
+            
 
             <div
               onClick={() => setMoreOPtions((prev) => !prev)}
@@ -121,6 +123,7 @@ const PostCard = ({ item }: { item: PostDetailsType }) => {
               postId={item?.uid}
               setMoreOPtions={setMoreOPtions}
               setEditPostModal={setEditPostModal}
+              userDetails={userDetails}
             />
           )}
         </div>

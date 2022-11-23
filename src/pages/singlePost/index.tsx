@@ -12,7 +12,7 @@ export const SinglePost = () => {
         <div className="col-span-12">
           <Header />
         </div>
-        <div className="xs:hidden md:block  col-span-1 relative h-screen">
+        <div className="xs:hidden md:block col-span-1 sticky h-screen top-0">
           <Drawer />
         </div>
         <div className="relative lg:col-span-8 border-l-2 border-r-2 col-span-12 md:col-span-7">
